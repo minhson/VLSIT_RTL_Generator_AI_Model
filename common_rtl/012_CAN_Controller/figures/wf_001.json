@@ -1,0 +1,60 @@
+{
+ "signal": [
+  {
+   "name": "txb_req (BUS)",
+   "wave": "01.........0"
+  },
+  {
+   "name": "tx_state (CAN)",
+   "wave": "============",
+   "data": [
+    "IDLE",
+    "SOF",
+    "ID",
+    "CTRL",
+    "DATA",
+    "CRC",
+    "CRCd",
+    "ACK",
+    "ACKd",
+    "EOF",
+    "IFS",
+    "IDLE"
+   ]
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "10====1.....",
+   "data": [
+    "ID",
+    "CTRL",
+    "DATA",
+    "CRC"
+   ]
+  },
+  {
+   "name": "i_can_rx",
+   "wave": "10====101...",
+   "data": [
+    "ID",
+    "CTRL",
+    "DATA",
+    "CRC"
+   ]
+  },
+  {
+   "name": "txb_done (BUS)",
+   "wave": "000000000010"
+  },
+  {
+   "name": "o_irq_0 (BUS)",
+   "wave": "0..........1"
+  }
+ ],
+ "head": {
+  "text": "WF-001 Transmit of a Classic base-format data frame (2 data bytes)"
+ },
+ "foot": {
+  "text": "One cell is one frame field of the CAN domain; the bus pins are in the CAN domain, the request and the ... (notes: section 10.3)"
+ }
+}

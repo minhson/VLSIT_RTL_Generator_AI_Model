@@ -1,0 +1,44 @@
+{
+ "signal": [
+  {
+   "name": "o_wake_req",
+   "wave": "1...0............."
+  },
+  {
+   "name": "wake_ack (sw)",
+   "wave": "000100000000000000"
+  },
+  {
+   "name": "o_trcv_en",
+   "wave": "0..1.............."
+  },
+  {
+   "name": "trcv_dly running",
+   "wave": "0..1.0............"
+  },
+  {
+   "name": "init",
+   "wave": "1....0............"
+  },
+  {
+   "name": "state",
+   "wave": "=..=.=..........=.",
+   "data": [
+    "WAKE_PEND",
+    "RESTART",
+    "integrating",
+    "NORMAL"
+   ]
+  },
+  {
+   "name": "bus integration (11 recessive)",
+   "wave": "0....1..........0."
+  }
+ ],
+ "head": {
+  "text": "WF-067 Wake-up and restart: transceiver start-up delay, INIT cleared, bus integration"
+ },
+ "foot": {
+  "text": "The wake-up request o_wake_req stays high until software acknowledges it (wake_ack, column 3); the SoC ... (notes: section 10.3)"
+ }
+}

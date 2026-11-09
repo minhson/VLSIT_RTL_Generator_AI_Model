@@ -1,0 +1,39 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppp"
+  },
+  {
+   "name": "rx0 fill level",
+   "wave": "==.......=....",
+   "data": [
+    "0",
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "o_dma_req_rx0 (specified rule)",
+   "wave": "0.1....0......"
+  },
+  {
+   "name": "i_dma_ack_rx0",
+   "wave": "00000001000000"
+  },
+  {
+   "name": "ack_go (cfd_rxf0_ack)",
+   "wave": "0.....1..0...."
+  },
+  {
+   "name": "request with the naive rule",
+   "wave": "0.1....010...."
+  }
+ ],
+ "head": {
+  "text": "WF-059 Rx DMA request for one message (watermark 1) and the re-arm rule"
+ },
+ "foot": {
+  "text": "BUS clock (notes: section 10.3)"
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "signal": [
+  {
+   "name": "trigger buffer state",
+   "wave": "==..===...",
+   "data": [
+    "request set",
+    "not valid, data request",
+    "valid",
+    "candidate",
+    "sent"
+   ]
+  },
+  {
+   "name": "request bit",
+   "wave": "01.....0.."
+  },
+  {
+   "name": "cfd_txb_dreq bit",
+   "wave": "01..0....."
+  },
+  {
+   "name": "software writes data",
+   "wave": "0011000000"
+  },
+  {
+   "name": "cfd_txb_trtx confirm",
+   "wave": "0001000000"
+  },
+  {
+   "name": "other buffer sent",
+   "wave": "0010000000"
+  },
+  {
+   "name": "trigger buffer sent",
+   "wave": "0000001000"
+  }
+ ],
+ "head": {
+  "text": "WF-049 Trigger transmit buffer: only valid data is sent"
+ },
+ "foot": {
+  "text": "The trigger-transmit buffer (TRTX = 1) is requested at column 0 with its header only; the handler caches the header and raises the data request (notes: section 10.3)"
+ }
+}

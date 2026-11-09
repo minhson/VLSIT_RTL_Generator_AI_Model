@@ -1,0 +1,44 @@
+{
+ "signal": [
+  {
+   "name": "first case: field",
+   "wave": "==.==..=..==..",
+   "data": [
+    "SOF",
+    "ID differs",
+    "CTRL",
+    "DATA",
+    "CRC",
+    "CRCd",
+    "ACK"
+   ]
+  },
+  {
+   "name": "match so far",
+   "wave": "1.0..........."
+  },
+  {
+   "name": "o_wake_req",
+   "wave": "00000000000000"
+  },
+  {
+   "name": "third case: bus",
+   "wave": "==........=...",
+   "data": [
+    "FD frame",
+    "FDF bit recessive: ignored until the idle bus",
+    "idle"
+   ]
+  },
+  {
+   "name": "filter active",
+   "wave": "1.0.......1..."
+  }
+ ],
+ "head": {
+  "text": "WF-068 Frames that do not wake the node: another identifier, an error, an FD frame"
+ },
+ "foot": {
+  "text": "Three cases (notes: section 10.3)"
+ }
+}

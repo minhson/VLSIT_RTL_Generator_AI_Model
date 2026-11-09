@@ -1,0 +1,54 @@
+{
+ "signal": [
+  {
+   "name": "err_event",
+   "wave": "01111111"
+  },
+  {
+   "name": "tec",
+   "wave": "========",
+   "data": [
+    "0",
+    "8",
+    "16",
+    "120",
+    "128",
+    "136",
+    "248",
+    "256"
+   ]
+  },
+  {
+   "name": "state",
+   "wave": "=..==..=",
+   "data": [
+    "ACTIVE",
+    "WARN",
+    "PASSIVE",
+    "BUS-OFF"
+   ]
+  },
+  {
+   "name": "ew",
+   "wave": "0..1...."
+  },
+  {
+   "name": "ep",
+   "wave": "0...1..."
+  },
+  {
+   "name": "bo",
+   "wave": "0......1"
+  },
+  {
+   "name": "init",
+   "wave": "0......1"
+  }
+ ],
+ "head": {
+  "text": "WF-008 Error passive and bus-off entry"
+ },
+ "foot": {
+  "text": "One cell is one transmit error (notes: section 10.3)"
+ }
+}

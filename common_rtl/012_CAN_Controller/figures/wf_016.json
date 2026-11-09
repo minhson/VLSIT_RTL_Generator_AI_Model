@@ -1,0 +1,42 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppp"
+  },
+  {
+   "name": "event (rx0_new)",
+   "wave": "001000000000"
+  },
+  {
+   "name": "irq_raw bit",
+   "wave": "0001...0..1."
+  },
+  {
+   "name": "irq_en bit",
+   "wave": "1..........."
+  },
+  {
+   "name": "irq_sts bit",
+   "wave": "0001...0..1."
+  },
+  {
+   "name": "o_irq_0",
+   "wave": "00001...0..1"
+  },
+  {
+   "name": "sw write 1 to raw",
+   "wave": "000000100000"
+  },
+  {
+   "name": "irq_inj bit",
+   "wave": "000000000100"
+  }
+ ],
+ "head": {
+  "text": "WF-016 Interrupt flag: set, enable, route, clear and inject"
+ },
+ "foot": {
+  "text": "BUS clock (notes: section 10.3)"
+ }
+}

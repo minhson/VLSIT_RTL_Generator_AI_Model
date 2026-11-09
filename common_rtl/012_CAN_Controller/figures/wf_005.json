@@ -1,0 +1,47 @@
+{
+ "signal": [
+  {
+   "name": "o_can_tx",
+   "wave": "==============",
+   "data": [
+    "DATA end",
+    "FSB",
+    "stuff count 4 bits",
+    "FSB",
+    "CRC16-13",
+    "FSB",
+    "CRC12-9",
+    "FSB",
+    "CRC8-5",
+    "FSB",
+    "CRC4-1",
+    "FSB",
+    "CRC0",
+    "CRCd"
+   ]
+  },
+  {
+   "name": "fixed_stuff_bit",
+   "wave": "01010101010100"
+  },
+  {
+   "name": "crc17_active",
+   "wave": "01...........0"
+  },
+  {
+   "name": "region",
+   "wave": "==...........=",
+   "data": [
+    "dynamic stuffing",
+    "fixed stuff bits (CRC field)",
+    "CRCd"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-005 CRC field of an ISO CAN FD frame with CRC17"
+ },
+ "foot": {
+  "text": "One cell is a group of bits (notes: section 10.3)"
+ }
+}

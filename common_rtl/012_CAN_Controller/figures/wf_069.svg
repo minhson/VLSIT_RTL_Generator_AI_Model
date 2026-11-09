@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1134" height="268" viewBox="0 0 1134 268" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-069 Clock stop of the BUS clock and the CAN clock without a clock-dependent wake-up source</text>
+<line x1="162" y1="30" x2="162" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="222" y1="30" x2="222" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="282" y1="30" x2="282" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="342" y1="30" x2="342" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="402" y1="30" x2="402" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="462" y1="30" x2="462" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="522" y1="30" x2="522" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="582" y1="30" x2="582" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="642" y1="30" x2="642" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="702" y1="30" x2="702" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="762" y1="30" x2="762" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="822" y1="30" x2="822" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="882" y1="30" x2="882" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="942" y1="30" x2="942" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="1002" y1="30" x2="1002" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="1062" y1="30" x2="1062" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="1122" y1="30" x2="1122" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">i_clk_stop_req</text>
+<polyline points="162.0,51.0 222.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,51.0 222.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,33.0 282.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,33.0 342.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,33.0 402.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,33.0 462.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,33.0 522.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,33.0 582.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,33.0 642.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,33.0 702.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,33.0 762.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="762.0,33.0 822.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="822.0,33.0 882.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="882.0,33.0 942.0,33.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,33.0 942.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,51.0 1002.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,51.0 1062.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1062.0,51.0 1122.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="79" font-size="12" text-anchor="end">init</text>
+<polyline points="162.0,81.0 222.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,81.0 282.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,81.0 342.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,81.0 402.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,81.0 402.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,63.0 462.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,63.0 522.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,63.0 582.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,63.0 642.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,63.0 702.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,63.0 762.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="762.0,63.0 822.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="822.0,63.0 882.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="882.0,63.0 942.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,63.0 1002.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,63.0 1062.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1062.0,63.0 1122.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="109" font-size="12" text-anchor="end">o_clk_stop_ack (BUS)</text>
+<polyline points="162.0,111.0 222.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,111.0 282.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,111.0 342.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,111.0 402.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,111.0 462.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,111.0 462.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,93.0 522.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,93.0 582.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,93.0 642.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,93.0 702.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,93.0 762.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="762.0,93.0 822.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="822.0,93.0 882.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="882.0,93.0 942.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,93.0 1002.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,93.0 1002.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,111.0 1062.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1062.0,111.0 1122.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="139" font-size="12" text-anchor="end">o_clkc_stop_ack (CAN)</text>
+<polyline points="162.0,141.0 222.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,141.0 282.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,141.0 342.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,141.0 402.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,141.0 462.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,141.0 522.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,141.0 522.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,123.0 582.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,123.0 642.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,123.0 702.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,123.0 762.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="762.0,123.0 822.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="822.0,123.0 882.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="882.0,123.0 942.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,123.0 1002.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,123.0 1002.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,141.0 1062.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1062.0,141.0 1122.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="169" font-size="12" text-anchor="end">i_clk_can</text>
+<polygon points="166.0,153.0 578.0,153.0 582.0,162.0 578.0,171.0 166.0,171.0 162.0,162.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="372.0" y="166.0" text-anchor="middle" font-size="11">running</text>
+<polygon points="586.0,153.0 878.0,153.0 882.0,162.0 878.0,171.0 586.0,171.0 582.0,162.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="732.0" y="166.0" text-anchor="middle" font-size="11">stopped</text>
+<polygon points="886.0,153.0 1118.0,153.0 1122.0,162.0 1118.0,171.0 886.0,171.0 882.0,162.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="1002.0" y="166.0" text-anchor="middle" font-size="11">running</text>
+<text x="154" y="199" font-size="12" text-anchor="end">i_trcv_wake (SoC watches it)</text>
+<polyline points="162.0,201.0 222.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,201.0 282.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,201.0 342.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,201.0 402.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,201.0 462.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,201.0 522.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,201.0 582.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,201.0 642.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,201.0 702.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,201.0 762.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="762.0,201.0 822.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="822.0,201.0 822.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="822.0,183.0 882.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="882.0,183.0 942.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,183.0 942.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,201.0 1002.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,201.0 1062.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1062.0,201.0 1122.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="229" font-size="12" text-anchor="end">wake_bus and pn_on</text>
+<polyline points="162.0,231.0 222.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,231.0 282.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,231.0 342.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,231.0 402.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,231.0 462.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,231.0 522.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,231.0 582.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,231.0 642.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,231.0 702.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,231.0 762.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="762.0,231.0 822.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="822.0,231.0 882.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="882.0,231.0 942.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="942.0,231.0 1002.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1002.0,231.0 1062.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1062.0,231.0 1122.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="260" font-size="11" fill="#444">o_clkc_stop_ack needs wake_bus = 0 and pn_on = 0 (notes: section 10.3)</text>
+</svg>

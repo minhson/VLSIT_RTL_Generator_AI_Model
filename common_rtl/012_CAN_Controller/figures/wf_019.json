@@ -1,0 +1,51 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx",
+   "wave": "011111100000011"
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "111111100000011"
+  },
+  {
+   "name": "run length",
+   "wave": "========.......",
+   "data": [
+    "1",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "x"
+   ]
+  },
+  {
+   "name": "stuff_err",
+   "wave": "000000100000000"
+  },
+  {
+   "name": "lec",
+   "wave": "x......=.......",
+   "data": [
+    "STUFF"
+   ]
+  },
+  {
+   "name": "rec",
+   "wave": "=......=.......",
+   "data": [
+    "0",
+    "1"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-019 Stuff error: six equal bits"
+ },
+ "foot": {
+  "text": "One cell is one bit (notes: section 10.3)"
+ }
+}

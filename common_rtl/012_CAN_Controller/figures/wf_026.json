@@ -1,0 +1,38 @@
+{
+ "signal": [
+  {
+   "name": "bus_sel written",
+   "wave": "0010000000"
+  },
+  {
+   "name": "frame on primary bus",
+   "wave": "1....0...."
+  },
+  {
+   "name": "bus_sel (active)",
+   "wave": "0.....1..."
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "=....=....",
+   "data": [
+    "frame",
+    "1"
+   ]
+  },
+  {
+   "name": "o_can_tx_b",
+   "wave": "=......=..",
+   "data": [
+    "1",
+    "frame"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-026 Switch to the redundant bus"
+ },
+ "foot": {
+  "text": "Software writes bus_sel at column 2 while a frame is on the primary bus; the change waits for the bus idle (notes: section 10.3)"
+ }
+}

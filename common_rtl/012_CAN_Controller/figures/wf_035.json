@@ -1,0 +1,90 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "0.1......01.0............."
+  },
+  {
+   "name": "rx_s (after 2 flops)",
+   "wave": "0...1......01.0..........."
+  },
+  {
+   "name": "segment",
+   "wave": "==..==.....===.....=..==..",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "tq index",
+   "wave": "==========================",
+   "data": [
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3"
+   ]
+  },
+  {
+   "name": "sync event",
+   "wave": "00000000000=00000000000000",
+   "data": [
+    "seg2-sjw"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "10000000001000000010000000"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "=xxxxxxxxx=xxxxxxx=xxxxxxx",
+   "data": [
+    "0",
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "tx point",
+   "wave": "00010000000100000000010000"
+  }
+ ],
+ "head": {
+  "text": "WF-035 Synchronization rules: a glitch edge is used once"
+ },
+ "foot": {
+  "text": "A one-clock dominant glitch inside the recessive bit is a recessive to dominant edge after a recessive sample: it resynchronizes once (rule 2). A second edge before the next sample point is ignored (rule 1), and a dominant to recessive edge never synchronizes (rule 4)."
+ }
+}

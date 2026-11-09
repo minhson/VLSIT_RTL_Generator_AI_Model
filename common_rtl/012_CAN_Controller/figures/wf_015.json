@@ -1,0 +1,47 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppp"
+  },
+  {
+   "name": "rx0 fill level",
+   "wave": "==.....=....",
+   "data": [
+    "7",
+    "8",
+    "7"
+   ]
+  },
+  {
+   "name": "fill >= watermark",
+   "wave": "01.....0...."
+  },
+  {
+   "name": "o_dma_req_rx0",
+   "wave": "0.1...0....."
+  },
+  {
+   "name": "i_dma_ack_rx0",
+   "wave": "000001000000"
+  },
+  {
+   "name": "rx0 get index",
+   "wave": "=......=....",
+   "data": [
+    "3",
+    "4"
+   ]
+  },
+  {
+   "name": "ack_go (rxf0_ack)",
+   "wave": "000000100000"
+  }
+ ],
+ "head": {
+  "text": "WF-015 DMA transfer of an Rx FIFO"
+ },
+ "foot": {
+  "text": "BUS clock, watermark 8 (notes: section 10.3)"
+ }
+}

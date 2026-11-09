@@ -1,0 +1,41 @@
+{
+ "signal": [
+  {
+   "name": "o_can_tx",
+   "wave": "1...0...1...0...1...0..."
+  },
+  {
+   "name": "i_can_rx",
+   "wave": "1.....0...1...0...1...0."
+  },
+  {
+   "name": "tdc_cnt",
+   "wave": "x...===.................",
+   "data": [
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "name": "ssp_strobe",
+   "wave": "000000000001000100010001"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "xxxxxxxxxxx=xxx=xxx=xxx=",
+   "data": [
+    "1",
+    "0",
+    "1",
+    "0"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-006 Transmitter delay measurement and secondary sample point"
+ },
+ "foot": {
+  "text": "One cell is one minimum time quantum; a data bit lasts 4 cells (notes: section 10.3)"
+ }
+}

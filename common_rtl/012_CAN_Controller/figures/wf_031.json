@@ -1,0 +1,96 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1.........0...................1."
+  },
+  {
+   "name": "rx_s (after 2 flops)",
+   "wave": "1...........0..................."
+  },
+  {
+   "name": "segment",
+   "wave": "=....=..==.......=..==.....=..==",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "tq index",
+   "wave": "================================",
+   "data": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1"
+   ]
+  },
+  {
+   "name": "sync event",
+   "wave": "000000000000=0000000000000000000",
+   "data": [
+    "seg1+sjw"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "00001000000000001000000000100000"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "xxxx=xxxxxxxxxxx=xxxxxxxxx=xxxxx",
+   "data": [
+    "1",
+    "0",
+    "0"
+   ]
+  },
+  {
+   "name": "tx point",
+   "wave": "00000001000000000001000000000100"
+  }
+ ],
+ "head": {
+  "text": "WF-031 Resynchronization, late edge with a phase error larger than SJW"
+ },
+ "foot": {
+  "text": "The third bit starts 4 quanta late (e = +4 > SJW = 2): PHASE_SEG1 is lengthened by SJW = 2, so the sample point of that bit moves 2 quanta later and the cell is 12 quanta long (REF-002 resynchronization). The following edge has e = +2 and acts as a hard synchronization."
+ }
+}

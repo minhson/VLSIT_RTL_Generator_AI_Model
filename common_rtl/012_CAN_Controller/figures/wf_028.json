@@ -1,0 +1,52 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx",
+   "wave": "110000000000"
+  },
+  {
+   "name": "timestamp counter",
+   "wave": "============",
+   "data": [
+    "100",
+    "101",
+    "102",
+    "103",
+    "104",
+    "105",
+    "106",
+    "107",
+    "108",
+    "109",
+    "110",
+    "111"
+   ]
+  },
+  {
+   "name": "SOF sample point",
+   "wave": "000001000000"
+  },
+  {
+   "name": "capture register",
+   "wave": "=.....=.....",
+   "data": [
+    "x",
+    "105"
+   ]
+  },
+  {
+   "name": "Rx element word 2",
+   "wave": "=..........=",
+   "data": [
+    "x",
+    "105"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-028 Timestamp capture at the sample point of SOF"
+ },
+ "foot": {
+  "text": "CAN clock cells (notes: section 10.3)"
+ }
+}

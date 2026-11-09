@@ -1,0 +1,58 @@
+{
+ "signal": [
+  {
+   "name": "o_mram_req",
+   "wave": "010000000000"
+  },
+  {
+   "name": "i_mram_ack",
+   "wave": "001000000000"
+  },
+  {
+   "name": "i_mram_err_unc",
+   "wave": "001000000000"
+  },
+  {
+   "name": "ram_unc flag",
+   "wave": "0..1.....0.."
+  },
+  {
+   "name": "init",
+   "wave": "0..1........"
+  },
+  {
+   "name": "state",
+   "wave": "=..=........",
+   "data": [
+    "NORMAL",
+    "STOPPED"
+   ]
+  },
+  {
+   "name": "o_saf_err",
+   "wave": "0...1.....0."
+  },
+  {
+   "name": "o_irq_0",
+   "wave": "0....1....0."
+  },
+  {
+   "name": "err_addr",
+   "wave": "=..=........",
+   "data": [
+    "0x0000",
+    "0x01A2"
+   ]
+  },
+  {
+   "name": "sw write 1 to flag",
+   "wave": "000000001000"
+  }
+ ],
+ "head": {
+  "text": "WF-027 Uncorrectable message RAM error and the safety flag"
+ },
+ "foot": {
+  "text": "BUS clock cells (notes: section 10.3)"
+ }
+}

@@ -1,0 +1,43 @@
+{
+ "signal": [
+  {
+   "name": "field",
+   "wave": "==.==..=..==..",
+   "data": [
+    "SOF",
+    "ID",
+    "CTRL",
+    "DATA",
+    "CRC",
+    "CRCd",
+    "ACK"
+   ]
+  },
+  {
+   "name": "i_can_rx",
+   "wave": "10101101011010"
+  },
+  {
+   "name": "match so far",
+   "wave": "1......1......"
+  },
+  {
+   "name": "CRC ok",
+   "wave": "0.........1..."
+  },
+  {
+   "name": "o_wake_req",
+   "wave": "0..........1.."
+  },
+  {
+   "name": "cfd_wksrc.src_wuf",
+   "wave": "0..........1.."
+  }
+ ],
+ "head": {
+  "text": "WF-066 Wake-up frame match: the filter compares the bits on the fly and wakes at the CRC delimiter"
+ },
+ "foot": {
+  "text": "In sleep the controller listens and sends nothing (no acknowledge) (notes: section 10.3)"
+ }
+}

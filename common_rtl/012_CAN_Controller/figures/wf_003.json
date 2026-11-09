@@ -1,0 +1,44 @@
+{
+ "signal": [
+  {
+   "name": "o_can_tx",
+   "wave": "100101111111"
+  },
+  {
+   "name": "i_can_rx",
+   "wave": "100100101100"
+  },
+  {
+   "name": "tx_state",
+   "wave": "============",
+   "data": [
+    "IDLE",
+    "SOF",
+    "ARB",
+    "ARB",
+    "ARB",
+    "LOST",
+    "RX",
+    "RX",
+    "RX",
+    "RX",
+    "RX",
+    "RX"
+   ]
+  },
+  {
+   "name": "arb_lost",
+   "wave": "000001000000"
+  },
+  {
+   "name": "txb_req",
+   "wave": "01.........."
+  }
+ ],
+ "head": {
+  "text": "WF-003 Arbitration loss and retransmission"
+ },
+ "foot": {
+  "text": "One cell is one bit (notes: section 10.3)"
+ }
+}

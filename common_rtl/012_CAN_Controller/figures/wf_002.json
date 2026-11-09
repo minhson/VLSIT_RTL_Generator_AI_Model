@@ -1,0 +1,66 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx",
+   "wave": "10====101.......",
+   "data": [
+    "ID",
+    "CTRL",
+    "DATA",
+    "CRC"
+   ]
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "1111111011111111"
+  },
+  {
+   "name": "rx_state",
+   "wave": "================",
+   "data": [
+    "IDLE",
+    "SOF",
+    "ID",
+    "CTRL",
+    "DATA",
+    "CRC",
+    "CRCd",
+    "ACK",
+    "ACKd",
+    "EOF",
+    "IFS",
+    "XFER",
+    "FILTER",
+    "WRITE",
+    "PUT",
+    "IDLE"
+   ]
+  },
+  {
+   "name": "o_mram_req",
+   "wave": "0000000000001100"
+  },
+  {
+   "name": "i_mram_ack",
+   "wave": "0000000000000100"
+  },
+  {
+   "name": "rx0 put index",
+   "wave": "=.............=.",
+   "data": [
+    "3",
+    "4"
+   ]
+  },
+  {
+   "name": "irq rx0_new",
+   "wave": "0..............1"
+  }
+ ],
+ "head": {
+  "text": "WF-002 Receive of a Classic frame, acknowledge and store"
+ },
+ "foot": {
+  "text": "The ACK slot is driven dominant by this node (o_can_tx low) (notes: section 10.3)"
+ }
+}

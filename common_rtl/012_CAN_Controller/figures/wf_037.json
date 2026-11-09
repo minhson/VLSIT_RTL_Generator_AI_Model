@@ -1,0 +1,34 @@
+{
+ "signal": [
+  {
+   "name": "o_can_tx",
+   "wave": "1.......0...1.......0...1...0...1......."
+  },
+  {
+   "name": "i_can_rx (delayed by 6)",
+   "wave": "1.............0...1.......0...1...0...1."
+  },
+  {
+   "name": "secondary sample point",
+   "wave": "0000000000000000100010001000100010001000"
+  },
+  {
+   "name": "compare tx with rx",
+   "wave": "xxxxxxxxxxxxxxxx=xxx=xxx=xxx=xxx=xxx=xxx",
+   "data": [
+    "0=0",
+    "1=1",
+    "1=1",
+    "0=0",
+    "1=1",
+    "0=0"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-037 Secondary sample point with a loop delay longer than the data bit"
+ },
+ "foot": {
+  "text": "Data bit 4 quanta, loop delay 6 quanta (longer than a bit), offset 2: the delay is measured at the edge from FDF to res (clock 8 to 14). The transmitted bit is compared with the received bit at the secondary sample point, 8 quanta after the start of the transmitted bit, i.e. after the end of that bit; the received value at the normal sample point is ignored by the transmitter (REF-002 transceiver delay compensation)."
+ }
+}

@@ -1,0 +1,65 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1.........0...................1."
+  },
+  {
+   "name": "tx node: segment",
+   "wave": "=....=..==.....=..==.....=..==..",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "tx node: sync event",
+   "wave": "00000000000000000000000000000000"
+  },
+  {
+   "name": "tx node: sample point",
+   "wave": "00001000000000100000000010000000"
+  },
+  {
+   "name": "rx node: segment",
+   "wave": "=....=..==.......=..==.....=..==",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "rx node: sync event",
+   "wave": "000000000000=0000000000000000000",
+   "data": [
+    "seg1+sjw"
+   ]
+  },
+  {
+   "name": "rx node: sample point",
+   "wave": "00001000000000001000000000100000"
+  }
+ ],
+ "head": {
+  "text": "WF-034 A node that sends a dominant bit does not resynchronize on a positive phase error"
+ },
+ "foot": {
+  "text": "The edge arrives 4 quanta late because of the loop delay of the transmitting node itself. The transmitting node ignores it (rule 4): its bit time is not lengthened. A pure receiver sees the same edge as a phase error and lengthens PHASE_SEG1."
+ }
+}

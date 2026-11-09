@@ -1,0 +1,49 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppp"
+  },
+  {
+   "name": "rx_valid",
+   "wave": "01..........0."
+  },
+  {
+   "name": "o_mram_req",
+   "wave": "00101010101000"
+  },
+  {
+   "name": "o_mram_addr",
+   "wave": "x.=.=.=.=.=...",
+   "data": [
+    "W0",
+    "W1",
+    "W2",
+    "W3",
+    "W4"
+   ]
+  },
+  {
+   "name": "i_mram_ack",
+   "wave": "00010101010100"
+  },
+  {
+   "name": "rx0 put index",
+   "wave": "=...........=.",
+   "data": [
+    "3",
+    "4"
+   ]
+  },
+  {
+   "name": "rx0_new flag",
+   "wave": "0...........1."
+  }
+ ],
+ "head": {
+  "text": "WF-010 Message RAM write of an Rx element and update of the put index"
+ },
+ "foot": {
+  "text": "BUS clock (notes: section 10.3)"
+ }
+}

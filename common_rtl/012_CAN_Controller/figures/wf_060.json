@@ -1,0 +1,42 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppppp"
+  },
+  {
+   "name": "rx0 fill level",
+   "wave": "=====........=..",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "0"
+   ]
+  },
+  {
+   "name": "o_dma_req_rx0",
+   "wave": "0....1.....0...."
+  },
+  {
+   "name": "DMA reads four elements",
+   "wave": "0.....1...0....."
+  },
+  {
+   "name": "ack_go (cfd_rxf0_ack)",
+   "wave": "0.........1..0.."
+  },
+  {
+   "name": "i_dma_ack_rx0",
+   "wave": "0000000000010000"
+  }
+ ],
+ "head": {
+  "text": "WF-060 Rx DMA burst of four messages (watermark 4)"
+ },
+ "foot": {
+  "text": "The watermark is the burst size: the request rises when the fill level reaches 4 (column 5) and stays ... (notes: section 10.3)"
+ }
+}

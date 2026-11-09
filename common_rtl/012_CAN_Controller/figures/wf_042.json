@@ -1,0 +1,57 @@
+{
+ "signal": [
+  {
+   "name": "event",
+   "wave": "========..",
+   "data": [
+    "start",
+    "rx err",
+    "tx err",
+    "tx ok",
+    "rx ok",
+    "...",
+    "tx err",
+    "tx err"
+   ]
+  },
+  {
+   "name": "TEC",
+   "wave": "=.==.===..",
+   "data": [
+    "0",
+    "8",
+    "7",
+    "120",
+    "128",
+    "136"
+   ]
+  },
+  {
+   "name": "REC",
+   "wave": "==..=.....",
+   "data": [
+    "0",
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "ep (error passive)",
+   "wave": "0000001111"
+  },
+  {
+   "name": "error flag type",
+   "wave": "=......=..",
+   "data": [
+    "ACTIVE",
+    "PASSIVE"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-042 Error counters and the change from error active to error passive"
+ },
+ "foot": {
+  "text": "Events, not bits. A receiver error adds 1 to REC, an error of the transmitter adds 8 to TEC, a successful frame subtracts 1. The transmit error counter reaching 128 makes the node error passive; the error that causes it still gets an active error flag, the next error flag is 6 recessive bits and it waits 8 bit times after the intermission before it sends again (REF-001 section 7)."
+ }
+}

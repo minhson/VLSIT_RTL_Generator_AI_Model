@@ -1,0 +1,57 @@
+{
+ "signal": [
+  {
+   "name": "can: frame register",
+   "wave": "x=.......=..",
+   "data": [
+    "frame",
+    "x"
+   ]
+  },
+  {
+   "name": "can: req (toggle)",
+   "wave": "01.........."
+  },
+  {
+   "name": "bus: req sync stage 1",
+   "wave": "0.1........."
+  },
+  {
+   "name": "bus: req sync stage 2",
+   "wave": "0..1........"
+  },
+  {
+   "name": "bus: capture",
+   "wave": "000010000000"
+  },
+  {
+   "name": "bus: frame register",
+   "wave": "x....=......",
+   "data": [
+    "frame"
+   ]
+  },
+  {
+   "name": "bus: ack (toggle)",
+   "wave": "0....1......"
+  },
+  {
+   "name": "can: ack sync stage 1",
+   "wave": "0.....1....."
+  },
+  {
+   "name": "can: ack sync stage 2",
+   "wave": "0......1...."
+  },
+  {
+   "name": "can: frame valid",
+   "wave": "01......0..."
+  }
+ ],
+ "head": {
+  "text": "WF-013 Received frame crossing from the CAN domain to the BUS domain"
+ },
+ "foot": {
+  "text": "Four-phase handshake of CDC-005; the cells are events, not clock cycles: CLK-CAN and CLK-BUS are unrelated (notes: section 10.3)"
+ }
+}

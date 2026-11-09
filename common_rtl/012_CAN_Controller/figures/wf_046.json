@@ -1,0 +1,47 @@
+{
+ "signal": [
+  {
+   "name": "frame complete (CAN)",
+   "wave": "010101000000"
+  },
+  {
+   "name": "transfer register 0",
+   "wave": "==......=...",
+   "data": [
+    "F1",
+    "free"
+   ]
+  },
+  {
+   "name": "transfer register 1",
+   "wave": "=..=......=.",
+   "data": [
+    "F2",
+    "free"
+   ]
+  },
+  {
+   "name": "Rx handler",
+   "wave": "=.=.....=..=",
+   "data": [
+    "store F1",
+    "store F2",
+    "idle"
+   ]
+  },
+  {
+   "name": "frame lost (handoff)",
+   "wave": "000001000000"
+  },
+  {
+   "name": "cfd_rx_sts.ovr",
+   "wave": "0....1......"
+  }
+ ],
+ "head": {
+  "text": "WF-046 Handoff overrun when both transfer registers are full"
+ },
+ "foot": {
+  "text": "PARA_CANFD_RXHOLD_NUM = 2 (notes: section 10.3)"
+ }
+}

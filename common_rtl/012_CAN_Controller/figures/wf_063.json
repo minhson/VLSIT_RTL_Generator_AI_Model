@@ -1,0 +1,38 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppp"
+  },
+  {
+   "name": "o_dma_req_rx0",
+   "wave": "0.1...0......."
+  },
+  {
+   "name": "i_dma_ack_rx0 (level)",
+   "wave": "0....1..0....."
+  },
+  {
+   "name": "ack_go (cfd_rxf0_ack)",
+   "wave": "0...1..0......"
+  },
+  {
+   "name": "rx0 fill level",
+   "wave": "=......=......",
+   "data": [
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "request may rise again",
+   "wave": "0........1...."
+  }
+ ],
+ "head": {
+  "text": "WF-063 Four-phase handshake (PARA_CANFD_DMA_HS = 1)"
+ },
+ "foot": {
+  "text": "The acknowledge is a level (notes: section 10.3)"
+ }
+}

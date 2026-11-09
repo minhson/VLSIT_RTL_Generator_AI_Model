@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="702" height="268" viewBox="0 0 702 268" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-023 Transmit priority, cancellation of a request and the Tx event</text>
+<line x1="162" y1="30" x2="162" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="206" y1="30" x2="206" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="250" y1="30" x2="250" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="294" y1="30" x2="294" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="338" y1="30" x2="338" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="382" y1="30" x2="382" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="426" y1="30" x2="426" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="470" y1="30" x2="470" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="514" y1="30" x2="514" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="558" y1="30" x2="558" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="602" y1="30" x2="602" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="646" y1="30" x2="646" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="690" y1="30" x2="690" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">txb_req</text>
+<polygon points="166.0,33.0 202.0,33.0 206.0,42.0 202.0,51.0 166.0,51.0 162.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="184.0" y="46.0" text-anchor="middle" font-size="11">0x0</text>
+<polygon points="210.0,33.0 378.0,33.0 382.0,42.0 378.0,51.0 210.0,51.0 206.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="294.0" y="46.0" text-anchor="middle" font-size="11">0x5</text>
+<polygon points="386.0,33.0 510.0,33.0 514.0,42.0 510.0,51.0 386.0,51.0 382.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="448.0" y="46.0" text-anchor="middle" font-size="11">0x4</text>
+<polygon points="518.0,33.0 686.0,33.0 690.0,42.0 686.0,51.0 518.0,51.0 514.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="602.0" y="46.0" text-anchor="middle" font-size="11">0x0</text>
+<text x="154" y="79" font-size="12" text-anchor="end">selected buffer</text>
+<polygon points="166.0,63.0 246.0,63.0 250.0,72.0 246.0,81.0 166.0,81.0 162.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="206.0" y="76.0" text-anchor="middle" font-size="11">-</text>
+<polygon points="254.0,63.0 510.0,63.0 514.0,72.0 510.0,81.0 254.0,81.0 250.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="382.0" y="76.0" text-anchor="middle" font-size="11">2</text>
+<polygon points="518.0,63.0 686.0,63.0 690.0,72.0 686.0,81.0 518.0,81.0 514.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="602.0" y="76.0" text-anchor="middle" font-size="11">-</text>
+<text x="154" y="109" font-size="12" text-anchor="end">frame on the bus</text>
+<polyline points="162.0,111.0 206.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,111.0 250.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,111.0 294.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,111.0 294.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,93.0 338.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,93.0 382.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,93.0 426.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="426.0,93.0 470.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="470.0,93.0 514.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="514.0,93.0 514.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="514.0,111.0 558.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,111.0 602.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="602.0,111.0 646.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="646.0,111.0 690.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="139" font-size="12" text-anchor="end">txb_cancel (buffer 0)</text>
+<polyline points="162.0,141.0 206.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,141.0 250.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,141.0 294.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,141.0 338.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,141.0 338.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,123.0 382.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,123.0 382.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,141.0 426.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="426.0,141.0 470.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="470.0,141.0 514.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="514.0,141.0 558.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,141.0 602.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="602.0,141.0 646.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="646.0,141.0 690.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="169" font-size="12" text-anchor="end">canc_done bit 0</text>
+<polyline points="162.0,171.0 206.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,171.0 250.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,171.0 294.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,171.0 338.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,171.0 382.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,171.0 382.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,153.0 426.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="426.0,153.0 470.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="470.0,153.0 514.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="514.0,153.0 558.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,153.0 602.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="602.0,153.0 646.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="646.0,153.0 690.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="199" font-size="12" text-anchor="end">done bit 2</text>
+<polyline points="162.0,201.0 206.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,201.0 250.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,201.0 294.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,201.0 338.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,201.0 382.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,201.0 426.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="426.0,201.0 470.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="470.0,201.0 514.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="514.0,201.0 558.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,201.0 558.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,183.0 602.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="602.0,183.0 646.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="646.0,183.0 690.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="229" font-size="12" text-anchor="end">txe_new flag</text>
+<polyline points="162.0,231.0 206.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,231.0 250.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,231.0 294.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,231.0 338.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,231.0 382.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,231.0 426.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="426.0,231.0 470.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="470.0,231.0 514.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="514.0,231.0 558.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,231.0 602.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="602.0,231.0 602.0,213.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="602.0,213.0 646.0,213.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="646.0,213.0 690.0,213.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="260" font-size="11" fill="#444">BUS clock cells (notes: section 10.3)</text>
+</svg>

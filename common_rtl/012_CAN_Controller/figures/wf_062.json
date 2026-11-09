@@ -1,0 +1,43 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppppppp"
+  },
+  {
+   "name": "rx0 fill level",
+   "wave": "==............=...",
+   "data": [
+    "0",
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "flush timer running",
+   "wave": "01.......0........"
+  },
+  {
+   "name": "o_dma_req_rx0",
+   "wave": "0........1.....0.."
+  },
+  {
+   "name": "rx0_fl (cfd_dma_sts)",
+   "wave": "0........1.....0.."
+  },
+  {
+   "name": "ack_go (cfd_rxf0_ack)",
+   "wave": "0............10..."
+  },
+  {
+   "name": "i_dma_ack_rx0",
+   "wave": "000000000000000100"
+  }
+ ],
+ "head": {
+  "text": "WF-062 Burst service with the flush timeout: one message below the watermark is served"
+ },
+ "foot": {
+  "text": "Burst service with watermark 4 and a timeout (shortened to 8 clocks for the drawing; the register counts ... (notes: section 10.3)"
+ }
+}

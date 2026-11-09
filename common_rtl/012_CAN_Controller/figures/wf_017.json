@@ -1,0 +1,42 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_stop_req",
+   "wave": "01.......0...."
+  },
+  {
+   "name": "frame_busy (CAN)",
+   "wave": "1...0........."
+  },
+  {
+   "name": "init",
+   "wave": "0....1.......0"
+  },
+  {
+   "name": "o_clk_stop_ack",
+   "wave": "0000001...0..."
+  },
+  {
+   "name": "o_trcv_en",
+   "wave": "1....0.......1"
+  },
+  {
+   "name": "pn_match (CAN)",
+   "wave": "00000000010000"
+  },
+  {
+   "name": "o_wake_req (CAN)",
+   "wave": "00000000001..0"
+  },
+  {
+   "name": "wake_ack (sw)",
+   "wave": "00000000000100"
+  }
+ ],
+ "head": {
+  "text": "WF-017 Clock stop handshake, sleep and wake-up by a partial networking frame"
+ },
+ "foot": {
+  "text": "The request is held until the acknowledge (notes: section 10.3)"
+ }
+}

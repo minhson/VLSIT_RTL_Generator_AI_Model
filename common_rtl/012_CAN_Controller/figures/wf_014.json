@@ -1,0 +1,54 @@
+{
+ "signal": [
+  {
+   "name": "cce (BUS)",
+   "wave": "1...0......."
+  },
+  {
+   "name": "init (BUS)",
+   "wave": "1....0......"
+  },
+  {
+   "name": "canfd_nbt (BUS)",
+   "wave": "=.=.........",
+   "data": [
+    "0",
+    "NBT"
+   ]
+  },
+  {
+   "name": "init synchronized (CAN)",
+   "wave": "1......0...."
+  },
+  {
+   "name": "cfg_copy (CAN)",
+   "wave": "000000001000"
+  },
+  {
+   "name": "configuration (CAN)",
+   "wave": "=.......=...",
+   "data": [
+    "0",
+    "NBT"
+   ]
+  },
+  {
+   "name": "init_ack (status)",
+   "wave": "1........0.."
+  },
+  {
+   "name": "engine (CAN)",
+   "wave": "=........=..",
+   "data": [
+    "STOP",
+    "INTEGRATE"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-014 Configuration change with init and cce and the copy to the CAN domain"
+ },
+ "foot": {
+  "text": "Software writes canfd_nbt while init and cce are 1, clears cce and then init (notes: section 10.3)"
+ }
+}

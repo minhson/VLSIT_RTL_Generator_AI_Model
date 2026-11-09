@@ -1,0 +1,70 @@
+{
+  "signal": [
+    {
+      "name": "CC field",
+      "wave": "============",
+      "data": [
+        "CRC end",
+        "CRC delimiter",
+        "ACK slot",
+        "ACK delimiter",
+        "EOF bit 0",
+        "EOF bit 1",
+        "EOF bit 2",
+        "EOF bit 3",
+        "EOF bit 4",
+        "EOF bit 5",
+        "Error delimiter",
+        "Error delimiter"
+      ]
+    },
+    {
+      "name": "CC receiver o_can_tx (active)",
+      "wave": "111100000011"
+    },
+    {
+      "name": "CC crc_err",
+      "wave": "100000000000"
+    },
+    {
+      "name": "FD field",
+      "wave": "============",
+      "data": [
+        "CRC end",
+        "CRC delimiter",
+        "ACK slot / delay 1",
+        "ACK delimiter / delay 2",
+        "delay 3",
+        "EF bit 0",
+        "EF bit 1",
+        "EF bit 2",
+        "EF bit 3",
+        "EF bit 4",
+        "EF bit 5",
+        "Error delimiter"
+      ]
+    },
+    {
+      "name": "FD receiver o_can_tx (active)",
+      "wave": "111110000001"
+    },
+    {
+      "name": "FD bus sample (dominant during delay example)",
+      "wave": "110111111111"
+    },
+    {
+      "name": "FD bit_err",
+      "wave": "000000000000"
+    },
+    {
+      "name": "FD crc_err",
+      "wave": "100000000000"
+    }
+  ],
+  "head": {
+    "text": "WF-071 CRC-error signaling: Classical CAN and ISO CAN FD"
+  },
+  "foot": {
+    "text": "A CRC-error receiver does not acknowledge. CC starts its error flag at EOF bit 0. ISO FD starts its error flag after three bit-times following the CRC delimiter; dominant bus samples during that interval are ignored for error detection. Active error flag is shown; an error-passive node transmits recessive passive-flag bits. Field widths are schematic, not to scale. ISO 11898-1:2024 §6.6.21.3.1."
+  }
+}

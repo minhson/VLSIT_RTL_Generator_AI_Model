@@ -1,0 +1,43 @@
+{
+ "signal": [
+  {
+   "name": "bus",
+   "wave": "==...=....",
+   "data": [
+    "RM",
+    "previous message (long)",
+    "free"
+   ]
+  },
+  {
+   "name": "trigger B active",
+   "wave": "0001000000"
+  },
+  {
+   "name": "Tx_Enable window of B",
+   "wave": "0..1.0...."
+  },
+  {
+   "name": "start allowed",
+   "wave": "0..0.0...."
+  },
+  {
+   "name": "B sent",
+   "wave": "0000000000"
+  },
+  {
+   "name": "buffer miss flag (cfd_ttb_miss)",
+   "wave": "0....1...."
+  },
+  {
+   "name": "txu event (cfd_ttirq_raw)",
+   "wave": "0........1"
+  }
+ ],
+ "head": {
+  "text": "WF-055 Tx_Enable window missed because the bus is busy"
+ },
+ "foot": {
+  "text": "The trigger of message B becomes active at column 3, but the previous message still occupies the bus (notes: section 10.3)"
+ }
+}

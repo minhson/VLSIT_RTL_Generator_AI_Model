@@ -1,0 +1,49 @@
+{
+ "signal": [
+  {
+   "name": "bus",
+   "wave": "=...===.........",
+   "data": [
+    "frame",
+    "EOF",
+    "INT",
+    "idle"
+   ]
+  },
+  {
+   "name": "sleep_req (sw)",
+   "wave": "0010000000010000"
+  },
+  {
+   "name": "power state (first request)",
+   "wave": "=.=....=........",
+   "data": [
+    "NORMAL",
+    "SLEEP_PEND",
+    "SLEEP"
+   ]
+  },
+  {
+   "name": "Tx request pending",
+   "wave": "0.........1....."
+  },
+  {
+   "name": "init",
+   "wave": "0......1........"
+  },
+  {
+   "name": "o_trcv_en",
+   "wave": "1......0........"
+  },
+  {
+   "name": "slp_blk (cfd_wksrc)",
+   "wave": "0...........1..."
+  }
+ ],
+ "head": {
+  "text": "WF-065 Sleep entry: the frame on the bus is finished first, a pending Tx request refuses the sleep"
+ },
+ "foot": {
+  "text": "Software writes sleep_req at column 2 while a frame is on the bus (notes: section 10.3)"
+ }
+}

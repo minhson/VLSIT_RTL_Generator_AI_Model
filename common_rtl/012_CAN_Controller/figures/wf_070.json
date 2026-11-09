@@ -1,0 +1,38 @@
+{
+ "signal": [
+  {
+   "name": "fault ram_cor (r_ram_cor = 0)",
+   "wave": "00100000000000"
+  },
+  {
+   "name": "cfd_saf_sts.ram_cor",
+   "wave": "0..1.........."
+  },
+  {
+   "name": "fault cnt_cmp (r_cnt_cmp = 1)",
+   "wave": "00000000100000"
+  },
+  {
+   "name": "cfd_saf_sts.cnt_cmp",
+   "wave": "0........1..0."
+  },
+  {
+   "name": "o_saf_err",
+   "wave": "0..1.........."
+  },
+  {
+   "name": "init",
+   "wave": "0........1...0"
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "01010101011111"
+  }
+ ],
+ "head": {
+  "text": "WF-070 Fault reaction: report only for ram_cor, stop for cnt_cmp"
+ },
+ "foot": {
+  "text": "Stop sets INIT and o_can_tx recessive; report keeps running (notes: section 18.3.2)"
+ }
+}

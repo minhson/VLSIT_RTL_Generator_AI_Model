@@ -1,0 +1,62 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1.0.........1.......0...1...0...1..................."
+  },
+  {
+   "name": "segment",
+   "wave": "==..==.....=..==.....===.===.===.===.=..==.....=..==",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "bit time in use",
+   "wave": "=...................=...............=...............",
+   "data": [
+    "nominal",
+    "data",
+    "nominal"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "1000000000100000000010001000100010001000000000100000"
+  },
+  {
+   "name": "tx point",
+   "wave": "0001000000000100000001000100010001000001000000000100"
+  }
+ ],
+ "head": {
+  "text": "WF-036 Bit rate switch at the BRS bit and switch back at the CRC delimiter"
+ },
+ "foot": {
+  "text": "Nominal bit 10 quanta, data bit 4 quanta. The controller switches immediately after the sample point of the recessive BRS bit: that bit lasts 1 + 6 nominal quanta plus PHASE_SEG2 of the data configuration (8 quanta); the CRC delimiter lasts SYNC + SEG1 in data quanta plus PHASE_SEG2 in nominal quanta (6 quanta). Together they last one nominal plus one data bit (REF-002 section 8)."
+ }
+}

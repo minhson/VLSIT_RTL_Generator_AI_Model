@@ -1,0 +1,49 @@
+{
+ "signal": [
+  {
+   "name": "txb_req",
+   "wave": "==...=..=...",
+   "data": [
+    "0x0",
+    "0x5",
+    "0x4",
+    "0x0"
+   ]
+  },
+  {
+   "name": "selected buffer",
+   "wave": "=.=.....=...",
+   "data": [
+    "-",
+    "2",
+    "-"
+   ]
+  },
+  {
+   "name": "frame on the bus",
+   "wave": "0..1....0..."
+  },
+  {
+   "name": "txb_cancel (buffer 0)",
+   "wave": "000010000000"
+  },
+  {
+   "name": "canc_done bit 0",
+   "wave": "0....1......"
+  },
+  {
+   "name": "done bit 2",
+   "wave": "0........1.."
+  },
+  {
+   "name": "txe_new flag",
+   "wave": "0.........1."
+  }
+ ],
+ "head": {
+  "text": "WF-023 Transmit priority, cancellation of a request and the Tx event"
+ },
+ "foot": {
+  "text": "BUS clock cells (notes: section 10.3)"
+ }
+}

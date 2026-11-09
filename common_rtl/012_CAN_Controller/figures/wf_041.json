@@ -1,0 +1,34 @@
+{
+ "signal": [
+  {
+   "name": "field",
+   "wave": "=====.....=...",
+   "data": [
+    "CRC end",
+    "CRCd",
+    "ACK",
+    "ACKd",
+    "error flag (6 bits)",
+    "delimiter"
+   ]
+  },
+  {
+   "name": "o_can_tx (receiver, error active)",
+   "wave": "11110000001111"
+  },
+  {
+   "name": "crc_err",
+   "wave": "01000000000000"
+  },
+  {
+   "name": "err_flag_active",
+   "wave": "00001111110000"
+  }
+ ],
+ "head": {
+  "text": "WF-041 Start of the error flag: CRC error and other errors"
+ },
+ "foot": {
+  "text": "A node that finds a CRC error does not acknowledge the frame and starts its error flag at the bit after the ACK delimiter (columns 4 to 9). For a bit, stuff, form or acknowledge error the flag starts at the next bit (WF-007). An error-active node sends 6 dominant bits, an error-passive node 6 recessive bits."
+ }
+}

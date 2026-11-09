@@ -1,0 +1,116 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1...0.........1...................0........."
+  },
+  {
+   "name": "rx_s (after 2 flops)",
+   "wave": "1.....0.........1...................0......."
+  },
+  {
+   "name": "segment",
+   "wave": "==..====.....=..==.....=..==.....=..==.....=",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2"
+   ]
+  },
+  {
+   "name": "tq index",
+   "wave": "============================================",
+   "data": [
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+   ]
+  },
+  {
+   "name": "sync event",
+   "wave": "000000=0000000000000000000000000000000000000",
+   "data": [
+    "hard"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "10000000000010000000001000000000100000000010"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "=xxxxxxxxxxx=xxxxxxxxx=xxxxxxxxx=xxxxxxxxx=x",
+   "data": [
+    "1",
+    "0",
+    "1",
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "tx point",
+   "wave": "00010000000000010000000001000000000100000000"
+  }
+ ],
+ "head": {
+  "text": "WF-029 Bit time segments, sample point and transmit point (1 clock = 1 time quantum)"
+ },
+ "foot": {
+  "text": "Bit time of 10 time quanta: SYNC_SEG 1, PROP_SEG + PHASE_SEG1 6, PHASE_SEG2 3, SJW 2. The pin edge of SOF at clock 20 reaches rx_s two clocks later (two-flop synchronizer) and hard-synchronizes the counter: that clock is SYNC_SEG. The sample point is the end of the last SEG1 quantum; the transmit point is the start of SYNC_SEG of the next bit."
+ }
+}

@@ -1,0 +1,41 @@
+{
+ "signal": [
+  {
+   "name": "bus",
+   "wave": "=...==...=..",
+   "data": [
+    "basic cycle",
+    "RM Next_is_Gap",
+    "gap: bus idle",
+    "RM"
+   ]
+  },
+  {
+   "name": "nig (software)",
+   "wave": "0..1.0......"
+  },
+  {
+   "name": "Next_is_Gap in the reference message",
+   "wave": "000010000000"
+  },
+  {
+   "name": "sync state",
+   "wave": "=....=...=..",
+   "data": [
+    "in schedule",
+    "in gap",
+    "in schedule"
+   ]
+  },
+  {
+   "name": "event pin low or fgp",
+   "wave": "000000001000"
+  }
+ ],
+ "head": {
+  "text": "WF-057 Event-synchronised operation: a gap after a basic cycle and the restart by the event"
+ },
+ "foot": {
+  "text": "The time master sets Next_is_Gap (software bit nig or the level of the event pin when epe is set) before ... (notes: section 10.3)"
+ }
+}

@@ -1,0 +1,603 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2460" height="4267" viewBox="70 280 2460 4267" font-family="Arial, Helvetica, sans-serif" font-size="18">
+<rect x="70" y="280" width="2460" height="4267" fill="#FFFFFF"/>
+<rect x="570" y="410" width="1400" height="650" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<rect x="900" y="660" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="990" y="686" text-anchor="middle">u_canfd_rxh</text>
+<text x="990" y="708" text-anchor="middle">(m_canfd_rxh)</text>
+<rect x="1190" y="810" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1280" y="836" text-anchor="middle">u_canfd_txh</text>
+<text x="1280" y="858" text-anchor="middle">(m_canfd_txh)</text>
+<rect x="890" y="810" width="200" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="990" y="836" text-anchor="middle">u_canfd_mram</text>
+<text x="990" y="858" text-anchor="middle">(m_canfd_mram)</text>
+<rect x="1750" y="960" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1840" y="986" text-anchor="middle">u_canfd_ts</text>
+<text x="1840" y="1008" text-anchor="middle">(m_canfd_ts)</text>
+<rect x="610" y="660" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="700" y="686" text-anchor="middle">u_canfd_dma</text>
+<text x="700" y="708" text-anchor="middle">(m_canfd_dma)</text>
+<rect x="1470" y="510" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1560" y="536" text-anchor="middle">u_canfd_irq</text>
+<text x="1560" y="558" text-anchor="middle">(m_canfd_irq)</text>
+<rect x="1190" y="960" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1280" y="986" text-anchor="middle">u_canfd_pn</text>
+<text x="1280" y="1008" text-anchor="middle">(m_canfd_pn)</text>
+<rect x="1470" y="960" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1560" y="986" text-anchor="middle">u_canfd_tt</text>
+<text x="1560" y="1008" text-anchor="middle">(m_canfd_tt)</text>
+<rect x="610" y="960" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="700" y="986" text-anchor="middle">u_canfd_pwr</text>
+<text x="700" y="1008" text-anchor="middle">(m_canfd_pwr)</text>
+<rect x="890" y="960" width="200" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="990" y="986" text-anchor="middle">u_canfd_safe</text>
+<text x="990" y="1008" text-anchor="middle">(m_canfd_safe)</text>
+<rect x="610" y="510" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="700" y="536" text-anchor="middle">u_canfd_rst</text>
+<text x="700" y="558" text-anchor="middle">(m_canfd_rst)</text>
+<rect x="1190" y="510" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1280" y="536" text-anchor="middle">u_vlsit_csr_canfd</text>
+<text x="1280" y="558" text-anchor="middle">(m_vlsit_csr_canfd)</text>
+<rect x="890" y="510" width="200" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="990" y="536" text-anchor="middle">u_canfd_wprot</text>
+<text x="990" y="558" text-anchor="middle">(m_canfd_wprot)</text>
+<rect x="1190" y="660" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1280" y="686" text-anchor="middle">u_canfd_cdc</text>
+<text x="1280" y="708" text-anchor="middle">(m_canfd_cdc)</text>
+<rect x="1750" y="660" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1840" y="686" text-anchor="middle">u_canfd_btl</text>
+<text x="1840" y="708" text-anchor="middle">(m_canfd_btl)</text>
+<rect x="1750" y="810" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1840" y="836" text-anchor="middle">u_canfd_tdc</text>
+<text x="1840" y="858" text-anchor="middle">(m_canfd_tdc)</text>
+<rect x="1470" y="660" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1560" y="686" text-anchor="middle">u_canfd_bsp</text>
+<text x="1560" y="708" text-anchor="middle">(m_canfd_bsp)</text>
+<rect x="1470" y="810" width="180" height="60" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1560" y="836" text-anchor="middle">u_canfd_eml</text>
+<text x="1560" y="858" text-anchor="middle">(m_canfd_eml)</text>
+<text x="2070" y="686" text-anchor="middle">CAN</text>
+<text x="2070" y="708" text-anchor="middle">bus pins</text>
+<text x="395" y="686" text-anchor="middle">DMA</text>
+<text x="395" y="708" text-anchor="middle">request and acknowledge</text>
+<text x="1560" y="331" text-anchor="middle">IRQ</text>
+<text x="1560" y="353" text-anchor="middle">o_irq_0, o_irq_1</text>
+<text x="420" y="836" text-anchor="middle">MRAM</text>
+<text x="420" y="858" text-anchor="middle">message RAM master</text>
+<text x="700" y="1131" text-anchor="middle">TRCV</text>
+<text x="700" y="1153" text-anchor="middle">transceiver and wake-up</text>
+<text x="410" y="986" text-anchor="middle">PWR</text>
+<text x="410" y="1008" text-anchor="middle">clock stop handshake</text>
+<text x="700" y="331" text-anchor="middle">CRB</text>
+<text x="700" y="353" text-anchor="middle">i_clk_bus, i_rst_n_bus</text>
+<text x="990" y="1131" text-anchor="middle">SAF</text>
+<text x="990" y="1153" text-anchor="middle">safety status and injection</text>
+<text x="1840" y="1131" text-anchor="middle">TSX</text>
+<text x="1840" y="1153" text-anchor="middle">i_ts_ext</text>
+<text x="1560" y="1131" text-anchor="middle">TTP</text>
+<text x="1560" y="1153" text-anchor="middle">TT pins</text>
+<text x="990" y="331" text-anchor="middle">APB</text>
+<text x="990" y="353" text-anchor="middle">APB4 register access</text>
+<text x="1948" y="451" text-anchor="end">TOP</text>
+<text x="1948" y="473" text-anchor="end">(m_canfd_top)</text>
+<text x="1130" y="526" text-anchor="middle">APBW</text>
+<text x="1410" y="526" text-anchor="middle">IRQC</text>
+<text x="1313" y="602" text-anchor="middle">CFG</text>
+<text x="1105" y="676" text-anchor="middle">RXF</text>
+<text x="1313" y="752" text-anchor="middle">TXF</text>
+<text x="1410" y="676" text-anchor="middle">CANF</text>
+<text x="1675" y="676" text-anchor="middle">BIT</text>
+<text x="1593" y="752" text-anchor="middle">ERR</text>
+<text x="1873" y="752" text-anchor="middle">EDG</text>
+<text x="1028" y="752" text-anchor="middle">RAMR</text>
+<text x="1130" y="826" text-anchor="middle">RAMT</text>
+<text x="830" y="676" text-anchor="middle">DMAR</text>
+<text x="104" y="4363" text-anchor="start" font-weight="bold">Legend</text>
+<text x="284" y="4404" text-anchor="start">Interface connector (one per signal group; arrow = active to passive)</text>
+<text x="104" y="4479" text-anchor="start">The enclosing frame is the top module; blocks inside are its instances. The two clock domains are asynchronous: the register side runs on the BUS clock, the protocol side on the CAN clock, and u_canfd_cdc holds the synchronizers and handshakes between them. Connections of u_canfd_pwr, u_canfd_pn, u_canfd_tt, u_canfd_ts, u_canfd_safe and u_canfd_rst to the other blocks are many-to-many and are listed in sections 7 and 18. With PARA_CANFD_SAF_DUP_EN=1, u_canfd_safe also contains the delayed duplicate protocol core (section 18.3.4).</text>
+<rect x="100" y="1390" width="2400" height="782" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1300" y="1417" text-anchor="middle" font-weight="bold">Block Functions &amp; Interfaces</text>
+<rect x="100" y="1430" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1455" text-anchor="start" font-weight="bold">Block</text>
+<rect x="430" y="1430" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1455" text-anchor="start" font-weight="bold">Function</text>
+<rect x="1910" y="1430" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1455" text-anchor="start" font-weight="bold">Source</text>
+<rect x="2140" y="1430" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1455" text-anchor="start" font-weight="bold">Interfaces (mnemonics)</text>
+<rect x="100" y="1466" width="330" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1502" text-anchor="start">TOP (m_canfd_top) frame</text>
+<rect x="430" y="1466" width="1480" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1491" text-anchor="start">Structural top of the CAN FD controller: message handling and registers in the BUS domain, bit timing and protocol in the CAN domain, clock domain</text>
+<text x="434" y="1513" text-anchor="start">crossings in between.</text>
+<rect x="1910" y="1466" width="230" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1502" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1466" width="360" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<rect x="100" y="1524" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1549" text-anchor="start">u_canfd_rst (m_canfd_rst)</text>
+<rect x="430" y="1524" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1549" text-anchor="start">Reset synchronizers of the two domains</text>
+<rect x="1910" y="1524" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1549" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1524" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1549" text-anchor="start">CRB</text>
+<rect x="100" y="1560" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1585" text-anchor="start">u_vlsit_csr_canfd (m_vlsit_csr_canfd)</text>
+<rect x="430" y="1560" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1585" text-anchor="start">Generated APB register block (APB-CSR-Generator, not hand-written)</text>
+<rect x="1910" y="1560" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1585" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1560" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1585" text-anchor="start">APBW, IRQC, CFG</text>
+<rect x="100" y="1596" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1621" text-anchor="start">u_canfd_wprot (m_canfd_wprot)</text>
+<rect x="430" y="1596" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1621" text-anchor="start">APB write filter for the protected registers (INIT, CCE, lock)</text>
+<rect x="1910" y="1596" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1621" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1596" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1621" text-anchor="start">APBW, APB</text>
+<rect x="100" y="1632" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1657" text-anchor="start">u_canfd_cdc (m_canfd_cdc)</text>
+<rect x="430" y="1632" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1657" text-anchor="start">Clock domain crossings CDC-003 to CDC-009 (wrapper of the synchronizer, handshake and toggle modules)</text>
+<rect x="1910" y="1632" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1657" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1632" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1657" text-anchor="start">CFG, RXF, TXF, CANF</text>
+<rect x="100" y="1668" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1693" text-anchor="start">u_canfd_btl (m_canfd_btl)</text>
+<rect x="430" y="1668" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1693" text-anchor="start">Bit timing and synchronization</text>
+<rect x="1910" y="1668" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1693" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1668" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1693" text-anchor="start">BIT, EDG, CAN</text>
+<rect x="100" y="1704" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1729" text-anchor="start">u_canfd_tdc (m_canfd_tdc)</text>
+<rect x="430" y="1704" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1729" text-anchor="start">Transmitter delay compensation</text>
+<rect x="1910" y="1704" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1729" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1704" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1729" text-anchor="start">EDG</text>
+<rect x="100" y="1740" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1765" text-anchor="start">u_canfd_bsp (m_canfd_bsp)</text>
+<rect x="430" y="1740" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1765" text-anchor="start">Frame state machine and field control</text>
+<rect x="1910" y="1740" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1765" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1740" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1765" text-anchor="start">CANF, BIT, ERR</text>
+<rect x="100" y="1776" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1801" text-anchor="start">u_canfd_eml (m_canfd_eml)</text>
+<rect x="430" y="1776" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1801" text-anchor="start">Error counters, fault confinement, last error code</text>
+<rect x="1910" y="1776" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1801" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1776" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1801" text-anchor="start">ERR</text>
+<rect x="100" y="1812" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1837" text-anchor="start">u_canfd_rxh (m_canfd_rxh)</text>
+<rect x="430" y="1812" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1837" text-anchor="start">Rx handler: storing, FIFO indexes, new-data flags</text>
+<rect x="1910" y="1812" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1837" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1812" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1837" text-anchor="start">RXF, RAMR, DMAR</text>
+<rect x="100" y="1848" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1873" text-anchor="start">u_canfd_txh (m_canfd_txh)</text>
+<rect x="430" y="1848" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1873" text-anchor="start">Tx handler: scan, fetch, cancel, event</text>
+<rect x="1910" y="1848" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1873" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1848" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1873" text-anchor="start">TXF, RAMT</text>
+<rect x="100" y="1884" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1909" text-anchor="start">u_canfd_mram (m_canfd_mram)</text>
+<rect x="430" y="1884" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1909" text-anchor="start">Message RAM master port and access watchdog</text>
+<rect x="1910" y="1884" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1909" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1884" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1909" text-anchor="start">RAMR, RAMT, MRAM</text>
+<rect x="100" y="1920" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1945" text-anchor="start">u_canfd_ts (m_canfd_ts)</text>
+<rect x="430" y="1920" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1945" text-anchor="start">Timestamp and timeout counters</text>
+<rect x="1910" y="1920" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1945" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1920" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1945" text-anchor="start">TSX</text>
+<rect x="100" y="1956" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="1981" text-anchor="start">u_canfd_dma (m_canfd_dma)</text>
+<rect x="430" y="1956" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="1981" text-anchor="start">DMA request logic</text>
+<rect x="1910" y="1956" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="1981" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1956" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="1981" text-anchor="start">DMAR, DMA</text>
+<rect x="100" y="1992" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2017" text-anchor="start">u_canfd_irq (m_canfd_irq)</text>
+<rect x="430" y="1992" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="2017" text-anchor="start">Interrupt flags, line routing, injection</text>
+<rect x="1910" y="1992" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="2017" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="1992" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="2017" text-anchor="start">IRQC, IRQ</text>
+<rect x="100" y="2028" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2053" text-anchor="start">u_canfd_pn (m_canfd_pn)</text>
+<rect x="430" y="2028" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="2053" text-anchor="start">Partial networking wake-up frame filter</text>
+<rect x="1910" y="2028" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="2053" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="2028" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<rect x="100" y="2064" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2089" text-anchor="start">u_canfd_tt (m_canfd_tt)</text>
+<rect x="430" y="2064" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="2089" text-anchor="start">TTCAN entity (level 1 and 2)</text>
+<rect x="1910" y="2064" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="2089" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="2064" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="2089" text-anchor="start">TTP</text>
+<rect x="100" y="2100" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2125" text-anchor="start">u_canfd_pwr (m_canfd_pwr)</text>
+<rect x="430" y="2100" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="2125" text-anchor="start">Power state, clock stop, wake-up, bus select, transceiver control</text>
+<rect x="1910" y="2100" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="2125" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="2100" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="2125" text-anchor="start">TRCV, PWR</text>
+<rect x="100" y="2136" width="330" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2161" text-anchor="start">u_canfd_safe (m_canfd_safe)</text>
+<rect x="430" y="2136" width="1480" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="434" y="2161" text-anchor="start">Safety mechanisms SM-01 to SM-11</text>
+<rect x="1910" y="2136" width="230" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1914" y="2161" text-anchor="start">Section 14.2</text>
+<rect x="2140" y="2136" width="360" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="2144" y="2161" text-anchor="start">SAF</text>
+<rect x="100" y="2212" width="2400" height="2070" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+<text x="1300" y="2239" text-anchor="middle" font-weight="bold">Interface Table</text>
+<rect x="100" y="2252" width="90" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2277" text-anchor="start" font-weight="bold">ID</text>
+<rect x="190" y="2252" width="300" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2277" text-anchor="start" font-weight="bold">Interface</text>
+<rect x="490" y="2252" width="110" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2277" text-anchor="start" font-weight="bold">Category</text>
+<rect x="600" y="2252" width="470" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2277" text-anchor="start" font-weight="bold">Active side -&gt; passive side</text>
+<rect x="1070" y="2252" width="1430" height="36" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2277" text-anchor="start" font-weight="bold">Key signals</text>
+<rect x="100" y="2288" width="90" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2335" text-anchor="start">APB</text>
+<rect x="190" y="2288" width="300" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2324" text-anchor="start">APB4 register access</text>
+<text x="194" y="2346" text-anchor="start">(CLK-BUS)</text>
+<rect x="490" y="2288" width="110" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2324" text-anchor="start">bus (APB4</text>
+<text x="494" y="2346" text-anchor="start">completer)</text>
+<rect x="600" y="2288" width="470" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2335" text-anchor="start">external bus master -&gt; TOP</text>
+<rect x="1070" y="2288" width="1430" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2324" text-anchor="start">external -&gt; TOP: i_apb_psel, i_apb_penable, i_apb_pwrite, i_apb_paddr, i_apb_pwdata, i_apb_pstrb, i_apb_pprot; TOP -&gt; external: o_apb_prdata,</text>
+<text x="1074" y="2346" text-anchor="start">o_apb_pready, o_apb_pslverr</text>
+<rect x="100" y="2368" width="90" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2415" text-anchor="start">APBW</text>
+<rect x="190" y="2368" width="300" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2415" text-anchor="start">Protected APB write path</text>
+<rect x="490" y="2368" width="110" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2393" text-anchor="start">bus</text>
+<text x="494" y="2415" text-anchor="start">(filtered</text>
+<text x="494" y="2437" text-anchor="start">APB4)</text>
+<rect x="600" y="2368" width="470" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2415" text-anchor="start">u_canfd_wprot -&gt; u_vlsit_csr_canfd</text>
+<rect x="1070" y="2368" width="1430" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2415" text-anchor="start">u_canfd_wprot -&gt; u_vlsit_csr_canfd: filtered APB request signals; u_vlsit_csr_canfd -&gt; u_canfd_wprot: o_apb_prdata, o_apb_pready, o_apb_pslverr</text>
+<rect x="100" y="2448" width="90" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2484" text-anchor="start">BIT</text>
+<rect x="190" y="2448" width="300" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2484" text-anchor="start">Bit timing strobes</text>
+<rect x="490" y="2448" width="110" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2473" text-anchor="start">custom</text>
+<text x="494" y="2495" text-anchor="start">(strobes)</text>
+<rect x="600" y="2448" width="470" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2484" text-anchor="start">u_canfd_btl -&gt; u_canfd_bsp</text>
+<rect x="1070" y="2448" width="1430" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2484" text-anchor="start">u_canfd_btl -&gt; u_canfd_bsp: sample point, bit start, rate switch, received bit</text>
+<rect x="100" y="2506" width="90" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2553" text-anchor="start">CAN</text>
+<rect x="190" y="2506" width="300" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2553" text-anchor="start">CAN bus pins (CLK-CAN)</text>
+<rect x="490" y="2506" width="110" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2542" text-anchor="start">bit-serial</text>
+<text x="494" y="2564" text-anchor="start">bus pins</text>
+<rect x="600" y="2506" width="470" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2553" text-anchor="start">TOP  transceiver</text>
+<rect x="1070" y="2506" width="1430" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2553" text-anchor="start">TOP -&gt; external: o_can_tx, o_can_tx_b; external -&gt; TOP: i_can_rx, i_can_rx_b</text>
+<rect x="100" y="2586" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2644" text-anchor="start">CANF</text>
+<rect x="190" y="2586" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2633" text-anchor="start">Frames, configuration and</text>
+<text x="194" y="2655" text-anchor="start">events across the domains</text>
+<rect x="490" y="2586" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2622" text-anchor="start">custom</text>
+<text x="494" y="2644" text-anchor="start">(clock-domain</text>
+<text x="494" y="2666" text-anchor="start">crossing)</text>
+<rect x="600" y="2586" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2644" text-anchor="start">u_canfd_cdc  u_canfd_bsp</text>
+<rect x="1070" y="2586" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2644" text-anchor="start">u_canfd_cdc -&gt; u_canfd_bsp: Tx frame, configuration copy, commands; u_canfd_bsp -&gt; u_canfd_cdc: Rx frame, status, event pulses</text>
+<rect x="100" y="2688" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2746" text-anchor="start">CFG</text>
+<rect x="190" y="2688" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2746" text-anchor="start">Configuration and status</text>
+<rect x="490" y="2688" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2713" text-anchor="start">custom</text>
+<text x="494" y="2735" text-anchor="start">(registers</text>
+<text x="494" y="2757" text-anchor="start">and</text>
+<text x="494" y="2779" text-anchor="start">snapshot)</text>
+<rect x="600" y="2688" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2746" text-anchor="start">u_vlsit_csr_canfd -&gt; u_canfd_cdc</text>
+<rect x="1070" y="2688" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2746" text-anchor="start">u_vlsit_csr_canfd -&gt; u_canfd_cdc: configuration fields (copied to CLK-CAN when init is 1); u_canfd_cdc -&gt; u_vlsit_csr_canfd: status snapshot fields</text>
+<rect x="100" y="2790" width="90" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2826" text-anchor="start">CRB</text>
+<rect x="190" y="2790" width="300" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2826" text-anchor="start">Clocks and resets</text>
+<rect x="490" y="2790" width="110" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2815" text-anchor="start">clock and</text>
+<text x="494" y="2837" text-anchor="start">reset</text>
+<rect x="600" y="2790" width="470" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2826" text-anchor="start">external clock and reset controller -&gt; TOP</text>
+<rect x="1070" y="2790" width="1430" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2826" text-anchor="start">external -&gt; TOP: i_clk_can, i_clk_bus, i_rst_n_can, i_rst_n_bus</text>
+<rect x="100" y="2848" width="90" height="168" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="2939" text-anchor="start">DMA</text>
+<rect x="190" y="2848" width="300" height="168" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="2928" text-anchor="start">DMA request and acknowledge</text>
+<text x="194" y="2950" text-anchor="start">(CLK-BUS)</text>
+<rect x="490" y="2848" width="110" height="168" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="2884" text-anchor="start">handshake</text>
+<text x="494" y="2906" text-anchor="start">(level</text>
+<text x="494" y="2928" text-anchor="start">request,</text>
+<text x="494" y="2950" text-anchor="start">pulse or</text>
+<text x="494" y="2972" text-anchor="start">four-phase</text>
+<text x="494" y="2994" text-anchor="start">acknowledge)</text>
+<rect x="600" y="2848" width="470" height="168" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="2939" text-anchor="start">TOP -&gt; external DMA engine</text>
+<rect x="1070" y="2848" width="1430" height="168" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="2928" text-anchor="start">TOP -&gt; external: o_dma_req_rx0, o_dma_req_rx1, o_dma_req_tx, o_dma_req_txe; external -&gt; TOP: i_dma_ack_rx0, i_dma_ack_rx1, i_dma_ack_tx,</text>
+<text x="1074" y="2950" text-anchor="start">i_dma_ack_txe</text>
+<rect x="100" y="3016" width="90" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3052" text-anchor="start">DMAR</text>
+<rect x="190" y="3016" width="300" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3041" text-anchor="start">FIFO status for the DMA</text>
+<text x="194" y="3063" text-anchor="start">requests</text>
+<rect x="490" y="3016" width="110" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3041" text-anchor="start">custom</text>
+<text x="494" y="3063" text-anchor="start">(status)</text>
+<rect x="600" y="3016" width="470" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3052" text-anchor="start">u_canfd_rxh -&gt; u_canfd_dma</text>
+<rect x="1070" y="3016" width="1430" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3052" text-anchor="start">u_canfd_rxh -&gt; u_canfd_dma: FIFO fill level and watermark flags</text>
+<rect x="100" y="3074" width="90" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3110" text-anchor="start">EDG</text>
+<rect x="190" y="3074" width="300" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3099" text-anchor="start">Edges for the delay</text>
+<text x="194" y="3121" text-anchor="start">measurement</text>
+<rect x="490" y="3074" width="110" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3099" text-anchor="start">custom</text>
+<text x="494" y="3121" text-anchor="start">(strobes)</text>
+<rect x="600" y="3074" width="470" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3110" text-anchor="start">u_canfd_btl -&gt; u_canfd_tdc</text>
+<rect x="1070" y="3074" width="1430" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3110" text-anchor="start">u_canfd_btl -&gt; u_canfd_tdc: transmitted and received edge; u_canfd_tdc -&gt; u_canfd_btl: secondary sample point</text>
+<rect x="100" y="3132" width="90" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3168" text-anchor="start">ERR</text>
+<rect x="190" y="3132" width="300" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3168" text-anchor="start">Error events and counters</text>
+<rect x="490" y="3132" width="110" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3157" text-anchor="start">custom</text>
+<text x="494" y="3179" text-anchor="start">(events)</text>
+<rect x="600" y="3132" width="470" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3168" text-anchor="start">u_canfd_bsp -&gt; u_canfd_eml</text>
+<rect x="1070" y="3132" width="1430" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3168" text-anchor="start">u_canfd_bsp -&gt; u_canfd_eml: bit, stuff, form, ACK, CRC error events, frame result; u_canfd_eml -&gt; u_canfd_bsp: error state</text>
+<rect x="100" y="3190" width="90" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3226" text-anchor="start">IRQ</text>
+<rect x="190" y="3190" width="300" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3226" text-anchor="start">Interrupt lines (CLK-BUS)</text>
+<rect x="490" y="3190" width="110" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3215" text-anchor="start">level</text>
+<text x="494" y="3237" text-anchor="start">interrupt</text>
+<rect x="600" y="3190" width="470" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3226" text-anchor="start">TOP -&gt; external interrupt controller</text>
+<rect x="1070" y="3190" width="1430" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3226" text-anchor="start">TOP -&gt; external: o_irq_0, o_irq_1</text>
+<rect x="100" y="3248" width="90" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3295" text-anchor="start">IRQC</text>
+<rect x="190" y="3248" width="300" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3295" text-anchor="start">Interrupt control fields</text>
+<rect x="490" y="3248" width="110" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3273" text-anchor="start">static</text>
+<text x="494" y="3295" text-anchor="start">control</text>
+<text x="494" y="3317" text-anchor="start">and status</text>
+<rect x="600" y="3248" width="470" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3295" text-anchor="start">u_vlsit_csr_canfd -&gt; u_canfd_irq</text>
+<rect x="1070" y="3248" width="1430" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3295" text-anchor="start">u_vlsit_csr_canfd -&gt; u_canfd_irq: enable, injection and line-select fields; u_canfd_irq -&gt; u_vlsit_csr_canfd: raw flag loads</text>
+<rect x="100" y="3328" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3386" text-anchor="start">MRAM</text>
+<rect x="190" y="3328" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3386" text-anchor="start">Message RAM master (CLK-BUS)</text>
+<rect x="490" y="3328" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3364" text-anchor="start">handshake</text>
+<text x="494" y="3386" text-anchor="start">(request,</text>
+<text x="494" y="3408" text-anchor="start">acknowledge)</text>
+<rect x="600" y="3328" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3386" text-anchor="start">TOP -&gt; external message RAM</text>
+<rect x="1070" y="3328" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3375" text-anchor="start">TOP -&gt; external: o_mram_req, o_mram_we, o_mram_addr, o_mram_wdata, o_mram_be; external -&gt; TOP: i_mram_ack, i_mram_rdata, i_mram_err_cor,</text>
+<text x="1074" y="3397" text-anchor="start">i_mram_err_unc</text>
+<rect x="100" y="3430" width="90" height="124" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3499" text-anchor="start">PWR</text>
+<rect x="190" y="3430" width="300" height="124" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3488" text-anchor="start">Clock stop handshake (BUS and</text>
+<text x="194" y="3510" text-anchor="start">CAN clock)</text>
+<rect x="490" y="3430" width="110" height="124" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3466" text-anchor="start">handshake</text>
+<text x="494" y="3488" text-anchor="start">(level</text>
+<text x="494" y="3510" text-anchor="start">request,</text>
+<text x="494" y="3532" text-anchor="start">acknowledge)</text>
+<rect x="600" y="3430" width="470" height="124" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3499" text-anchor="start">external power controller -&gt; TOP</text>
+<rect x="1070" y="3430" width="1430" height="124" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3499" text-anchor="start">external -&gt; TOP: i_clk_stop_req; TOP -&gt; external: o_clk_stop_ack, o_clkc_stop_ack</text>
+<rect x="100" y="3554" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3612" text-anchor="start">RAMR</text>
+<rect x="190" y="3554" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3612" text-anchor="start">Rx message RAM requests</text>
+<rect x="490" y="3554" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3590" text-anchor="start">custom</text>
+<text x="494" y="3612" text-anchor="start">(request,</text>
+<text x="494" y="3634" text-anchor="start">acknowledge)</text>
+<rect x="600" y="3554" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3612" text-anchor="start">u_canfd_rxh -&gt; u_canfd_mram</text>
+<rect x="1070" y="3554" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3612" text-anchor="start">u_canfd_rxh -&gt; u_canfd_mram: access request, address, data; u_canfd_mram -&gt; u_canfd_rxh: acknowledge, read data</text>
+<rect x="100" y="3656" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3714" text-anchor="start">RAMT</text>
+<rect x="190" y="3656" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3714" text-anchor="start">Tx message RAM requests</text>
+<rect x="490" y="3656" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3692" text-anchor="start">custom</text>
+<text x="494" y="3714" text-anchor="start">(request,</text>
+<text x="494" y="3736" text-anchor="start">acknowledge)</text>
+<rect x="600" y="3656" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3714" text-anchor="start">u_canfd_txh -&gt; u_canfd_mram</text>
+<rect x="1070" y="3656" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3714" text-anchor="start">u_canfd_txh -&gt; u_canfd_mram: access request, address; u_canfd_mram -&gt; u_canfd_txh: acknowledge, read data</text>
+<rect x="100" y="3758" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3816" text-anchor="start">RXF</text>
+<rect x="190" y="3758" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3816" text-anchor="start">Received frame transfer</text>
+<rect x="490" y="3758" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3794" text-anchor="start">custom</text>
+<text x="494" y="3816" text-anchor="start">(four-phase</text>
+<text x="494" y="3838" text-anchor="start">handshake)</text>
+<rect x="600" y="3758" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3816" text-anchor="start">u_canfd_cdc -&gt; u_canfd_rxh</text>
+<rect x="1070" y="3758" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3816" text-anchor="start">u_canfd_cdc -&gt; u_canfd_rxh: received frame, valid flag; u_canfd_rxh -&gt; u_canfd_cdc: acknowledge</text>
+<rect x="100" y="3860" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3918" text-anchor="start">SAF</text>
+<rect x="190" y="3860" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3907" text-anchor="start">Safety status and injection</text>
+<text x="194" y="3929" text-anchor="start">(CLK-BUS)</text>
+<rect x="490" y="3860" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3885" text-anchor="start">level</text>
+<text x="494" y="3907" text-anchor="start">status and</text>
+<text x="494" y="3929" text-anchor="start">static</text>
+<text x="494" y="3951" text-anchor="start">control</text>
+<rect x="600" y="3860" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3918" text-anchor="start">TOP  safety controller</text>
+<rect x="1070" y="3860" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3918" text-anchor="start">TOP -&gt; external: o_saf_err; external -&gt; TOP: i_saf_inj</text>
+<rect x="100" y="3962" width="90" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="3998" text-anchor="start">TRCV</text>
+<rect x="190" y="3962" width="300" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="3987" text-anchor="start">Transceiver control and</text>
+<text x="194" y="4009" text-anchor="start">wake-up (CLK-CAN)</text>
+<rect x="490" y="3962" width="110" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="3987" text-anchor="start">level</text>
+<text x="494" y="4009" text-anchor="start">control</text>
+<rect x="600" y="3962" width="470" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="3998" text-anchor="start">TOP  transceiver and power controller</text>
+<rect x="1070" y="3962" width="1430" height="58" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="3998" text-anchor="start">TOP -&gt; external: o_trcv_en, o_wake_req; external -&gt; TOP: i_trcv_wake</text>
+<rect x="100" y="4020" width="90" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="4067" text-anchor="start">TSX</text>
+<rect x="190" y="4020" width="300" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="4056" text-anchor="start">External timestamp vector</text>
+<text x="194" y="4078" text-anchor="start">(CLK-CAN)</text>
+<rect x="490" y="4020" width="110" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="4045" text-anchor="start">data</text>
+<text x="494" y="4067" text-anchor="start">(stable</text>
+<text x="494" y="4089" text-anchor="start">vector)</text>
+<rect x="600" y="4020" width="470" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="4067" text-anchor="start">external timer -&gt; TOP</text>
+<rect x="1070" y="4020" width="1430" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="4067" text-anchor="start">external -&gt; TOP: i_ts_ext</text>
+<rect x="100" y="4100" width="90" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="4147" text-anchor="start">TTP</text>
+<rect x="190" y="4100" width="300" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="4147" text-anchor="start">TTCAN trigger pins (CLK-CAN)</text>
+<rect x="490" y="4100" width="110" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="4125" text-anchor="start">pulse</text>
+<text x="494" y="4147" text-anchor="start">inputs and</text>
+<text x="494" y="4169" text-anchor="start">outputs</text>
+<rect x="600" y="4100" width="470" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="4147" text-anchor="start">TOP  external time-triggered logic</text>
+<rect x="1070" y="4100" width="1430" height="80" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="4147" text-anchor="start">external -&gt; TOP: i_tt_evt_trig, i_tt_swatch_trig; TOP -&gt; external: o_tt_time_mark, o_tt_sync_mark</text>
+<rect x="100" y="4180" width="90" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="104" y="4238" text-anchor="start">TXF</text>
+<rect x="190" y="4180" width="300" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="194" y="4238" text-anchor="start">Frame to transmit transfer</text>
+<rect x="490" y="4180" width="110" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="494" y="4216" text-anchor="start">custom</text>
+<text x="494" y="4238" text-anchor="start">(four-phase</text>
+<text x="494" y="4260" text-anchor="start">handshake)</text>
+<rect x="600" y="4180" width="470" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="604" y="4238" text-anchor="start">u_canfd_txh -&gt; u_canfd_cdc</text>
+<rect x="1070" y="4180" width="1430" height="102" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+<text x="1074" y="4238" text-anchor="start">u_canfd_txh -&gt; u_canfd_cdc: Tx frame, valid flag; u_canfd_cdc -&gt; u_canfd_txh: acknowledge, frame result</text>
+<path d="M 1930 690 L 2020 690" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="2020,690 2008,696 2008,684" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 610 690 L 520 690" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="520,690 532,684 532,696" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1560 510 L 1560 360" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1560,360 1566,372 1554,372" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 890 840 L 520 840" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="520,840 532,834 532,846" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 700 1020 L 700 1110" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="700,1110 694,1098 706,1098" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 520 990 L 610 990" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="610,990 598,996 598,984" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 700 360 L 700 510" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="700,510 694,498 706,498" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 990 1020 L 990 1110" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="990,1110 984,1098 996,1098" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1840 1110 L 1840 1020" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1840,1020 1846,1032 1834,1032" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1560 1110 L 1560 1020" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1560,1020 1566,1032 1554,1032" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 990 360 L 990 510" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="990,510 984,498 996,498" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1090 540 L 1190 540" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1190,540 1178,546 1178,534" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1370 540 L 1470 540" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1470,540 1458,546 1458,534" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1280 570 L 1280 660" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1280,660 1274,648 1286,648" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1190 690 L 1080 690" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1080,690 1092,684 1092,696" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1280 810 L 1280 720" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1280,720 1286,732 1274,732" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1370 690 L 1470 690" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1470,690 1458,696 1458,684" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1750 690 L 1650 690" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1650,690 1662,684 1662,696" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1560 720 L 1560 810" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1560,810 1554,798 1566,798" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1840 720 L 1840 810" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1840,810 1834,798 1846,798" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 990 720 L 990 810" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="990,810 984,798 996,798" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 1190 840 L 1090 840" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="1090,840 1102,834 1102,846" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 900 690 L 790 690" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="790,690 802,684 802,696" fill="#000000" stroke="#000000" stroke-width="1"/>
+<path d="M 100 4397 L 260 4397" fill="none" stroke="#000000" stroke-width="2.0"/>
+<polygon points="260,4397 248,4403 248,4391" fill="#000000" stroke="#000000" stroke-width="1"/>
+</svg>

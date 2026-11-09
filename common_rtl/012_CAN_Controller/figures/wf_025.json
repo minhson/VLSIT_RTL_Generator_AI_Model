@@ -1,0 +1,44 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx",
+   "wave": "============",
+   "data": [
+    "EOF",
+    "INT 1",
+    "INT 2",
+    "OVL flag",
+    "OVL delim",
+    "INT 1",
+    "INT 2",
+    "INT 3",
+    "SUSPEND",
+    "SUSPEND",
+    "SOF",
+    "ID"
+   ]
+  },
+  {
+   "name": "ep (error passive)",
+   "wave": "1..........."
+  },
+  {
+   "name": "tx pending",
+   "wave": "1..........."
+  },
+  {
+   "name": "suspend active",
+   "wave": "0.......1.0."
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "111100011100"
+  }
+ ],
+ "head": {
+  "text": "WF-025 Overload frame and suspend transmission of an error-passive node"
+ },
+ "foot": {
+  "text": "One cell is one field or group of bits (notes: section 10.3)"
+ }
+}

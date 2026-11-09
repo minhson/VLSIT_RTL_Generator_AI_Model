@@ -1,0 +1,45 @@
+{
+ "signal": [
+  {
+   "name": "o_can_tx",
+   "wave": "10111000000111"
+  },
+  {
+   "name": "i_can_rx",
+   "wave": "10110000000111"
+  },
+  {
+   "name": "bit_err",
+   "wave": "00001000000000"
+  },
+  {
+   "name": "err_flag_active",
+   "wave": "0....1.....0.."
+  },
+  {
+   "name": "tec",
+   "wave": "=....=........",
+   "data": [
+    "0",
+    "8"
+   ]
+  },
+  {
+   "name": "lec",
+   "wave": "x....=........",
+   "data": [
+    "BIT"
+   ]
+  },
+  {
+   "name": "perr_arb flag",
+   "wave": "0....1........"
+  }
+ ],
+ "head": {
+  "text": "WF-007 Bit error and active error frame"
+ },
+ "foot": {
+  "text": "One cell is one bit (notes: section 10.3)"
+ }
+}

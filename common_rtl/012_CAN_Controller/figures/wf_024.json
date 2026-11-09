@@ -1,0 +1,52 @@
+{
+ "signal": [
+  {
+   "name": "message arrives",
+   "wave": "01010100"
+  },
+  {
+   "name": "blocking: fill",
+   "wave": "=.=.=...",
+   "data": [
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "name": "blocking: full",
+   "wave": "0...1..."
+  },
+  {
+   "name": "blocking: lost",
+   "wave": "0.....1."
+  },
+  {
+   "name": "overwrite: fill",
+   "wave": "=.=.=...",
+   "data": [
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "name": "overwrite: get index",
+   "wave": "=.....=.",
+   "data": [
+    "0",
+    "1"
+   ]
+  },
+  {
+   "name": "overwrite: lost",
+   "wave": "0.....1."
+  }
+ ],
+ "head": {
+  "text": "WF-024 Rx FIFO full in blocking and in overwrite mode"
+ },
+ "foot": {
+  "text": "FIFO size 2, three messages arrive at columns 1, 3 and 5 (notes: section 10.3)"
+ }
+}

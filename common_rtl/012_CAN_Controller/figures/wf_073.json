@@ -1,0 +1,30 @@
+{
+  "signal": [
+    {
+      "name": "i_clk_can",
+      "wave": "p........."
+    },
+    {
+      "name": "i_cfd_dbt_dbrp",
+      "wave": "=.........",
+      "data": ["2"]
+    },
+    {
+      "name": "o_data_phase",
+      "wave": "1........."
+    },
+    {
+      "name": "o_min_tq_tick",
+      "wave": "0101010101"
+    }
+  ],
+  "head": {
+    "text": "WF-073 BTL minimum-tq event at dbrp=2"
+  },
+  "foot": {
+    "text": "Stable data phase; no configuration check or accepted synchronization edge. Each high cycle marks the minimum-tq update sampled at the next rising edge."
+  },
+  "config": {
+    "hscale": 2
+  }
+}

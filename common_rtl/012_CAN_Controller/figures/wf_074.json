@@ -1,0 +1,22 @@
+{
+  "signal": [
+    {"name": "i_clk_bus", "wave": "p..............."},
+    {"name": "i_rst_n_bus", "wave": "0.1............."},
+    {"name": "i_rx_req", "wave": "0..1111111111111"},
+    {"name": "i_tx_req", "wave": "0..1111111111111"},
+    {"name": "i_tt_req", "wave": "0..1111111111111"},
+    {"name": "w_grant_rx", "wave": "0..1..0........."},
+    {"name": "w_grant_tx", "wave": "0.......1..0...."},
+    {"name": "w_grant_tt", "wave": "0............1.."},
+    {"name": "o_mram_req", "wave": "0..1..0.1..0.1.."},
+    {"name": "o_mram_we", "wave": "0..0....1....0.."},
+    {"name": "o_mram_addr", "wave": "xxx=....=....=..", "data": ["ADDR_RX", "ADDR_TX", "ADDR_TT"]},
+    {"name": "i_mram_ack", "wave": "0....1....1....1"},
+    {"name": "o_rx_ack", "wave": "0....1.........."},
+    {"name": "o_tx_ack", "wave": "0.........1....."},
+    {"name": "o_tt_ack", "wave": "0..............1"}
+  ],
+  "head": {"text": "WF-074 Rx-first round-robin Message-RAM arbitration"},
+  "foot": {"text": "All three clients remain pending. Rx wins the reset tie; each acknowledged word advances the pointer Rx→Tx→TT. A low o_mram_req bubble separates words; acknowledgements return only to the selected client."},
+  "config": {"hscale": 1.5}
+}

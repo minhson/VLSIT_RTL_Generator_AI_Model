@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="620" viewBox="0 0 1800 620" role="img" aria-labelledby="title desc">
+  <title id="title">Functional diagram of m_canfd_rst</title>
+  <desc id="desc">Per-domain reset release and readiness coordination, plus a BUS-domain software reset that drains Rx and Tx transfers before pulsing the BUS handlers.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="30" y="42" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#101828" font-weight="bold">m_canfd_rst · Functional block diagram</text>
+  <text x="30" y="76" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#475467">CLK-CAN + CLK-BUS  |  Reset release, CDC readiness and BUS-side handler reset</text>
+
+  <rect x="30" y="130" width="280" height="330" rx="12" fill="#f2f4f7" stroke="#98a2b3" stroke-width="2"/>
+  <text x="48" y="164" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#172033" font-weight="bold">Inputs</text>
+  <text x="48" y="202" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">i_clk_can / i_clk_bus</text>
+  <text x="48" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">i_rst_n_can / i_rst_n_bus</text>
+  <text x="48" y="276" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">i_srst_req_bus</text>
+  <text x="48" y="306" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">i_rx_fifo_empty_bus</text>
+  <text x="48" y="336" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">i_tx_hsk_idle_bus</text>
+
+  <rect x="350" y="130" width="300" height="330" rx="12" fill="#eaf2ff" stroke="#84adff" stroke-width="2"/>
+  <text x="368" y="164" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#175cd3" font-weight="bold">Per-domain reset release</text>
+  <text x="368" y="202" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Asynchronous assertion</text>
+  <text x="368" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Two-stage release per clock</text>
+  <text x="368" y="262" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Shared m_vlsit_rst_sync × 2</text>
+
+  <rect x="690" y="130" width="300" height="330" rx="12" fill="#ecfdf3" stroke="#75e0a7" stroke-width="2"/>
+  <text x="708" y="164" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#067647" font-weight="bold">Peer-ready exchange</text>
+  <text x="708" y="202" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Synchronize ready levels</text>
+  <text x="708" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Wait for both clock domains</text>
+  <text x="708" y="262" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Gate all CDC traffic until ready</text>
+
+  <rect x="1030" y="130" width="390" height="330" rx="12" fill="#f4f3ff" stroke="#bdb4fe" stroke-width="2"/>
+  <text x="1048" y="164" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#5925dc" font-weight="bold">BUS software-reset FSM</text>
+  <text x="1048" y="202" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Block new handler work</text>
+  <text x="1048" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Drain/discard Rx FIFO entries</text>
+  <text x="1048" y="262" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Wait for Tx handshake idle</text>
+  <text x="1048" y="292" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Pulse BUS handler reset for 1 cycle</text>
+  <text x="1048" y="322" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Clear soft_rst; then release busy</text>
+
+  <rect x="1460" y="130" width="310" height="330" rx="12" fill="#fff6ed" stroke="#fec84b" stroke-width="2"/>
+  <text x="1478" y="164" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#172033" font-weight="bold">Outputs</text>
+  <text x="1478" y="202" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">RST-CAN / RST-BUS</text>
+  <text x="1478" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">o_ready_can / o_ready_bus</text>
+  <text x="1478" y="276" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">o_soft_rst_busy_bus</text>
+  <text x="1478" y="306" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">o_soft_rst_pulse_bus</text>
+  <text x="1478" y="336" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">o_soft_rst_done_bus</text>
+
+  <path d="M310 295 L340 295" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="350,295 338,289 338,301" fill="#475467"/>
+  <path d="M650 295 L680 295" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="690,295 678,289 678,301" fill="#475467"/>
+  <path d="M990 295 L1020 295" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="1030,295 1018,289 1018,301" fill="#475467"/>
+  <path d="M1420 295 L1450 295" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="1460,295 1448,289 1448,301" fill="#475467"/>
+
+  <text x="30" y="520" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475467">Software reset clears BUS-side message handlers only. The CAN protocol state and any frame already on the wire continue running.</text>
+  <text x="30" y="558" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#667085">Design intent from the HDS. External CAN/BUS resets assert together; de-assertion is synchronized separately.</text>
+</svg>

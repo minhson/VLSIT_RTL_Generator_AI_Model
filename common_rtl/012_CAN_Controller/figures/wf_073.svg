@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1134" height="178" viewBox="0 0 1134 178" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-073 BTL minimum-tq event at dbrp=2</text>
+<line x1="162" y1="30" x2="162" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="258" y1="30" x2="258" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="354" y1="30" x2="354" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="450" y1="30" x2="450" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="546" y1="30" x2="546" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="642" y1="30" x2="642" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="738" y1="30" x2="738" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="834" y1="30" x2="834" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="930" y1="30" x2="930" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="1026" y1="30" x2="1026" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="1122" y1="30" x2="1122" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">i_clk_can</text>
+<polyline points="162.0,51.0 162.0,33.0 210.0,33.0 210.0,51.0 258.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="258.0,51.0 258.0,33.0 306.0,33.0 306.0,51.0 354.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="354.0,51.0 354.0,33.0 402.0,33.0 402.0,51.0 450.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,51.0 450.0,33.0 498.0,33.0 498.0,51.0 546.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="546.0,51.0 546.0,33.0 594.0,33.0 594.0,51.0 642.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,51.0 642.0,33.0 690.0,33.0 690.0,51.0 738.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="738.0,51.0 738.0,33.0 786.0,33.0 786.0,51.0 834.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="834.0,51.0 834.0,33.0 882.0,33.0 882.0,51.0 930.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="930.0,51.0 930.0,33.0 978.0,33.0 978.0,51.0 1026.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1026.0,51.0 1026.0,33.0 1074.0,33.0 1074.0,51.0 1122.0,51.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="79" font-size="12" text-anchor="end">i_cfd_dbt_dbrp</text>
+<polygon points="166.0,63.0 1118.0,63.0 1122.0,72.0 1118.0,81.0 166.0,81.0 162.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="642.0" y="76.0" text-anchor="middle" font-size="11">2</text>
+<text x="154" y="109" font-size="12" text-anchor="end">o_data_phase</text>
+<polyline points="162.0,93.0 258.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="258.0,93.0 354.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="354.0,93.0 450.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,93.0 546.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="546.0,93.0 642.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,93.0 738.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="738.0,93.0 834.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="834.0,93.0 930.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="930.0,93.0 1026.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1026.0,93.0 1122.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="139" font-size="12" text-anchor="end">o_min_tq_tick</text>
+<polyline points="162.0,141.0 258.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="258.0,141.0 258.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="258.0,123.0 354.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="354.0,123.0 354.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="354.0,141.0 450.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,141.0 450.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,123.0 546.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="546.0,123.0 546.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="546.0,141.0 642.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,141.0 642.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,123.0 738.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="738.0,123.0 738.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="738.0,141.0 834.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="834.0,141.0 834.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="834.0,123.0 930.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="930.0,123.0 930.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="930.0,141.0 1026.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1026.0,141.0 1026.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="1026.0,123.0 1122.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="170" font-size="11" fill="#444">Stable data phase; no configuration check or accepted synchronization edge. Each high cycle marks the minimum-tq update sampled at the next rising edge.</text>
+</svg>

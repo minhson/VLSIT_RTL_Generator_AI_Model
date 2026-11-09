@@ -1,0 +1,91 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1.........0.........1......."
+  },
+  {
+   "name": "rx_s (after 2 flops)",
+   "wave": "1...........0.........1....."
+  },
+  {
+   "name": "segment",
+   "wave": "==.....=..====.....=..==....",
+   "data": [
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "tq index",
+   "wave": "============================",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ]
+  },
+  {
+   "name": "sync event",
+   "wave": "000000000000=000000000000000",
+   "data": [
+    "hard"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "0000001000000000001000000000"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "xxxxxx=xxxxxxxxxxx=xxxxxxxxx",
+   "data": [
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "tx point",
+   "wave": "0000000001000000000001000000"
+  }
+ ],
+ "head": {
+  "text": "WF-038 Hard synchronization on the recessive to dominant edge from FDF to res"
+ },
+ "foot": {
+  "text": "In an FD frame the receiver hard-synchronizes at the edge from the FDF bit (recessive) to the res bit (dominant), even with a phase error, so that the data phase that follows starts from a fresh alignment (REF-002 rule 3). The same edge starts the delay measurement of the transmitter."
+ }
+}

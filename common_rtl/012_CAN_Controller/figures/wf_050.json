@@ -1,0 +1,46 @@
+{
+ "signal": [
+  {
+   "name": "by identifier (exp_en = 0)",
+   "wave": "===",
+   "data": [
+    "A",
+    "B",
+    "C"
+   ]
+  },
+  {
+   "name": "fixed priority (exp_en = 0)",
+   "wave": "===",
+   "data": [
+    "B",
+    "A",
+    "C"
+   ]
+  },
+  {
+   "name": "by identifier, express",
+   "wave": "===",
+   "data": [
+    "C",
+    "A",
+    "B"
+   ]
+  },
+  {
+   "name": "fixed priority, express",
+   "wave": "===",
+   "data": [
+    "C",
+    "B",
+    "A"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-050 Priority configurations: the order of three requested buffers"
+ },
+ "foot": {
+  "text": "Three buffers are requested together: A (identifier 0x100, PRIO 5), B (identifier 0x200, PRIO 1) and C = buffer 0 (identifier 0x7FF, PRIO 9) (notes: section 10.3)"
+ }
+}

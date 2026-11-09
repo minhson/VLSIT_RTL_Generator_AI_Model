@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="438" height="238" viewBox="0 0 438 238" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-018 TTCAN basic cycle with the reference message and a time mark</text>
+<line x1="162" y1="30" x2="162" y2="210" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="206" y1="30" x2="206" y2="210" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="250" y1="30" x2="250" y2="210" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="294" y1="30" x2="294" y2="210" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="338" y1="30" x2="338" y2="210" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="382" y1="30" x2="382" y2="210" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="426" y1="30" x2="426" y2="210" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">o_can_tx</text>
+<polygon points="166.0,33.0 202.0,33.0 206.0,42.0 202.0,51.0 166.0,51.0 162.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="184.0" y="46.0" text-anchor="middle" font-size="11">RM</text>
+<polygon points="210.0,33.0 246.0,33.0 250.0,42.0 246.0,51.0 210.0,51.0 206.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="228.0" y="46.0" text-anchor="middle" font-size="11">MSG A</text>
+<polygon points="254.0,33.0 290.0,33.0 294.0,42.0 290.0,51.0 254.0,51.0 250.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="272.0" y="46.0" text-anchor="middle" font-size="11">free</text>
+<polygon points="298.0,33.0 334.0,33.0 338.0,42.0 334.0,51.0 298.0,51.0 294.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="316.0" y="46.0" text-anchor="middle" font-size="11">MSG B</text>
+<polygon points="342.0,33.0 378.0,33.0 382.0,42.0 378.0,51.0 342.0,51.0 338.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="360.0" y="46.0" text-anchor="middle" font-size="11">free</text>
+<polygon points="386.0,33.0 422.0,33.0 426.0,42.0 422.0,51.0 386.0,51.0 382.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="404.0" y="46.0" text-anchor="middle" font-size="11">RM</text>
+<text x="154" y="79" font-size="12" text-anchor="end">cycle time</text>
+<polygon points="166.0,63.0 202.0,63.0 206.0,72.0 202.0,81.0 166.0,81.0 162.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="184.0" y="76.0" text-anchor="middle" font-size="11">0</text>
+<polygon points="210.0,63.0 246.0,63.0 250.0,72.0 246.0,81.0 210.0,81.0 206.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="228.0" y="76.0" text-anchor="middle" font-size="11">100</text>
+<polygon points="254.0,63.0 290.0,63.0 294.0,72.0 290.0,81.0 254.0,81.0 250.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="272.0" y="76.0" text-anchor="middle" font-size="11">300</text>
+<polygon points="298.0,63.0 334.0,63.0 338.0,72.0 334.0,81.0 298.0,81.0 294.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="316.0" y="76.0" text-anchor="middle" font-size="11">500</text>
+<polygon points="342.0,63.0 378.0,63.0 382.0,72.0 378.0,81.0 342.0,81.0 338.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="360.0" y="76.0" text-anchor="middle" font-size="11">700</text>
+<polygon points="386.0,63.0 422.0,63.0 426.0,72.0 422.0,81.0 386.0,81.0 382.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="404.0" y="76.0" text-anchor="middle" font-size="11">0</text>
+<text x="154" y="109" font-size="12" text-anchor="end">cycle count</text>
+<polygon points="166.0,93.0 378.0,93.0 382.0,102.0 378.0,111.0 166.0,111.0 162.0,102.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="272.0" y="106.0" text-anchor="middle" font-size="11">0</text>
+<polygon points="386.0,93.0 422.0,93.0 426.0,102.0 422.0,111.0 386.0,111.0 382.0,102.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="404.0" y="106.0" text-anchor="middle" font-size="11">1</text>
+<text x="154" y="139" font-size="12" text-anchor="end">o_tt_sync_mark</text>
+<polyline points="162.0,123.0 206.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,123.0 206.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,141.0 250.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,141.0 294.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,141.0 338.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,141.0 382.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,141.0 382.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,123.0 426.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="169" font-size="12" text-anchor="end">o_tt_time_mark</text>
+<polyline points="162.0,171.0 206.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,171.0 250.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,171.0 294.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,171.0 294.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,153.0 338.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,153.0 338.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,171.0 382.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,171.0 426.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="199" font-size="12" text-anchor="end">tx_enable window</text>
+<polyline points="162.0,201.0 206.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,201.0 206.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="206.0,183.0 250.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,183.0 250.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="250.0,201.0 294.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,201.0 294.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="294.0,183.0 338.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,183.0 338.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="338.0,201.0 382.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="382.0,201.0 426.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="230" font-size="11" fill="#444">One cell is one slot of the system matrix (not to scale) (notes: section 10.3)</text>
+</svg>

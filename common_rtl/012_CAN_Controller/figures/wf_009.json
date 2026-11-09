@@ -1,0 +1,47 @@
+{
+ "signal": [
+  {
+   "name": "bo",
+   "wave": "1.......0."
+  },
+  {
+   "name": "init",
+   "wave": "10........"
+  },
+  {
+   "name": "seq_cnt",
+   "wave": "x.======..",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "...",
+    "127",
+    "129"
+   ]
+  },
+  {
+   "name": "tec",
+   "wave": "=.......=.",
+   "data": [
+    "256",
+    "0"
+   ]
+  },
+  {
+   "name": "state",
+   "wave": "=.=.....=.",
+   "data": [
+    "BUS-OFF",
+    "RECOVER",
+    "ACTIVE"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-009 Bus-off recovery after 129 occurrences of 11 recessive bits"
+ },
+ "foot": {
+  "text": "The controller never recovers by itself: software clears init at column 1 (notes: section 10.3)"
+ }
+}

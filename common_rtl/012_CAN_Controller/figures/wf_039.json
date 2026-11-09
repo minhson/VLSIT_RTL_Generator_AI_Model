@@ -1,0 +1,49 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1.....01..................0...................1....."
+  },
+  {
+   "name": "rx_s (after 2 flops)",
+   "wave": "1.......01..................0...................1..."
+  },
+  {
+   "name": "segment",
+   "wave": "=..=..==.....=..==.....=..==.==.....=..==.....=..==.",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "sync event",
+   "wave": "00000000000000000000000000000=0000000000000000000000",
+   "data": [
+    "hard"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-039 Edge filtering during bus integration"
+ },
+ "foot": {
+  "text": "With the edge filter set, two consecutive dominant quanta are needed for the hard synchronization while the bus integration runs. The one-clock glitch at clock 20 is ignored; the real SOF at clock 40 synchronizes."
+ }
+}

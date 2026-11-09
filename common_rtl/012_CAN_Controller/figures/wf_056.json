@@ -1,0 +1,39 @@
+{
+ "signal": [
+  {
+   "name": "reference message on the bus",
+   "wave": "=..=..=..=..",
+   "data": [
+    "RM master 0",
+    "no RM (master failed)",
+    "RM backup 1",
+    "RM backup 1"
+   ]
+  },
+  {
+   "name": "backup master timer running",
+   "wave": "0..1..0....."
+  },
+  {
+   "name": "master state of node 1",
+   "wave": "=.....=.....",
+   "data": [
+    "backup",
+    "current master"
+   ]
+  },
+  {
+   "name": "sync state of the slaves",
+   "wave": "=...........",
+   "data": [
+    "in schedule"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-056 Time master failure: the backup master sends the reference message after Init_Ref_Offset"
+ },
+ "foot": {
+  "text": "The current time master (priority 0) fails after column 0 (notes: section 10.3)"
+ }
+}

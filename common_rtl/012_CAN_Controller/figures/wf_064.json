@@ -1,0 +1,40 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppppp"
+  },
+  {
+   "name": "Tx event fill level",
+   "wave": "=.=.=......=....",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "0"
+   ]
+  },
+  {
+   "name": "o_dma_req_txe",
+   "wave": "0....1......0..."
+  },
+  {
+   "name": "DMA reads two events",
+   "wave": "0.....1...0....."
+  },
+  {
+   "name": "ack_go (cfd_txe_ack)",
+   "wave": "0.........1.0..."
+  },
+  {
+   "name": "i_dma_ack_txe",
+   "wave": "0000000000001000"
+  }
+ ],
+ "head": {
+  "text": "WF-064 Tx event DMA burst of two events (watermark 2)"
+ },
+ "foot": {
+  "text": "The Tx event FIFO holds the events of the frames that were sent with EFC set (notes: section 10.3)"
+ }
+}

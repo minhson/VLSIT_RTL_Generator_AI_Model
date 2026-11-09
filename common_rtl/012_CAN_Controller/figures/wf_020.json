@@ -1,0 +1,69 @@
+{
+ "signal": [
+  {
+   "name": "FDF bit",
+   "wave": "01111"
+  },
+  {
+   "name": "DLC",
+   "wave": "=====",
+   "data": [
+    "8",
+    "8",
+    "10",
+    "11",
+    "15"
+   ]
+  },
+  {
+   "name": "data bytes",
+   "wave": "=====",
+   "data": [
+    "8",
+    "8",
+    "16",
+    "20",
+    "64"
+   ]
+  },
+  {
+   "name": "CRC type",
+   "wave": "=====",
+   "data": [
+    "CRC15",
+    "CRC17",
+    "CRC17",
+    "CRC21",
+    "CRC21"
+   ]
+  },
+  {
+   "name": "CRC bits",
+   "wave": "=====",
+   "data": [
+    "15",
+    "17",
+    "17",
+    "21",
+    "21"
+   ]
+  },
+  {
+   "name": "fixed stuff bits (ISO)",
+   "wave": "=====",
+   "data": [
+    "0",
+    "6",
+    "6",
+    "7",
+    "7"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-020 Selection of CRC15, CRC17 and CRC21 by frame type and data length"
+ },
+ "foot": {
+  "text": "One cell is one frame (notes: section 10.3)"
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "signal": [
+  {
+   "name": "NumAct after the cycle",
+   "wave": "========",
+   "data": [
+    "0x20017",
+    "0x20017",
+    "0x20017",
+    "0x20017",
+    "0x20017",
+    "0x20017",
+    "0x20017",
+    "0x20017"
+   ]
+  },
+  {
+   "name": "cycle length error (NTU)",
+   "wave": "========",
+   "data": [
+    "3.00",
+    "0.02",
+    "0.02",
+    "0.02",
+    "0.02",
+    "0.02",
+    "0.02",
+    "0.02"
+   ]
+  },
+  {
+   "name": "compensation active (qcs)",
+   "wave": "11111111"
+  },
+  {
+   "name": "gte event",
+   "wave": "00000000"
+  }
+ ],
+ "head": {
+  "text": "WF-058 Level 2 drift compensation of a slave whose clock is 300 ppm fast"
+ },
+ "foot": {
+  "text": "One cell is one basic cycle (10000 NTU of the master) (notes: section 10.3)"
+ }
+}

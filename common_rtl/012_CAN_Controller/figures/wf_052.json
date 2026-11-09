@@ -1,0 +1,43 @@
+{
+ "signal": [
+  {
+   "name": "field (ovl_en = 1)",
+   "wave": "=======..",
+   "data": [
+    "EOF",
+    "OVL flag",
+    "OVL delim",
+    "INT 1",
+    "INT 2",
+    "INT 3",
+    "SOF"
+   ]
+  },
+  {
+   "name": "transfer registers full",
+   "wave": "1...0...."
+  },
+  {
+   "name": "o_can_tx (ovl_en = 1)",
+   "wave": "101111111"
+  },
+  {
+   "name": "ovr flag (ovl_en = 1)",
+   "wave": "000000000"
+  },
+  {
+   "name": "o_can_tx (ovl_en = 0)",
+   "wave": "111111111"
+  },
+  {
+   "name": "ovr flag (ovl_en = 0)",
+   "wave": "0..1....."
+  }
+ ],
+ "head": {
+  "text": "WF-052 Overload frame at the first intermission bit when no transfer register is free"
+ },
+ "foot": {
+  "text": "ovl_en decides (notes: section 10.3)"
+ }
+}

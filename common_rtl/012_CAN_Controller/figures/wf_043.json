@@ -1,0 +1,57 @@
+{
+ "signal": [
+  {
+   "name": "soft_rst (sw)",
+   "wave": "0.1....0...."
+  },
+  {
+   "name": "srst_busy",
+   "wave": "0..1...0...."
+  },
+  {
+   "name": "frame on the bus",
+   "wave": "1.........0."
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "=..........=",
+   "data": [
+    "frame",
+    "rec"
+   ]
+  },
+  {
+   "name": "transfer register busy",
+   "wave": "0.10........"
+  },
+  {
+   "name": "Tx request flags",
+   "wave": "=...=.......",
+   "data": [
+    "0x3",
+    "0x0"
+   ]
+  },
+  {
+   "name": "Rx FIFO fill",
+   "wave": "=...=.......",
+   "data": [
+    "2",
+    "0"
+   ]
+  },
+  {
+   "name": "error counters",
+   "wave": "=...........",
+   "data": [
+    "unchanged"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-043 Software reset of the message handling side during a frame on the bus"
+ },
+ "foot": {
+  "text": "The command waits for the crossing (notes: section 10.10)"
+ }
+}

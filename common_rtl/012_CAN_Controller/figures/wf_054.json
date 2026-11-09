@@ -1,0 +1,45 @@
+{
+ "signal": [
+  {
+   "name": "bus",
+   "wave": "===..=...=..",
+   "data": [
+    "RM",
+    "free",
+    "X",
+    "Y (retransmit)",
+    "free"
+   ]
+  },
+  {
+   "name": "window of the merged trigger",
+   "wave": "0.1......0.."
+  },
+  {
+   "name": "Tx_Trigger_Merged",
+   "wave": "001000000000"
+  },
+  {
+   "name": "Tx_Trigger_Single (end)",
+   "wave": "000000000100"
+  },
+  {
+   "name": "Y request",
+   "wave": "1.......0..."
+  },
+  {
+   "name": "Y done",
+   "wave": "0.......1..."
+  },
+  {
+   "name": "arbitration lost",
+   "wave": "000100000000"
+  }
+ ],
+ "head": {
+  "text": "WF-054 Merged arbitrating window: a lost message is sent again inside the same window"
+ },
+ "foot": {
+  "text": "The window starts at a Tx_Trigger_Merged of this node (column 2) and ends at the following ... (notes: section 10.3)"
+ }
+}

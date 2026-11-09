@@ -1,0 +1,50 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppp"
+  },
+  {
+   "name": "txb_req",
+   "wave": "=.............",
+   "data": [
+    "0x5"
+   ]
+  },
+  {
+   "name": "scan_ptr",
+   "wave": "x====.........",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "x"
+   ]
+  },
+  {
+   "name": "sel_buf",
+   "wave": "x...=.........",
+   "data": [
+    "2"
+   ]
+  },
+  {
+   "name": "o_mram_req",
+   "wave": "00000101010100"
+  },
+  {
+   "name": "i_mram_ack",
+   "wave": "00000010101010"
+  },
+  {
+   "name": "tx_xfer_req (toggle)",
+   "wave": "0............1"
+  }
+ ],
+ "head": {
+  "text": "WF-011 Message RAM read of a Tx element and selection by priority"
+ },
+ "foot": {
+  "text": "BUS clock (notes: section 10.3)"
+ }
+}

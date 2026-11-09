@@ -1,0 +1,57 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppppp"
+  },
+  {
+   "name": "rx_valid (transfer register)",
+   "wave": "01.............."
+  },
+  {
+   "name": "o_mram_req",
+   "wave": "0011011011000000"
+  },
+  {
+   "name": "i_mram_ack",
+   "wave": "0001001001000000"
+  },
+  {
+   "name": "filter index",
+   "wave": "x.=..=..=..=....",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "x"
+   ]
+  },
+  {
+   "name": "element type",
+   "wave": "x.=..=..=..=....",
+   "data": [
+    "range",
+    "dual",
+    "mask",
+    "x"
+   ]
+  },
+  {
+   "name": "match",
+   "wave": "0000000000100000"
+  },
+  {
+   "name": "action",
+   "wave": "x..........=....",
+   "data": [
+    "FIFO 0 (element 2)"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-044 Acceptance filter walk in list order with one RAM wait state"
+ },
+ "foot": {
+  "text": "BUS clock (notes: section 10.3)"
+ }
+}

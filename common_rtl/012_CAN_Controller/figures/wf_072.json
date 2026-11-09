@@ -1,0 +1,14 @@
+{
+  "signal": [
+    { "name": "TTCAN window", "wave": "============", "data": ["EVENT", "EVENT", "EVENT", "STRICT TT", "STRICT TT", "STRICT TT", "STRICT TT", "STRICT TT", "STRICT TT", "STRICT TT", "EVENT", "EVENT"] },
+    { "name": "Received FD frame active", "wave": "01.1.0.1.0..." },
+    { "name": "FD SOF eligibility latched", "wave": "0.1...0......" },
+    { "name": "FD frame stored at EOF", "wave": "000001000000" },
+    { "name": "Strict-window FD form error", "wave": "000000010000" },
+    { "name": "FD transmit request", "wave": "111111111111" },
+    { "name": "FD transmit start permitted", "wave": "000000000010" },
+    { "name": "Classic TT transmit permit", "wave": "000111111100" }
+  ],
+  "head": { "text": "WF-072 FD eligibility across TTCAN windows" },
+  "foot": { "text": "An FD frame whose SOF occurs in an event-driven window remains eligible through EOF even if the window changes to strict TT mid-frame. An FD SOF in a strict TT window is rejected as a form error. FD Tx starts only in event-driven windows; Classic Tx may use the configured TT schedule. Symbolic cycles illustrate ordering only, not bit timing. DEC-072, REQ-TT-018. TTCAN-like product profile; no ISO 11898-4 conformance claim." }
+}

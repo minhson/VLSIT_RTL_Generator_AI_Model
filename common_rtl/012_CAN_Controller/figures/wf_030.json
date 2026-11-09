@@ -1,0 +1,102 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1..............0.........1.........0"
+  },
+  {
+   "name": "rx_s (after 2 flops)",
+   "wave": "1................0.........1........"
+  },
+  {
+   "name": "segment",
+   "wave": "=.==.....=..==...==.....=..==.....=.",
+   "data": [
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2"
+   ]
+  },
+  {
+   "name": "tq index",
+   "wave": "====================================",
+   "data": [
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
+   ]
+  },
+  {
+   "name": "sync event",
+   "wave": "00000000000000000=000000000000000000",
+   "data": [
+    "hard"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "000000001000000000000001000000000100"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "xxxxxxxx=xxxxxxxxxxxxxx=xxxxxxxxx=xx",
+   "data": [
+    "1",
+    "0",
+    "1"
+   ]
+  },
+  {
+   "name": "tx point",
+   "wave": "010000000001000000000000001000000000"
+  }
+ ],
+ "head": {
+  "text": "WF-030 Hard synchronization on the SOF edge from bus idle"
+ },
+ "foot": {
+  "text": "Before SOF the free-running counter has an arbitrary phase. The recessive to dominant edge of SOF during bus idle restarts the bit time: the clock of the edge becomes SYNC_SEG and the counter continues from tq 1 (REF-002 synchronization rule 3)."
+ }
+}

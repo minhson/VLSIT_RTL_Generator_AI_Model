@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="774" height="268" viewBox="0 0 774 268" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-049 Trigger transmit buffer: only valid data is sent</text>
+<line x1="162" y1="30" x2="162" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="222" y1="30" x2="222" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="282" y1="30" x2="282" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="342" y1="30" x2="342" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="402" y1="30" x2="402" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="462" y1="30" x2="462" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="522" y1="30" x2="522" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="582" y1="30" x2="582" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="642" y1="30" x2="642" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="702" y1="30" x2="702" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="762" y1="30" x2="762" y2="240" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">trigger buffer state</text>
+<polygon points="166.0,33.0 218.0,33.0 222.0,42.0 218.0,51.0 166.0,51.0 162.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="192.0" y="46.0" text-anchor="middle" font-size="11">request set</text>
+<polygon points="226.0,33.0 398.0,33.0 402.0,42.0 398.0,51.0 226.0,51.0 222.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="312.0" y="46.0" text-anchor="middle" font-size="11">not valid, data request</text>
+<polygon points="406.0,33.0 458.0,33.0 462.0,42.0 458.0,51.0 406.0,51.0 402.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="432.0" y="46.0" text-anchor="middle" font-size="11">valid</text>
+<polygon points="466.0,33.0 518.0,33.0 522.0,42.0 518.0,51.0 466.0,51.0 462.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="492.0" y="46.0" text-anchor="middle" font-size="11">candidate</text>
+<polygon points="526.0,33.0 758.0,33.0 762.0,42.0 758.0,51.0 526.0,51.0 522.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="642.0" y="46.0" text-anchor="middle" font-size="11">sent</text>
+<text x="154" y="79" font-size="12" text-anchor="end">request bit</text>
+<polyline points="162.0,81.0 222.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,81.0 222.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,63.0 282.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,63.0 342.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,63.0 402.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,63.0 462.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,63.0 522.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,63.0 582.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,63.0 582.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,81.0 642.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,81.0 702.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,81.0 762.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="109" font-size="12" text-anchor="end">cfd_txb_dreq bit</text>
+<polyline points="162.0,111.0 222.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,111.0 222.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,93.0 282.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,93.0 342.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,93.0 402.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,93.0 402.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,111.0 462.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,111.0 522.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,111.0 582.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,111.0 642.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,111.0 702.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,111.0 762.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="139" font-size="12" text-anchor="end">software writes data</text>
+<polyline points="162.0,141.0 222.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,141.0 282.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,141.0 282.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,123.0 342.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,123.0 402.0,123.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,123.0 402.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,141.0 462.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,141.0 522.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,141.0 582.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,141.0 642.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,141.0 702.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,141.0 762.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="169" font-size="12" text-anchor="end">cfd_txb_trtx confirm</text>
+<polyline points="162.0,171.0 222.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,171.0 282.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,171.0 342.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,171.0 342.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,153.0 402.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,153.0 402.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,171.0 462.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,171.0 522.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,171.0 582.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,171.0 642.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,171.0 702.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,171.0 762.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="199" font-size="12" text-anchor="end">other buffer sent</text>
+<polyline points="162.0,201.0 222.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,201.0 282.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,201.0 282.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,183.0 342.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,183.0 342.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,201.0 402.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,201.0 462.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,201.0 522.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,201.0 582.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,201.0 642.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,201.0 702.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,201.0 762.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="229" font-size="12" text-anchor="end">trigger buffer sent</text>
+<polyline points="162.0,231.0 222.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="222.0,231.0 282.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="282.0,231.0 342.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,231.0 402.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="402.0,231.0 462.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="462.0,231.0 522.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,231.0 522.0,213.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,213.0 582.0,213.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,213.0 582.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,231.0 642.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="642.0,231.0 702.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="702.0,231.0 762.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="260" font-size="11" fill="#444">The trigger-transmit buffer (TRTX = 1) is requested at column 0 with its header only; the handler caches the header and raises the data request (notes: section 10.3)</text>
+</svg>

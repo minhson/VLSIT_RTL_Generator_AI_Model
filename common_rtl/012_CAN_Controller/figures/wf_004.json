@@ -1,0 +1,44 @@
+{
+ "signal": [
+  {
+   "name": "o_can_tx",
+   "wave": "===========",
+   "data": [
+    "SOF",
+    "ID",
+    "FDF",
+    "res",
+    "BRS",
+    "ESI",
+    "DLC",
+    "DATA",
+    "CRC",
+    "CRCd",
+    "ACK"
+   ]
+  },
+  {
+   "name": "bit_time",
+   "wave": "=....=....=",
+   "data": [
+    "NOM",
+    "DATA",
+    "NOM"
+   ]
+  },
+  {
+   "name": "sw_to_data",
+   "wave": "00001000000"
+  },
+  {
+   "name": "sw_to_nom",
+   "wave": "00000000010"
+  }
+ ],
+ "head": {
+  "text": "WF-004 CAN FD frame with bit rate switch"
+ },
+ "foot": {
+  "text": "One cell is one field; the data phase fields are shorter in time (notes: section 10.3)"
+ }
+}

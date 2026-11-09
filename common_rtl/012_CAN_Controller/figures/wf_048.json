@@ -1,0 +1,55 @@
+{
+ "signal": [
+  {
+   "name": "attempt",
+   "wave": "=..=..=..=..",
+   "data": [
+    "frame 1",
+    "frame 2",
+    "frame 3",
+    "idle"
+   ]
+  },
+  {
+   "name": "result",
+   "wave": "x.=..=..=...",
+   "data": [
+    "error",
+    "error",
+    "error + limit"
+   ]
+  },
+  {
+   "name": "retry counter of the buffer",
+   "wave": "=.=..=..=...",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "3 > 2"
+   ]
+  },
+  {
+   "name": "Tx request (buffer)",
+   "wave": "1.......0..."
+  },
+  {
+   "name": "cancellation done",
+   "wave": "0.......1..."
+  },
+  {
+   "name": "fail flag",
+   "wave": "0.......1..."
+  },
+  {
+   "name": "tx_can event",
+   "wave": "0........1.."
+  }
+ ],
+ "head": {
+  "text": "WF-048 Retransmission limit of 2 (RTL = 3): the buffer is cancelled after the third failed attempt"
+ },
+ "foot": {
+  "text": "The element of the buffer has RTL = 3, which allows 2 retransmissions (notes: section 10.3)"
+ }
+}

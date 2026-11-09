@@ -1,0 +1,52 @@
+{
+ "signal": [
+  {
+   "name": "identifier",
+   "wave": "=.......",
+   "data": [
+    "0x123"
+   ]
+  },
+  {
+   "name": "filter index",
+   "wave": "x====...",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "x"
+   ]
+  },
+  {
+   "name": "element type",
+   "wave": "x====...",
+   "data": [
+    "range",
+    "dual",
+    "mask",
+    "x"
+   ]
+  },
+  {
+   "name": "match",
+   "wave": "00010000"
+  },
+  {
+   "name": "action",
+   "wave": "x...=...",
+   "data": [
+    "FIFO 0"
+   ]
+  },
+  {
+   "name": "o_mram_req",
+   "wave": "00000110"
+  }
+ ],
+ "head": {
+  "text": "WF-022 Filter evaluation in list order with the first match"
+ },
+ "foot": {
+  "text": "BUS clock cells; one filter element is evaluated per cell (notes: section 10.3)"
+ }
+}

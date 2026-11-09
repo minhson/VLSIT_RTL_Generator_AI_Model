@@ -1,0 +1,43 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_stop_req",
+   "wave": "01...........0.."
+  },
+  {
+   "name": "init",
+   "wave": "0...1..........."
+  },
+  {
+   "name": "o_clk_stop_ack (BUS)",
+   "wave": "0....1........0."
+  },
+  {
+   "name": "o_clkc_stop_ack (CAN)",
+   "wave": "0.....1.......0."
+  },
+  {
+   "name": "i_clk_can",
+   "wave": "=......=....=...",
+   "data": [
+    "running",
+    "stopped",
+    "running"
+   ]
+  },
+  {
+   "name": "i_trcv_wake (SoC watches it)",
+   "wave": "0..........1.0.."
+  },
+  {
+   "name": "wake_bus and pn_on",
+   "wave": "0000000000000000"
+  }
+ ],
+ "head": {
+  "text": "WF-069 Clock stop of the BUS clock and the CAN clock without a clock-dependent wake-up source"
+ },
+ "foot": {
+  "text": "o_clkc_stop_ack needs wake_bus = 0 and pn_on = 0 (notes: section 10.3)"
+ }
+}

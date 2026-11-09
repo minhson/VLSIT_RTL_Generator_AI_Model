@@ -1,0 +1,642 @@
+{
+ "page_name": "BLOCK_DIAGRAM",
+ "out_name": "block_diagram.drawio",
+ "table_suffix": "",
+ "layout": {
+  "gap_h": 100,
+  "gap_v": 90,
+  "margin": 40,
+  "block_h": 60
+ },
+ "top": {
+  "frame_label": [
+   "TOP",
+   "(m_canfd_top)"
+  ],
+  "block_label": [
+   "TOP",
+   "(m_canfd_top)"
+  ],
+  "block_row": [
+   "TOP (m_canfd_top)",
+   "Structural top of the CAN FD controller. It joins the register side in the BUS clock domain and the protocol side in the CAN clock domain and holds no logic of its own.",
+   "Section 14.2"
+  ]
+ },
+ "frame_row": [
+  "TOP (m_canfd_top) frame",
+  "Structural top of the CAN FD controller: message handling and registers in the BUS domain, bit timing and protocol in the CAN domain, clock domain crossings in between.",
+  "Section 14.2"
+ ],
+ "frame_interfaces": [],
+ "blocks": [
+  {
+   "key": "U_RST",
+   "label": [
+    "u_rst",
+    "(m_canfd_rst)"
+   ],
+   "width": 180,
+   "row": 0,
+   "col": 0,
+   "row_name": "u_rst (m_canfd_rst)",
+   "function": "Reset synchronizers of the two domains",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_CSR",
+   "label": [
+    "u_csr",
+    "(m_canfd_csr)"
+   ],
+   "width": 180,
+   "row": 0,
+   "col": 2,
+   "row_name": "u_csr (m_canfd_csr)",
+   "function": "Generated APB register block (APB-CSR-Generator, not hand-written)",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_WPROT",
+   "label": [
+    "u_wprot",
+    "(m_canfd_wprot)"
+   ],
+   "width": 200,
+   "row": 0,
+   "col": 1,
+   "row_name": "u_wprot (m_canfd_wprot)",
+   "function": "APB write filter for the protected registers (INIT, CCE, lock)",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_CDC",
+   "label": [
+    "u_cdc",
+    "(m_canfd_cdc)"
+   ],
+   "width": 180,
+   "row": 1,
+   "col": 2,
+   "row_name": "u_cdc (m_canfd_cdc)",
+   "function": "Clock domain crossings CDC-003 to CDC-009 (wrapper of the synchronizer, handshake and toggle modules)",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_BTL",
+   "label": [
+    "u_btl",
+    "(m_canfd_btl)"
+   ],
+   "width": 180,
+   "row": 1,
+   "col": 4,
+   "row_name": "u_btl (m_canfd_btl)",
+   "function": "Bit timing and synchronization",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_TDC",
+   "label": [
+    "u_tdc",
+    "(m_canfd_tdc)"
+   ],
+   "width": 180,
+   "row": 2,
+   "col": 4,
+   "row_name": "u_tdc (m_canfd_tdc)",
+   "function": "Transmitter delay compensation",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_BSP",
+   "label": [
+    "u_bsp",
+    "(m_canfd_bsp)"
+   ],
+   "width": 180,
+   "row": 1,
+   "col": 3,
+   "row_name": "u_bsp (m_canfd_bsp)",
+   "function": "Frame state machine and field control",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_EML",
+   "label": [
+    "u_eml",
+    "(m_canfd_eml)"
+   ],
+   "width": 180,
+   "row": 2,
+   "col": 3,
+   "row_name": "u_eml (m_canfd_eml)",
+   "function": "Error counters, fault confinement, last error code",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_RXH",
+   "label": [
+    "u_rxh",
+    "(m_canfd_rxh)"
+   ],
+   "width": 180,
+   "row": 1,
+   "col": 1,
+   "row_name": "u_rxh (m_canfd_rxh)",
+   "function": "Rx handler: storing, FIFO indexes, new-data flags",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_TXH",
+   "label": [
+    "u_txh",
+    "(m_canfd_txh)"
+   ],
+   "width": 180,
+   "row": 2,
+   "col": 2,
+   "row_name": "u_txh (m_canfd_txh)",
+   "function": "Tx handler: scan, fetch, cancel, event",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_MRAM",
+   "label": [
+    "u_mram",
+    "(m_canfd_mram)"
+   ],
+   "width": 200,
+   "row": 2,
+   "col": 1,
+   "row_name": "u_mram (m_canfd_mram)",
+   "function": "Message RAM master port and access watchdog",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_TS",
+   "label": [
+    "u_ts",
+    "(m_canfd_ts)"
+   ],
+   "width": 180,
+   "row": 3,
+   "col": 4,
+   "row_name": "u_ts (m_canfd_ts)",
+   "function": "Timestamp and timeout counters",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_DMA",
+   "label": [
+    "u_dma",
+    "(m_canfd_dma)"
+   ],
+   "width": 180,
+   "row": 1,
+   "col": 0,
+   "row_name": "u_dma (m_canfd_dma)",
+   "function": "DMA request logic",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_IRQ",
+   "label": [
+    "u_irq",
+    "(m_canfd_irq)"
+   ],
+   "width": 180,
+   "row": 0,
+   "col": 3,
+   "row_name": "u_irq (m_canfd_irq)",
+   "function": "Interrupt flags, line routing, injection",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_PN",
+   "label": [
+    "u_pn",
+    "(m_canfd_pn)"
+   ],
+   "width": 180,
+   "row": 3,
+   "col": 2,
+   "row_name": "u_pn (m_canfd_pn)",
+   "function": "Partial networking wake-up frame filter",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_TT",
+   "label": [
+    "u_tt",
+    "(m_canfd_tt)"
+   ],
+   "width": 180,
+   "row": 3,
+   "col": 3,
+   "row_name": "u_tt (m_canfd_tt)",
+   "function": "TTCAN entity (level 1 and 2)",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_PWR",
+   "label": [
+    "u_pwr",
+    "(m_canfd_pwr)"
+   ],
+   "width": 180,
+   "row": 3,
+   "col": 0,
+   "row_name": "u_pwr (m_canfd_pwr)",
+   "function": "Power state, clock stop, wake-up, bus select, transceiver control",
+   "source": "Section 14.2"
+  },
+  {
+   "key": "U_SAFE",
+   "label": [
+    "u_safe",
+    "(m_canfd_safe)"
+   ],
+   "width": 200,
+   "row": 3,
+   "col": 1,
+   "row_name": "u_safe (m_canfd_safe)",
+   "function": "Safety mechanisms SM-01 to SM-11",
+   "source": "Section 14.2"
+  }
+ ],
+ "connectors": [
+  {
+   "id": "APBW",
+   "src": "U_WPROT",
+   "src_side": "R",
+   "dst": "U_CSR",
+   "dst_side": "L"
+  },
+  {
+   "id": "IRQC",
+   "src": "U_CSR",
+   "src_side": "R",
+   "dst": "U_IRQ",
+   "dst_side": "L"
+  },
+  {
+   "id": "CFG",
+   "src": "U_CSR",
+   "src_side": "B",
+   "dst": "U_CDC",
+   "dst_side": "T"
+  },
+  {
+   "id": "RXF",
+   "src": "U_CDC",
+   "src_side": "L",
+   "dst": "U_RXH",
+   "dst_side": "R"
+  },
+  {
+   "id": "TXF",
+   "src": "U_TXH",
+   "src_side": "T",
+   "dst": "U_CDC",
+   "dst_side": "B"
+  },
+  {
+   "id": "CANF",
+   "src": "U_CDC",
+   "src_side": "R",
+   "dst": "U_BSP",
+   "dst_side": "L"
+  },
+  {
+   "id": "BIT",
+   "src": "U_BTL",
+   "src_side": "L",
+   "dst": "U_BSP",
+   "dst_side": "R"
+  },
+  {
+   "id": "ERR",
+   "src": "U_BSP",
+   "src_side": "B",
+   "dst": "U_EML",
+   "dst_side": "T"
+  },
+  {
+   "id": "EDG",
+   "src": "U_BTL",
+   "src_side": "B",
+   "dst": "U_TDC",
+   "dst_side": "T"
+  },
+  {
+   "id": "RAMR",
+   "src": "U_RXH",
+   "src_side": "B",
+   "dst": "U_MRAM",
+   "dst_side": "T"
+  },
+  {
+   "id": "RAMT",
+   "src": "U_TXH",
+   "src_side": "L",
+   "dst": "U_MRAM",
+   "dst_side": "R"
+  },
+  {
+   "id": "DMAR",
+   "src": "U_RXH",
+   "src_side": "L",
+   "dst": "U_DMA",
+   "dst_side": "R"
+  }
+ ],
+ "externals": [
+  {
+   "id": "APB",
+   "block": "U_WPROT",
+   "side": "T",
+   "dir": "in",
+   "pos": 0,
+   "text": [
+    "APB",
+    "APB4 register access"
+   ]
+  },
+  {
+   "id": "MRAM",
+   "block": "U_MRAM",
+   "side": "L",
+   "dir": "out",
+   "pos": 0,
+   "text": [
+    "MRAM",
+    "message RAM master"
+   ]
+  },
+  {
+   "id": "DMA",
+   "block": "U_DMA",
+   "side": "L",
+   "dir": "out",
+   "pos": 0,
+   "text": [
+    "DMA",
+    "request and acknowledge"
+   ]
+  },
+  {
+   "id": "IRQ",
+   "block": "U_IRQ",
+   "side": "T",
+   "dir": "out",
+   "pos": 0,
+   "text": [
+    "IRQ",
+    "o_irq_0, o_irq_1"
+   ]
+  },
+  {
+   "id": "CAN",
+   "block": "U_BTL",
+   "side": "R",
+   "dir": "out",
+   "pos": 0,
+   "text": [
+    "CAN",
+    "bus pins"
+   ]
+  },
+  {
+   "id": "TRCV",
+   "block": "U_PWR",
+   "side": "B",
+   "dir": "out",
+   "pos": 0,
+   "text": [
+    "TRCV",
+    "transceiver and wake-up"
+   ]
+  },
+  {
+   "id": "PWR",
+   "block": "U_PWR",
+   "side": "L",
+   "dir": "in",
+   "pos": 0,
+   "text": [
+    "PWR",
+    "clock stop handshake"
+   ]
+  },
+  {
+   "id": "TSX",
+   "block": "U_TS",
+   "side": "B",
+   "dir": "in",
+   "pos": 0,
+   "text": [
+    "TSX",
+    "i_ts_ext"
+   ]
+  },
+  {
+   "id": "TTP",
+   "block": "U_TT",
+   "side": "B",
+   "dir": "in",
+   "pos": 0,
+   "text": [
+    "TTP",
+    "TT pins"
+   ]
+  },
+  {
+   "id": "SAF",
+   "block": "U_SAFE",
+   "side": "B",
+   "dir": "out",
+   "pos": 0,
+   "text": [
+    "SAF",
+    "safety status and injection"
+   ]
+  },
+  {
+   "id": "CRB",
+   "block": "U_RST",
+   "side": "T",
+   "dir": "in",
+   "pos": 0,
+   "text": [
+    "CRB",
+    "i_clk_bus, i_rst_n_bus"
+   ]
+  }
+ ],
+ "nets": [],
+ "interfaces": [
+  {
+   "id": "APB",
+   "name": "APB4 register access (CLK-BUS)",
+   "category": "bus (APB4 completer)",
+   "active": "external bus master -> TOP",
+   "signals": "external -> TOP: i_apb_psel, i_apb_penable, i_apb_pwrite, i_apb_paddr, i_apb_pwdata, i_apb_pstrb, i_apb_pprot; TOP -> external: o_apb_prdata, o_apb_pready, o_apb_pslverr"
+  },
+  {
+   "id": "MRAM",
+   "name": "Message RAM master (CLK-BUS)",
+   "category": "handshake (request, acknowledge)",
+   "active": "TOP -> external message RAM",
+   "signals": "TOP -> external: o_mram_req, o_mram_we, o_mram_addr, o_mram_wdata, o_mram_be; external -> TOP: i_mram_ack, i_mram_rdata, i_mram_err_cor, i_mram_err_unc"
+  },
+  {
+   "id": "DMA",
+   "name": "DMA request and acknowledge (CLK-BUS)",
+   "category": "handshake (level request, pulse or four-phase acknowledge)",
+   "active": "TOP -> external DMA engine",
+   "signals": "TOP -> external: o_dma_req_rx0, o_dma_req_rx1, o_dma_req_tx, o_dma_req_txe; external -> TOP: i_dma_ack_rx0, i_dma_ack_rx1, i_dma_ack_tx, i_dma_ack_txe"
+  },
+  {
+   "id": "IRQ",
+   "name": "Interrupt lines (CLK-BUS)",
+   "category": "level interrupt",
+   "active": "TOP -> external interrupt controller",
+   "signals": "TOP -> external: o_irq_0, o_irq_1"
+  },
+  {
+   "id": "CAN",
+   "name": "CAN bus pins (CLK-CAN)",
+   "category": "bit-serial bus pins",
+   "active": "TOP <-> transceiver",
+   "signals": "TOP -> external: o_can_tx, o_can_tx_b; external -> TOP: i_can_rx, i_can_rx_b"
+  },
+  {
+   "id": "TRCV",
+   "name": "Transceiver control and wake-up (CLK-CAN)",
+   "category": "level control",
+   "active": "TOP <-> transceiver and power controller",
+   "signals": "TOP -> external: o_trcv_en, o_wake_req; external -> TOP: i_trcv_wake"
+  },
+  {
+   "id": "PWR",
+   "name": "Clock stop handshake (BUS and CAN clock)",
+   "category": "handshake (level request, acknowledge)",
+   "active": "external power controller -> TOP",
+   "signals": "external -> TOP: i_clk_stop_req; TOP -> external: o_clk_stop_ack, o_clkc_stop_ack"
+  },
+  {
+   "id": "TSX",
+   "name": "External timestamp vector (CLK-CAN)",
+   "category": "data (stable vector)",
+   "active": "external timer -> TOP",
+   "signals": "external -> TOP: i_ts_ext"
+  },
+  {
+   "id": "TTP",
+   "name": "TTCAN trigger pins (CLK-CAN)",
+   "category": "pulse inputs and outputs",
+   "active": "TOP <-> external time-triggered logic",
+   "signals": "external -> TOP: i_tt_evt_trig, i_tt_swatch_trig; TOP -> external: o_tt_time_mark, o_tt_sync_mark"
+  },
+  {
+   "id": "SAF",
+   "name": "Safety status and injection (CLK-BUS)",
+   "category": "level status and static control",
+   "active": "TOP <-> safety controller",
+   "signals": "TOP -> external: o_saf_err; external -> TOP: i_saf_inj"
+  },
+  {
+   "id": "CRB",
+   "name": "Clocks and resets",
+   "category": "clock and reset",
+   "active": "external clock and reset controller -> TOP",
+   "signals": "external -> TOP: i_clk_can, i_clk_bus, i_rst_n_can, i_rst_n_bus"
+  },
+  {
+   "id": "APBW",
+   "name": "Protected APB write path",
+   "category": "bus (filtered APB4)",
+   "active": "u_wprot -> u_csr",
+   "signals": "u_wprot -> u_csr: filtered APB request signals; u_csr -> u_wprot: o_apb_prdata, o_apb_pready, o_apb_pslverr"
+  },
+  {
+   "id": "IRQC",
+   "name": "Interrupt control fields",
+   "category": "static control and status",
+   "active": "u_csr -> u_irq",
+   "signals": "u_csr -> u_irq: enable, injection and line-select fields; u_irq -> u_csr: raw flag loads"
+  },
+  {
+   "id": "CFG",
+   "name": "Configuration and status",
+   "category": "custom (registers and snapshot)",
+   "active": "u_csr -> u_cdc",
+   "signals": "u_csr -> u_cdc: configuration fields (copied to CLK-CAN when init is 1); u_cdc -> u_csr: status snapshot fields"
+  },
+  {
+   "id": "RXF",
+   "name": "Received frame transfer",
+   "category": "custom (four-phase handshake)",
+   "active": "u_cdc -> u_rxh",
+   "signals": "u_cdc -> u_rxh: received frame, valid flag; u_rxh -> u_cdc: acknowledge"
+  },
+  {
+   "id": "TXF",
+   "name": "Frame to transmit transfer",
+   "category": "custom (four-phase handshake)",
+   "active": "u_txh -> u_cdc",
+   "signals": "u_txh -> u_cdc: Tx frame, valid flag; u_cdc -> u_txh: acknowledge, frame result"
+  },
+  {
+   "id": "CANF",
+   "name": "Frames, configuration and events across the domains",
+   "category": "custom (clock-domain crossing)",
+   "active": "u_cdc <-> u_bsp",
+   "signals": "u_cdc -> u_bsp: Tx frame, configuration copy, commands; u_bsp -> u_cdc: Rx frame, status, event pulses"
+  },
+  {
+   "id": "BIT",
+   "name": "Bit timing strobes",
+   "category": "custom (strobes)",
+   "active": "u_btl -> u_bsp",
+   "signals": "u_btl -> u_bsp: sample point, bit start, rate switch, received bit"
+  },
+  {
+   "id": "ERR",
+   "name": "Error events and counters",
+   "category": "custom (events)",
+   "active": "u_bsp -> u_eml",
+   "signals": "u_bsp -> u_eml: bit, stuff, form, ACK, CRC error events, frame result; u_eml -> u_bsp: error state"
+  },
+  {
+   "id": "EDG",
+   "name": "Edges for the delay measurement",
+   "category": "custom (strobes)",
+   "active": "u_btl -> u_tdc",
+   "signals": "u_btl -> u_tdc: transmitted and received edge; u_tdc -> u_btl: secondary sample point"
+  },
+  {
+   "id": "RAMR",
+   "name": "Rx message RAM requests",
+   "category": "custom (request, acknowledge)",
+   "active": "u_rxh -> u_mram",
+   "signals": "u_rxh -> u_mram: access request, address, data; u_mram -> u_rxh: acknowledge, read data"
+  },
+  {
+   "id": "RAMT",
+   "name": "Tx message RAM requests",
+   "category": "custom (request, acknowledge)",
+   "active": "u_txh -> u_mram",
+   "signals": "u_txh -> u_mram: access request, address; u_mram -> u_txh: acknowledge, read data"
+  },
+  {
+   "id": "DMAR",
+   "name": "FIFO status for the DMA requests",
+   "category": "custom (status)",
+   "active": "u_rxh -> u_dma",
+   "signals": "u_rxh -> u_dma: FIFO fill level and watermark flags"
+  }
+ ],
+ "legend_note": "The enclosing frame is the top module; blocks inside are its instances. The two clock domains are asynchronous: the register side runs on the BUS clock, the protocol side on the CAN clock, and u_cdc holds the synchronizers and handshakes between them. Connections of u_pwr, u_pn, u_tt, u_ts, u_safe and u_rst to the other blocks are many-to-many and are listed in section 7 and section 18, not drawn."
+}

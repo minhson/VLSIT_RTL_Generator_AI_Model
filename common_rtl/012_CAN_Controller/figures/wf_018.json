@@ -1,0 +1,54 @@
+{
+ "signal": [
+  {
+   "name": "o_can_tx",
+   "wave": "======",
+   "data": [
+    "RM",
+    "MSG A",
+    "free",
+    "MSG B",
+    "free",
+    "RM"
+   ]
+  },
+  {
+   "name": "cycle time",
+   "wave": "======",
+   "data": [
+    "0",
+    "100",
+    "300",
+    "500",
+    "700",
+    "0"
+   ]
+  },
+  {
+   "name": "cycle count",
+   "wave": "=....=",
+   "data": [
+    "0",
+    "1"
+   ]
+  },
+  {
+   "name": "o_tt_sync_mark",
+   "wave": "100001"
+  },
+  {
+   "name": "o_tt_time_mark",
+   "wave": "000100"
+  },
+  {
+   "name": "tx_enable window",
+   "wave": "010100"
+  }
+ ],
+ "head": {
+  "text": "WF-018 TTCAN basic cycle with the reference message and a time mark"
+ },
+ "foot": {
+  "text": "One cell is one slot of the system matrix (not to scale) (notes: section 10.3)"
+ }
+}

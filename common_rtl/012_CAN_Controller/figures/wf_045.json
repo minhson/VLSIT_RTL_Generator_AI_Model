@@ -1,0 +1,56 @@
+{
+ "signal": [
+  {
+   "name": "software reads element 0",
+   "wave": "x=.=.=....",
+   "data": [
+    "word 1",
+    "data 0",
+    "word 1 again"
+   ]
+  },
+  {
+   "name": "hardware writes element 0",
+   "wave": "x.====....",
+   "data": [
+    "W0",
+    "W1",
+    "W2",
+    "put"
+   ]
+  },
+  {
+   "name": "generation (word 1 bits 23:22)",
+   "wave": "=..=......",
+   "data": [
+    "1",
+    "2"
+   ]
+  },
+  {
+   "name": "lost flag",
+   "wave": "0..1......"
+  },
+  {
+   "name": "get index",
+   "wave": "=....=....",
+   "data": [
+    "0",
+    "1"
+   ]
+  },
+  {
+   "name": "software decision",
+   "wave": "x.....=...",
+   "data": [
+    "generation differs: discard"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-045 Overwrite mode: an element is overwritten while software reads it"
+ },
+ "foot": {
+  "text": "FIFO full in overwrite mode: the new message replaces the oldest element, at the get index (notes: section 10.3)"
+ }
+}

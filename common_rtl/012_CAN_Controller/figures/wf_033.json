@@ -1,0 +1,81 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx (pin)",
+   "wave": "1......0.............."
+  },
+  {
+   "name": "rx_s (after 2 flops)",
+   "wave": "1........0............"
+  },
+  {
+   "name": "segment",
+   "wave": "=....=..=.=.....=..==.",
+   "data": [
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1",
+    "SEG2",
+    "SYNC",
+    "SEG1"
+   ]
+  },
+  {
+   "name": "tq index",
+   "wave": "=========.============",
+   "data": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "name": "sync event",
+   "wave": "000000000=000000000000",
+   "data": [
+    "resync_hard"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "0000100000000001000000"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "xxxx=xxxxxxxxxx=xxxxxx",
+   "data": [
+    "1",
+    "0"
+   ]
+  },
+  {
+   "name": "tx point",
+   "wave": "0000000100000000001000"
+  }
+ ],
+ "head": {
+  "text": "WF-033 Resynchronization with a phase error not larger than SJW"
+ },
+ "foot": {
+  "text": "The edge is 1 quantum late (e = +1 <= SJW): the effect is the same as a hard synchronization: the bit time restarts with SYNC_SEG at the edge and the sample point keeps its distance (1 + 6 quanta) from the edge."
+ }
+}

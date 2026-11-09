@@ -1,0 +1,54 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx",
+   "wave": "1.0.........1."
+  },
+  {
+   "name": "dominant counter",
+   "wave": "x.==========.=",
+   "data": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "0"
+   ]
+  },
+  {
+   "name": "dom_lim (illustration)",
+   "wave": "=.............",
+   "data": [
+    "8"
+   ]
+  },
+  {
+   "name": "dom_stk (cfd_sts)",
+   "wave": "0.........1..0"
+  },
+  {
+   "name": "dom_to flag (raw)",
+   "wave": "0.........1..."
+  },
+  {
+   "name": "o_irq_0",
+   "wave": "0..........1.."
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "11111111111111"
+  }
+ ],
+ "head": {
+  "text": "WF-051 Bus stuck dominant: flag and interrupt after the limit"
+ },
+ "foot": {
+  "text": "dom_lim = 8 for the drawing (notes: section 10.3)"
+ }
+}

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1014" height="208" viewBox="0 0 1014 208" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-057 Event-synchronised operation: a gap after a basic cycle and the restart by the event</text>
+<line x1="162" y1="30" x2="162" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="232" y1="30" x2="232" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="302" y1="30" x2="302" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="372" y1="30" x2="372" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="442" y1="30" x2="442" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="512" y1="30" x2="512" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="582" y1="30" x2="582" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="652" y1="30" x2="652" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="722" y1="30" x2="722" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="792" y1="30" x2="792" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="862" y1="30" x2="862" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="932" y1="30" x2="932" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="1002" y1="30" x2="1002" y2="180" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">bus</text>
+<polygon points="166.0,33.0 438.0,33.0 442.0,42.0 438.0,51.0 166.0,51.0 162.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="302.0" y="46.0" text-anchor="middle" font-size="11">basic cycle</text>
+<polygon points="446.0,33.0 508.0,33.0 512.0,42.0 508.0,51.0 446.0,51.0 442.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="477.0" y="46.0" text-anchor="middle" font-size="11">RM Next_is_Gap</text>
+<polygon points="516.0,33.0 788.0,33.0 792.0,42.0 788.0,51.0 516.0,51.0 512.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="652.0" y="46.0" text-anchor="middle" font-size="11">gap: bus idle</text>
+<polygon points="796.0,33.0 998.0,33.0 1002.0,42.0 998.0,51.0 796.0,51.0 792.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="897.0" y="46.0" text-anchor="middle" font-size="11">RM</text>
+<text x="154" y="79" font-size="12" text-anchor="end">nig (software)</text>
+<polyline points="162.0,81.0 232.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="232.0,81.0 302.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="302.0,81.0 372.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="372.0,81.0 372.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="372.0,63.0 442.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="442.0,63.0 512.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="512.0,63.0 512.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="512.0,81.0 582.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,81.0 652.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="652.0,81.0 722.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="722.0,81.0 792.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="792.0,81.0 862.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="862.0,81.0 932.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="932.0,81.0 1002.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="109" font-size="12" text-anchor="end">Next_is_Gap in the reference message</text>
+<polyline points="162.0,111.0 232.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="232.0,111.0 302.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="302.0,111.0 372.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="372.0,111.0 442.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="442.0,111.0 442.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="442.0,93.0 512.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="512.0,93.0 512.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="512.0,111.0 582.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,111.0 652.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="652.0,111.0 722.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="722.0,111.0 792.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="792.0,111.0 862.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="862.0,111.0 932.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="932.0,111.0 1002.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="139" font-size="12" text-anchor="end">sync state</text>
+<polygon points="166.0,123.0 508.0,123.0 512.0,132.0 508.0,141.0 166.0,141.0 162.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="337.0" y="136.0" text-anchor="middle" font-size="11">in schedule</text>
+<polygon points="516.0,123.0 788.0,123.0 792.0,132.0 788.0,141.0 516.0,141.0 512.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="652.0" y="136.0" text-anchor="middle" font-size="11">in gap</text>
+<polygon points="796.0,123.0 998.0,123.0 1002.0,132.0 998.0,141.0 796.0,141.0 792.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="897.0" y="136.0" text-anchor="middle" font-size="11">in schedule</text>
+<text x="154" y="169" font-size="12" text-anchor="end">event pin low or fgp</text>
+<polyline points="162.0,171.0 232.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="232.0,171.0 302.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="302.0,171.0 372.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="372.0,171.0 442.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="442.0,171.0 512.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="512.0,171.0 582.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,171.0 652.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="652.0,171.0 722.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="722.0,171.0 722.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="722.0,153.0 792.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="792.0,153.0 792.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="792.0,171.0 862.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="862.0,171.0 932.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="932.0,171.0 1002.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="200" font-size="11" fill="#444">The time master sets Next_is_Gap (software bit nig or the level of the event pin when epe is set) before ... (notes: section 10.3)</text>
+</svg>

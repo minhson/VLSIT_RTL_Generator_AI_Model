@@ -1,0 +1,42 @@
+{
+ "signal": [
+  {
+   "name": "cycle count",
+   "wave": "=.=.=.=.",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ]
+  },
+  {
+   "name": "reference message",
+   "wave": "=.=.=.=.",
+   "data": [
+    "RM",
+    "RM",
+    "RM",
+    "RM"
+   ]
+  },
+  {
+   "name": "Tx trigger A active",
+   "wave": "01010101"
+  },
+  {
+   "name": "Tx trigger D active",
+   "wave": "00010001"
+  },
+  {
+   "name": "Tx trigger E active",
+   "wave": "00000100"
+  }
+ ],
+ "head": {
+  "text": "WF-053 System matrix of four basic cycles: the cycle code decides in which cycle a trigger is active"
+ },
+ "foot": {
+  "text": "Each pair of columns is one basic cycle: the first column is the reference message, the second the time ... (notes: section 10.3)"
+ }
+}

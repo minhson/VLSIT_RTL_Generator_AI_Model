@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="606" height="298" viewBox="0 0 606 298" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-071 CRC-error signaling: Classical CAN and ISO CAN FD</text>
+<line x1="162" y1="30" x2="162" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="198" y1="30" x2="198" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="234" y1="30" x2="234" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="270" y1="30" x2="270" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="306" y1="30" x2="306" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="342" y1="30" x2="342" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="378" y1="30" x2="378" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="414" y1="30" x2="414" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="450" y1="30" x2="450" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="486" y1="30" x2="486" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="522" y1="30" x2="522" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="558" y1="30" x2="558" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="594" y1="30" x2="594" y2="270" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">CC field</text>
+<polygon points="166.0,33.0 194.0,33.0 198.0,42.0 194.0,51.0 166.0,51.0 162.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="180.0" y="46.0" text-anchor="middle" font-size="11">CRC end</text>
+<polygon points="202.0,33.0 230.0,33.0 234.0,42.0 230.0,51.0 202.0,51.0 198.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="216.0" y="46.0" text-anchor="middle" font-size="11">CRC delimiter</text>
+<polygon points="238.0,33.0 266.0,33.0 270.0,42.0 266.0,51.0 238.0,51.0 234.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="252.0" y="46.0" text-anchor="middle" font-size="11">ACK slot</text>
+<polygon points="274.0,33.0 302.0,33.0 306.0,42.0 302.0,51.0 274.0,51.0 270.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="288.0" y="46.0" text-anchor="middle" font-size="11">ACK delimiter</text>
+<polygon points="310.0,33.0 338.0,33.0 342.0,42.0 338.0,51.0 310.0,51.0 306.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="324.0" y="46.0" text-anchor="middle" font-size="11">EOF bit 0</text>
+<polygon points="346.0,33.0 374.0,33.0 378.0,42.0 374.0,51.0 346.0,51.0 342.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="360.0" y="46.0" text-anchor="middle" font-size="11">EOF bit 1</text>
+<polygon points="382.0,33.0 410.0,33.0 414.0,42.0 410.0,51.0 382.0,51.0 378.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="396.0" y="46.0" text-anchor="middle" font-size="11">EOF bit 2</text>
+<polygon points="418.0,33.0 446.0,33.0 450.0,42.0 446.0,51.0 418.0,51.0 414.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="432.0" y="46.0" text-anchor="middle" font-size="11">EOF bit 3</text>
+<polygon points="454.0,33.0 482.0,33.0 486.0,42.0 482.0,51.0 454.0,51.0 450.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="468.0" y="46.0" text-anchor="middle" font-size="11">EOF bit 4</text>
+<polygon points="490.0,33.0 518.0,33.0 522.0,42.0 518.0,51.0 490.0,51.0 486.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="504.0" y="46.0" text-anchor="middle" font-size="11">EOF bit 5</text>
+<polygon points="526.0,33.0 554.0,33.0 558.0,42.0 554.0,51.0 526.0,51.0 522.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="540.0" y="46.0" text-anchor="middle" font-size="11">Error delimiter</text>
+<polygon points="562.0,33.0 590.0,33.0 594.0,42.0 590.0,51.0 562.0,51.0 558.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="576.0" y="46.0" text-anchor="middle" font-size="11">Error delimiter</text>
+<text x="154" y="79" font-size="12" text-anchor="end">CC receiver o_can_tx (active)</text>
+<polyline points="162.0,63.0 198.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,63.0 234.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="234.0,63.0 270.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="270.0,63.0 306.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="306.0,63.0 306.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="306.0,81.0 342.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,81.0 378.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="378.0,81.0 414.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="414.0,81.0 450.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,81.0 486.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="486.0,81.0 522.0,81.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,81.0 522.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,63.0 558.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,63.0 594.0,63.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="109" font-size="12" text-anchor="end">CC crc_err</text>
+<polyline points="162.0,93.0 198.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,93.0 198.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,111.0 234.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="234.0,111.0 270.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="270.0,111.0 306.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="306.0,111.0 342.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,111.0 378.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="378.0,111.0 414.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="414.0,111.0 450.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,111.0 486.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="486.0,111.0 522.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,111.0 558.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,111.0 594.0,111.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="139" font-size="12" text-anchor="end">FD field</text>
+<polygon points="166.0,123.0 194.0,123.0 198.0,132.0 194.0,141.0 166.0,141.0 162.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="180.0" y="136.0" text-anchor="middle" font-size="11">CRC end</text>
+<polygon points="202.0,123.0 230.0,123.0 234.0,132.0 230.0,141.0 202.0,141.0 198.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="216.0" y="136.0" text-anchor="middle" font-size="11">CRC delimiter</text>
+<polygon points="238.0,123.0 266.0,123.0 270.0,132.0 266.0,141.0 238.0,141.0 234.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="252.0" y="136.0" text-anchor="middle" font-size="11">ACK slot / delay 1</text>
+<polygon points="274.0,123.0 302.0,123.0 306.0,132.0 302.0,141.0 274.0,141.0 270.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="288.0" y="136.0" text-anchor="middle" font-size="11">ACK delimiter / delay 2</text>
+<polygon points="310.0,123.0 338.0,123.0 342.0,132.0 338.0,141.0 310.0,141.0 306.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="324.0" y="136.0" text-anchor="middle" font-size="11">delay 3</text>
+<polygon points="346.0,123.0 374.0,123.0 378.0,132.0 374.0,141.0 346.0,141.0 342.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="360.0" y="136.0" text-anchor="middle" font-size="11">EF bit 0</text>
+<polygon points="382.0,123.0 410.0,123.0 414.0,132.0 410.0,141.0 382.0,141.0 378.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="396.0" y="136.0" text-anchor="middle" font-size="11">EF bit 1</text>
+<polygon points="418.0,123.0 446.0,123.0 450.0,132.0 446.0,141.0 418.0,141.0 414.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="432.0" y="136.0" text-anchor="middle" font-size="11">EF bit 2</text>
+<polygon points="454.0,123.0 482.0,123.0 486.0,132.0 482.0,141.0 454.0,141.0 450.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="468.0" y="136.0" text-anchor="middle" font-size="11">EF bit 3</text>
+<polygon points="490.0,123.0 518.0,123.0 522.0,132.0 518.0,141.0 490.0,141.0 486.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="504.0" y="136.0" text-anchor="middle" font-size="11">EF bit 4</text>
+<polygon points="526.0,123.0 554.0,123.0 558.0,132.0 554.0,141.0 526.0,141.0 522.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="540.0" y="136.0" text-anchor="middle" font-size="11">EF bit 5</text>
+<polygon points="562.0,123.0 590.0,123.0 594.0,132.0 590.0,141.0 562.0,141.0 558.0,132.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="576.0" y="136.0" text-anchor="middle" font-size="11">Error delimiter</text>
+<text x="154" y="169" font-size="12" text-anchor="end">FD receiver o_can_tx (active)</text>
+<polyline points="162.0,153.0 198.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,153.0 234.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="234.0,153.0 270.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="270.0,153.0 306.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="306.0,153.0 342.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,153.0 342.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,171.0 378.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="378.0,171.0 414.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="414.0,171.0 450.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,171.0 486.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="486.0,171.0 522.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,171.0 558.0,171.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,171.0 558.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,153.0 594.0,153.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="199" font-size="12" text-anchor="end">FD bus sample (dominant during delay example)</text>
+<polyline points="162.0,183.0 198.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,183.0 234.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="234.0,183.0 234.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="234.0,201.0 270.0,201.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="270.0,201.0 270.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="270.0,183.0 306.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="306.0,183.0 342.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,183.0 378.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="378.0,183.0 414.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="414.0,183.0 450.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,183.0 486.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="486.0,183.0 522.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,183.0 558.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,183.0 594.0,183.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="229" font-size="12" text-anchor="end">FD bit_err</text>
+<polyline points="162.0,231.0 198.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,231.0 234.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="234.0,231.0 270.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="270.0,231.0 306.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="306.0,231.0 342.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,231.0 378.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="378.0,231.0 414.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="414.0,231.0 450.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,231.0 486.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="486.0,231.0 522.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,231.0 558.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,231.0 594.0,231.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="259" font-size="12" text-anchor="end">FD crc_err</text>
+<polyline points="162.0,243.0 198.0,243.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,243.0 198.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="198.0,261.0 234.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="234.0,261.0 270.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="270.0,261.0 306.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="306.0,261.0 342.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="342.0,261.0 378.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="378.0,261.0 414.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="414.0,261.0 450.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="450.0,261.0 486.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="486.0,261.0 522.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="522.0,261.0 558.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="558.0,261.0 594.0,261.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="290" font-size="11" fill="#444">A CRC-error receiver does not acknowledge. CC starts its error flag at EOF bit 0. ISO FD starts its error flag after three bit-times following the CRC delimiter; dominant bus samples during that interval are ignored for error detection. Active error flag is shown; an error-passive node transmits recessive passive-flag bits. Field widths are schematic, not to scale. ISO 11898-1:2024 §6.6.21.3.1.</text>
+</svg>

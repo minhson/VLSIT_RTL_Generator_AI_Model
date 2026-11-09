@@ -1,0 +1,43 @@
+{
+ "signal": [
+  {
+   "name": "i_clk_bus",
+   "wave": "pppppppppppppppp"
+  },
+  {
+   "name": "used Tx FIFO buffers",
+   "wave": "=.......=....=..",
+   "data": [
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "name": "o_dma_req_tx",
+   "wave": "1.....0..1..0.1."
+  },
+  {
+   "name": "DMA writes the element",
+   "wave": "0..1.0....10...."
+  },
+  {
+   "name": "request bit set (cfd_txb_req)",
+   "wave": "0000010000010000"
+  },
+  {
+   "name": "i_dma_ack_tx",
+   "wave": "0000001000001000"
+  },
+  {
+   "name": "frame sent (frees a buffer)",
+   "wave": "0000000000000010"
+  }
+ ],
+ "head": {
+  "text": "WF-061 Tx DMA request while Tx FIFO buffers are free (two buffers)"
+ },
+ "foot": {
+  "text": "The request rises while the Tx FIFO part has a free buffer (notes: section 10.3)"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "signal": [
+  {
+   "name": "field",
+   "wave": "=.=.=.=.",
+   "data": [
+    "ARB",
+    "CTRL",
+    "ACK",
+    "DATA"
+   ]
+  },
+  {
+   "name": "o_can_tx",
+   "wave": "11111100"
+  },
+  {
+   "name": "i_can_rx (bus)",
+   "wave": "10101001"
+  },
+  {
+   "name": "monitor result",
+   "wave": "x=.=.=.=",
+   "data": [
+    "arb. lost",
+    "BIT ERR",
+    "ACK ok",
+    "BIT ERR"
+   ]
+  },
+  {
+   "name": "bit_err",
+   "wave": "00010001"
+  }
+ ],
+ "head": {
+  "text": "WF-040 Bit monitoring of the transmitter and its exceptions"
+ },
+ "foot": {
+  "text": "Four independent cases, two bits each (the bit before and the monitored bit). A recessive bit sent in the arbitration field and read dominant is a loss of arbitration, not an error; a recessive bit sent in the control field and read dominant is a bit error; a recessive bit in the ACK slot read dominant is the acknowledge; a dominant bit sent in the data field and read recessive is a bit error (REF-001 section 6.1)."
+ }
+}

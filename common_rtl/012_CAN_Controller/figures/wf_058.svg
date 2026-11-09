@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="734" height="178" viewBox="0 0 734 178" font-family="Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="12" y="20" font-size="14" font-weight="bold">WF-058 Level 2 drift compensation of a slave whose clock is 300 ppm fast</text>
+<line x1="162" y1="30" x2="162" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="232" y1="30" x2="232" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="302" y1="30" x2="302" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="372" y1="30" x2="372" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="442" y1="30" x2="442" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="512" y1="30" x2="512" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="582" y1="30" x2="582" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="652" y1="30" x2="652" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<line x1="722" y1="30" x2="722" y2="150" stroke="#ccc" stroke-dasharray="2,3"/>
+<text x="154" y="49" font-size="12" text-anchor="end">NumAct after the cycle</text>
+<polygon points="166.0,33.0 228.0,33.0 232.0,42.0 228.0,51.0 166.0,51.0 162.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="197.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<polygon points="236.0,33.0 298.0,33.0 302.0,42.0 298.0,51.0 236.0,51.0 232.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="267.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<polygon points="306.0,33.0 368.0,33.0 372.0,42.0 368.0,51.0 306.0,51.0 302.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="337.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<polygon points="376.0,33.0 438.0,33.0 442.0,42.0 438.0,51.0 376.0,51.0 372.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="407.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<polygon points="446.0,33.0 508.0,33.0 512.0,42.0 508.0,51.0 446.0,51.0 442.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="477.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<polygon points="516.0,33.0 578.0,33.0 582.0,42.0 578.0,51.0 516.0,51.0 512.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="547.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<polygon points="586.0,33.0 648.0,33.0 652.0,42.0 648.0,51.0 586.0,51.0 582.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="617.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<polygon points="656.0,33.0 718.0,33.0 722.0,42.0 718.0,51.0 656.0,51.0 652.0,42.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="687.0" y="46.0" text-anchor="middle" font-size="11">0x20017</text>
+<text x="154" y="79" font-size="12" text-anchor="end">cycle length error (NTU)</text>
+<polygon points="166.0,63.0 228.0,63.0 232.0,72.0 228.0,81.0 166.0,81.0 162.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="197.0" y="76.0" text-anchor="middle" font-size="11">3.00</text>
+<polygon points="236.0,63.0 298.0,63.0 302.0,72.0 298.0,81.0 236.0,81.0 232.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="267.0" y="76.0" text-anchor="middle" font-size="11">0.02</text>
+<polygon points="306.0,63.0 368.0,63.0 372.0,72.0 368.0,81.0 306.0,81.0 302.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="337.0" y="76.0" text-anchor="middle" font-size="11">0.02</text>
+<polygon points="376.0,63.0 438.0,63.0 442.0,72.0 438.0,81.0 376.0,81.0 372.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="407.0" y="76.0" text-anchor="middle" font-size="11">0.02</text>
+<polygon points="446.0,63.0 508.0,63.0 512.0,72.0 508.0,81.0 446.0,81.0 442.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="477.0" y="76.0" text-anchor="middle" font-size="11">0.02</text>
+<polygon points="516.0,63.0 578.0,63.0 582.0,72.0 578.0,81.0 516.0,81.0 512.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="547.0" y="76.0" text-anchor="middle" font-size="11">0.02</text>
+<polygon points="586.0,63.0 648.0,63.0 652.0,72.0 648.0,81.0 586.0,81.0 582.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="617.0" y="76.0" text-anchor="middle" font-size="11">0.02</text>
+<polygon points="656.0,63.0 718.0,63.0 722.0,72.0 718.0,81.0 656.0,81.0 652.0,72.0" fill="#ffffff" stroke="#000" stroke-width="1.2"/>
+<text x="687.0" y="76.0" text-anchor="middle" font-size="11">0.02</text>
+<text x="154" y="109" font-size="12" text-anchor="end">compensation active (qcs)</text>
+<polyline points="162.0,93.0 232.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="232.0,93.0 302.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="302.0,93.0 372.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="372.0,93.0 442.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="442.0,93.0 512.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="512.0,93.0 582.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,93.0 652.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="652.0,93.0 722.0,93.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="154" y="139" font-size="12" text-anchor="end">gte event</text>
+<polyline points="162.0,141.0 232.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="232.0,141.0 302.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="302.0,141.0 372.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="372.0,141.0 442.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="442.0,141.0 512.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="512.0,141.0 582.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="582.0,141.0 652.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<polyline points="652.0,141.0 722.0,141.0" stroke="#000" stroke-width="1.4" fill="none"/>
+<text x="12" y="170" font-size="11" fill="#444">One cell is one basic cycle (10000 NTU of the master) (notes: section 10.3)</text>
+</svg>

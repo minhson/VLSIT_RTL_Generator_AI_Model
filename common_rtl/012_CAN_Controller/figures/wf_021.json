@@ -1,0 +1,51 @@
+{
+ "signal": [
+  {
+   "name": "i_can_rx",
+   "wave": "111111100000111111"
+  },
+  {
+   "name": "tq counter",
+   "wave": "==================",
+   "data": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "0",
+    "1",
+    "2",
+    "3",
+    "3+",
+    "4",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ]
+  },
+  {
+   "name": "sample point",
+   "wave": "000100000010000100"
+  },
+  {
+   "name": "sampled bit",
+   "wave": "xxx=xxxxxx=xxxx=xx",
+   "data": [
+    "1",
+    "0",
+    "1"
+   ]
+  }
+ ],
+ "head": {
+  "text": "WF-021 Resynchronization by a late and an early edge"
+ },
+ "foot": {
+  "text": "One cell is one time quantum; the bit has 6 quanta (SYNC 1, segment 1 of 3, segment 2 of 2), SJW is 1 (notes: section 10.3)"
+ }
+}

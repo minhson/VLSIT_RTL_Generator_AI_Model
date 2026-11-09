@@ -1,0 +1,55 @@
+{
+ "signal": [
+  {
+   "name": "frame on the bus",
+   "wave": "========",
+   "data": [
+    "DATA",
+    "CRC",
+    "ACK",
+    "EOF",
+    "INT 1",
+    "INT 2",
+    "INT 3",
+    "SOF"
+   ]
+  },
+  {
+   "name": "prefetch: scan, fetch",
+   "wave": "===.....",
+   "data": [
+    "scan",
+    "fetch",
+    "ready"
+   ]
+  },
+  {
+   "name": "prefetch: frozen",
+   "wave": "00010000"
+  },
+  {
+   "name": "re-scan: scan, fetch",
+   "wave": "x..====.",
+   "data": [
+    "scan",
+    "fetch",
+    "fetch",
+    "ready"
+   ]
+  },
+  {
+   "name": "late request",
+   "wave": "00001000"
+  },
+  {
+   "name": "early request",
+   "wave": "00100000"
+  }
+ ],
+ "head": {
+  "text": "WF-047 Transmit commit point: prefetch mode and re-scan mode"
+ },
+ "foot": {
+  "text": "One cell is a field of the bus (not to scale) (notes: section 10.3)"
+ }
+}
