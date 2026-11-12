@@ -3,7 +3,7 @@
  * Author       : Nguyen Hung Quan (user)
  * AI Flow      : VLSIT RTL Generator AI Automation Flow
  * AI Flow Page : https://github.com/nguyenquanicd/VLSIT_RTL_Generator_AI_Model
- * Date         : 2026-11-08
+ * Date         : 2026-11-11
  * Description  : Adapter of APB-CSR-Generator to the library. It keeps the module name, the
  *                parameter and the port names that the generated CSR module instantiates
  *                (m_vlsit_csr_sync with PARA_LEVELS, i_clk_dst, i_rst_n_dst, i_d, o_q) and forwards

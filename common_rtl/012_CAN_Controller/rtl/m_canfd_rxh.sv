@@ -3,10 +3,11 @@
  * Author       : Nguyen Hung Quan (user)
  * AI Flow      : VLSIT RTL Generator AI Automation Flow
  * AI Flow Page : https://github.com/nguyenquanicd/VLSIT_RTL_Generator_AI_Model
- * Date         : 2026-11-09
+ * Date         : 2026-11-11
  * Description  : Filters completed Rx frames, writes selected frames to external Message RAM,
  *                and updates the software-visible Rx FIFO and dedicated-buffer state.
- * HDS           : REQ-MSG-001..005, REQ-MSG-010..014, REQ-MSG-021; DEC-063, DEC-073, DEC-086
+ * HDS           : REQ-MSG-001..005, REQ-MSG-010..014, REQ-MSG-021, REQ-RESET-003;
+ *                 DEC-022, DEC-063, DEC-073, DEC-086, DEC-113, DEC-116, DEC-117
  */
 `timescale 1ns/1ps
 
@@ -81,6 +82,7 @@ module m_canfd_rxh #(
   input  wire  [31:0]                    i_rx_frame_timestamp,
   input  wire  [LPARA_DATA_WORDS*32-1:0] i_rx_frame_payload,
   output logic                           o_rx_frame_pop,
+  output logic                           o_idle_bus,
 
   // Acceptance-filter controls
   input  wire  [1:0]                     i_cfd_gfc_anfs,
@@ -109,6 +111,8 @@ module m_canfd_rxh #(
   input  wire  [2:0]                     i_cfd_esz_rxb_dsz,
 
   // Software acknowledge commands for the two message-RAM Rx FIFOs
+  input  wire  [31:0]                    i_cfd_rxb_nd0_newd,
+  input  wire  [31:0]                    i_cfd_rxb_nd1_newd,
   input  wire  [5:0]                     i_cfd_rxf0_ack_ack_idx,
   input  wire                            i_cfd_rxf0_ack_ack_go,
   input  wire  [5:0]                     i_cfd_rxf1_ack_ack_idx,
@@ -141,6 +145,10 @@ module m_canfd_rxh #(
   output logic                           o_cfd_irq_rx1_lst,
   output logic [31:0]                    o_cfd_rxb_nd0_set,
   output logic [31:0]                    o_cfd_rxb_nd1_set,
+  output logic                           o_rxb_nd0_hw_we,
+  output logic [31:0]                    o_rxb_nd0_hw_wdata,
+  output logic                           o_rxb_nd1_hw_we,
+  output logic [31:0]                    o_rxb_nd1_hw_wdata,
   output logic                           o_cfd_hpm_sts_hp_vld_set,
   output logic                           o_cfd_hpm_sts_hp_fifo,
   output logic [5:0]                     o_cfd_hpm_sts_hp_idx,
@@ -213,6 +221,7 @@ module m_canfd_rxh #(
   logic w_filter_en;
   logic w_filter_match;
   logic w_filter_elem_xtd;
+  logic w_rx_frame_take;
   logic [6:0] w_ack0_count;
   logic [6:0] w_ack1_count;
 
@@ -324,6 +333,18 @@ module m_canfd_rxh #(
     end
   endfunction
 
+  // Frame matching no filter: gfc code 0 stores into FIFO 0, 1 into FIFO 1, 2 and 3 reject
+  // (the filter-element action codes are 1 FIFO 0, 2 FIFO 1, 3 reject).
+  function automatic logic [2:0] f_anf_action(input logic [1:0] i_code);
+    begin
+      casez (i_code)
+        2'd0: f_anf_action = 3'd1;
+        2'd1: f_anf_action = 3'd2;
+        default: f_anf_action = 3'd3;
+      endcase
+    end
+  endfunction
+
   function automatic logic [5:0] f_index_inc(input logic [5:0] i_index, input logic [6:0] i_num);
     begin
       if ((i_num == 7'd0) || ({1'b0, i_index} + 7'd1 >= i_num))
@@ -395,6 +416,9 @@ module m_canfd_rxh #(
 
   // Expose live FIFO indexes and the sticky lost state owned by the CSR raw interrupt bits.
   assign o_rx_frame_pop = reg_rx_frame_pop;
+  // A frame is taken only while no pop pulse runs; the buffer drops valid one clock after the pop
+  assign w_rx_frame_take = i_rx_frame_valid_bus && i_cdc_ready_bus && !reg_rx_frame_pop;
+  assign o_idle_bus = (reg_state == ENUM_STATE_IDLE) && !reg_ram_req && !reg_rx_frame_pop;
   assign o_cfd_rxf0_ack_clear = (reg_state == ENUM_STATE_IDLE) &&
                                 !i_srst_req_bus && i_cfd_rxf0_ack_ack_go;
   assign o_cfd_rxf1_ack_clear = (reg_state == ENUM_STATE_IDLE) &&
@@ -410,6 +434,11 @@ module m_canfd_rxh #(
   assign o_cfd_irq_rx1_lst = reg_irq_rx1_lst;
   assign o_cfd_rxb_nd0_set = reg_rxb_nd0_set;
   assign o_cfd_rxb_nd1_set = reg_rxb_nd1_set;
+  // The CSR loads the whole new-data field: the current value with the newly set bits.
+  assign o_rxb_nd0_hw_we = |reg_rxb_nd0_set;
+  assign o_rxb_nd0_hw_wdata = i_cfd_rxb_nd0_newd | reg_rxb_nd0_set;
+  assign o_rxb_nd1_hw_we = |reg_rxb_nd1_set;
+  assign o_rxb_nd1_hw_wdata = i_cfd_rxb_nd1_newd | reg_rxb_nd1_set;
   assign o_cfd_hpm_sts_hp_vld_set = reg_hpm_vld_set;
   assign o_cfd_hpm_sts_hp_fifo = reg_hpm_fifo;
   assign o_cfd_hpm_sts_hp_idx = reg_hpm_idx;
@@ -533,9 +562,9 @@ module m_canfd_rxh #(
           reg_ram_we <= 1'b0;
           casez ({i_srst_req_bus, i_cfd_rxf0_ack_ack_go,
                   i_cfd_rxf1_ack_ack_go && (PARA_CANFD_RXFIFO_NUM > 32'd1),
-                  i_rx_frame_valid_bus && i_cdc_ready_bus})
+                  w_rx_frame_take})
             4'b1???: begin
-              if (i_rx_frame_valid_bus && i_cdc_ready_bus) begin
+              if (w_rx_frame_take) begin
                 // Drain completed frames while a coordinated message-handler reset is pending.
                 reg_rx_frame_pop <= 1'b1;
               end else begin
@@ -582,7 +611,7 @@ module m_canfd_rxh #(
                   if (i_cfd_ef_cfg_ef_num == 7'd0) begin
                     reg_anmf <= 1'b1;
                     reg_store_filter_idx <= '0;
-                    reg_elem_action <= {1'b0, i_cfd_gfc_anfe};
+                    reg_elem_action <= f_anf_action(i_cfd_gfc_anfe);
                     reg_state <= ENUM_STATE_SEL;
                   end else begin
                     reg_state <= ENUM_STATE_FILTER_ISSUE0;
@@ -594,7 +623,7 @@ module m_canfd_rxh #(
                   if (i_cfd_sf_cfg_sf_num == 8'd0) begin
                     reg_anmf <= 1'b1;
                     reg_store_filter_idx <= '0;
-                    reg_elem_action <= {1'b0, i_cfd_gfc_anfs};
+                    reg_elem_action <= f_anf_action(i_cfd_gfc_anfs);
                     reg_state <= ENUM_STATE_SEL;
                   end else begin
                     reg_state <= ENUM_STATE_FILTER_ISSUE0;
@@ -674,9 +703,9 @@ module m_canfd_rxh #(
             reg_anmf <= 1'b1;
             reg_store_filter_idx <= '0;
             if (reg_filter_xtd)
-              reg_elem_action <= {1'b0, i_cfd_gfc_anfe};
+              reg_elem_action <= f_anf_action(i_cfd_gfc_anfe);
             else
-              reg_elem_action <= {1'b0, i_cfd_gfc_anfs};
+              reg_elem_action <= f_anf_action(i_cfd_gfc_anfs);
             reg_state <= ENUM_STATE_SEL;
           end else begin
             reg_filter_idx <= reg_filter_idx + 7'd1;

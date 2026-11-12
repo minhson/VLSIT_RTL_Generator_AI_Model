@@ -35,9 +35,15 @@ module m_canfd_dma #(
   input  wire  [5:0]                  i_txe_watermark,
   input  wire  [15:0]                 i_flush_timeout,
 
-  // Request acknowledge and post-service re-arm conditions
+  // Service-effect status snapshots used to qualify request re-arm
+  input  wire  [5:0]                  i_rx0_gidx,
+  input  wire  [5:0]                  i_rx1_gidx,
+  input  wire  [4:0]                  i_txf_pidx,
+  input  wire  [5:0]                  i_txe_gidx,
+  input  wire  [5:0]                  i_txf_free,
+
+  // Request acknowledge
   input  wire  [LPARA_DMA_CH_NUM-1:0] i_ack,
-  input  wire  [LPARA_DMA_CH_NUM-1:0] i_service_done,
 
   // DMA requests and flush status
   output logic [LPARA_DMA_CH_NUM-1:0] o_req,
@@ -48,6 +54,15 @@ module m_canfd_dma #(
   logic [LPARA_DMA_CH_NUM-1:0] w_threshold_met;
   logic [LPARA_DMA_CH_NUM-1:0] w_flush_active;
   logic [LPARA_DMA_CH_NUM-1:0] w_req_condition;
+  logic [5:0] reg_snap_rx0_gidx [0:LPARA_DMA_CH_NUM-1];
+  logic [5:0] reg_snap_rx1_gidx [0:LPARA_DMA_CH_NUM-1];
+  logic [4:0] reg_snap_txf_pidx [0:LPARA_DMA_CH_NUM-1];
+  logic [5:0] reg_snap_txe_gidx [0:LPARA_DMA_CH_NUM-1];
+  logic [6:0] reg_snap_rx0_fill [0:LPARA_DMA_CH_NUM-1];
+  logic [6:0] reg_snap_rx1_fill [0:LPARA_DMA_CH_NUM-1];
+  logic [5:0] reg_snap_txe_fill [0:LPARA_DMA_CH_NUM-1];
+  logic [5:0] reg_snap_txf_free [0:LPARA_DMA_CH_NUM-1];
+  logic [LPARA_DMA_CH_NUM-1:0] w_service_done;
 
   // Evaluate the watermark for the three FIFO channels; the Tx channel requests free space.
   assign w_threshold_met[0] = (i_rx0_watermark != 7'd0) &&
@@ -66,6 +81,14 @@ module m_canfd_dma #(
   assign w_req_condition[2] = i_enable[2] && i_level[2];
   assign w_req_condition[3] = i_enable[3] && i_level[3] &&
                               (!i_burst[3] || w_threshold_met[3] || w_flush_active[3]);
+  assign w_service_done[0] = (i_rx0_gidx != reg_snap_rx0_gidx[0]) ||
+                             (i_rx0_fill < reg_snap_rx0_fill[0]);
+  assign w_service_done[1] = (i_rx1_gidx != reg_snap_rx1_gidx[1]) ||
+                             (i_rx1_fill < reg_snap_rx1_fill[1]);
+  assign w_service_done[2] = (i_txf_pidx != reg_snap_txf_pidx[2]) ||
+                             (i_txf_free < reg_snap_txf_free[2]);
+  assign w_service_done[3] = (i_txe_gidx != reg_snap_txe_gidx[3]) ||
+                             (i_txe_fill < reg_snap_txe_fill[3]);
   assign o_req_status = o_req;
 
   // Each channel has independent request, acknowledge and burst-flush state.
@@ -77,6 +100,7 @@ module m_canfd_dma #(
       logic reg_flush;
       logic [5:0] reg_div_count;
       logic [15:0] reg_flush_count;
+      logic w_service_done_ch;
       logic [15:0] w_timeout_limit;
       logic w_fill_present;
       logic w_flush_mode;
@@ -84,6 +108,8 @@ module m_canfd_dma #(
       assign o_req[g_dma] = reg_dma_req;
       assign o_flush[g_dma] = reg_flush;
       assign w_timeout_limit = i_flush_timeout;
+
+      assign w_service_done_ch = w_service_done[g_dma];
 
       case (g_dma)
         0: begin : gen_rx0_timer
@@ -113,7 +139,7 @@ module m_canfd_dma #(
           reg_div_count <= '0;
           reg_flush_count <= '0;
           reg_flush <= 1'b0;
-        end else if (i_soft_reset || i_service_done[g_dma] || !w_fill_present ||
+        end else if (i_soft_reset || (reg_wait_service && w_service_done_ch) || !w_fill_present ||
                      !w_flush_mode || (w_timeout_limit == 16'd0) ||
                      w_threshold_met[g_dma]) begin
           reg_div_count <= '0;
@@ -155,12 +181,20 @@ module m_canfd_dma #(
             (reg_wait_ack_low && !i_ack[g_dma]): begin
               reg_wait_ack_low <= 1'b0;
             end
-            (reg_wait_service && i_service_done[g_dma] && !reg_wait_ack_low): begin
+            (reg_wait_service && w_service_done_ch && !reg_wait_ack_low): begin
               reg_wait_service <= 1'b0;
             end
             (!reg_dma_req && !reg_wait_service && !reg_wait_ack_low &&
              w_req_condition[g_dma]): begin
               reg_dma_req <= 1'b1;
+              reg_snap_rx0_gidx[g_dma] <= i_rx0_gidx;
+              reg_snap_rx1_gidx[g_dma] <= i_rx1_gidx;
+              reg_snap_txf_pidx[g_dma] <= i_txf_pidx;
+              reg_snap_txe_gidx[g_dma] <= i_txe_gidx;
+              reg_snap_rx0_fill[g_dma] <= i_rx0_fill;
+              reg_snap_rx1_fill[g_dma] <= i_rx1_fill;
+              reg_snap_txe_fill[g_dma] <= i_txe_fill;
+              reg_snap_txf_free[g_dma] <= i_txf_free;
             end
             default: begin
               reg_dma_req <= reg_dma_req;

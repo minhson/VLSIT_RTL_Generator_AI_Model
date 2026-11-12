@@ -6,7 +6,7 @@
  * Date         : 2026-11-08
  * Description  : CAN receive synchronizer, nominal/data bit-time generator, primary sample point,
  *                minimum-tq event, hard/soft synchronization, edge filter and timing checks.
- *                Implements REQ-BTL-001 through REQ-BTL-008 and decisions DEC-061/074/075.
+ *                Implements REQ-BTL-001 through REQ-BTL-008 and decisions DEC-061/074/075/119/120.
  */
 `timescale 1ns/1ps
 
@@ -21,9 +21,9 @@ module m_canfd_btl #(
   parameter logic [31:0] PARA_CANFD_CELL_TYPE = 32'd0,
   localparam logic [31:0] LPARA_IPT_MAX = 32'd2,
   localparam logic [31:0] LPARA_NOM_TQ_MIN = 32'd8,
-  localparam logic [31:0] LPARA_NOM_TQ_MAX = 32'd80,
+  localparam logic [31:0] LPARA_NOM_TQ_MAX = 32'd641,
   localparam logic [31:0] LPARA_DATA_TQ_MIN = 32'd5,
-  localparam logic [31:0] LPARA_DATA_TQ_MAX = 32'd25,
+  localparam logic [31:0] LPARA_DATA_TQ_MAX = 32'd385,
   localparam logic [31:0] LPARA_DOM_RUN_MAX = 32'd2,
   localparam logic [31:0] LPARA_TQ_TWO = 32'd2,
   localparam logic [31:0] LPARA_NOM_TOTAL_RST = 32'd5,
@@ -62,12 +62,12 @@ module m_canfd_btl #(
   input  wire        i_no_resync,
   input  wire        i_rate_data_candidate,
   input  wire        i_rate_nom_candidate,
+  input  wire        i_prev_sample_rec,
 
   // Timing events and state to the frame engine and TDC
   output logic       o_sample,
   output logic       o_sample_val,
   output logic       o_tx_point,
-  output logic       o_min_tq_tick,
   output logic       o_rx_sync,
   output logic       o_data_phase,
 
@@ -84,6 +84,7 @@ module m_canfd_btl #(
   } btl_segment_type_def;
 
   logic w_rx_sync;
+  logic w_hs_own;
   logic reg_rx_prev;
   logic reg_sample_q;
   logic reg_synced;
@@ -124,6 +125,7 @@ module m_canfd_btl #(
   logic w_filtered_edge;
   logic w_sync_edge;
   logic w_edge_accept;
+  logic w_edge_noop;
   btl_segment_type_def w_seg;
   logic [9:0] w_sync_t;
   logic [8:0] w_sync_div;
@@ -145,9 +147,6 @@ module m_canfd_btl #(
   assign o_tx_point = reg_tx_point;
   assign o_timing_cfg_valid = reg_timing_cfg_valid;
   assign o_cfg_fix_event = reg_cfg_fix_event;
-
-  // The TDC timebase follows an actual BTL quantum update, not a second divider.
-  assign o_min_tq_tick = w_tick && !i_cfg_check && !w_edge_accept;
 
   // Clamp scalar fields to the documented limits, then validate complete timing tuples.
   always_comb begin : p_com_btl_config
@@ -273,6 +272,12 @@ module m_canfd_btl #(
     else
       w_sync_edge = w_raw_edge;
     w_edge_accept = w_sync_edge && !i_no_resync;
+    // ISO 11898-1 7.3.5.1 b): an edge of positive phase error does not synchronize a node that
+    // sends a dominant bit; this covers the hard sync at the res edge (echo of its own edge).
+    w_hs_own = i_hs_edl && !i_hard_sync_en && i_tx_dom && (w_seg == ENUM_SEG_1);
+    w_edge_noop = w_edge_accept &&
+                  ((!(i_hard_sync_en || i_hs_edl) &&
+                    ((w_seg == ENUM_SEG_SYNC) || ((w_seg == ENUM_SEG_1) && i_tx_dom))) || w_hs_own);
 
     w_sync_t = '0;
     if (w_brp_active > 6'd1)
@@ -342,8 +347,10 @@ module m_canfd_btl #(
           // Hold the count between nominal time-quantum boundaries.
         end
 
+        if (w_edge_noop)
+          reg_synced <= 1'b1;
         // Apply at most one synchronization between successive sample points.
-        if (w_edge_accept) begin
+        if (w_edge_accept && !w_edge_noop) begin
           if (i_hard_sync_en || i_hs_edl) begin
             reg_t <= w_sync_t;
             reg_div <= w_sync_div;
@@ -392,7 +399,8 @@ module m_canfd_btl #(
           if (reg_t == reg_len1) begin
             reg_sample <= 1'b1;
             reg_sample_val <= w_rx_sync;
-            reg_sample_q <= w_rx_sync;
+            // A TDC transmitter counts the CRC delimiter sample as recessive (ISO 11898-1 7.3.5.1)
+            reg_sample_q <= w_rx_sync || i_prev_sample_rec;
             reg_synced <= 1'b0;
             if (i_rate_nom_candidate) begin
               reg_phase_data <= 1'b0;

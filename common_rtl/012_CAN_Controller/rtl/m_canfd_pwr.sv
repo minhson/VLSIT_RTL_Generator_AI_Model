@@ -3,14 +3,19 @@
  * Author       : Nguyen Hung Quan (user)
  * AI Flow      : VLSIT RTL Generator AI Automation Flow
  * AI Flow Page : https://github.com/nguyenquanicd/VLSIT_RTL_Generator_AI_Model
- * Date         : 2026-11-09
+ * Date         : 2026-11-11
  * Description  : Controls normal, sleep-pending, sleep, wake-pending and restart states;
- *                gates new transmission starts and selects one active CAN bus pair.
- * DEC IDs      : DEC-013, DEC-015, DEC-045, DEC-046, DEC-047, DEC-089
+ *                gates transmission, selects one CAN pin pair, and keeps the inactive
+ *                transmit output recessive.
+ * DEC IDs      : DEC-013, DEC-015, DEC-045, DEC-046, DEC-047, DEC-089, DEC-112
  */
 `timescale 1ns/1ps
 
 module m_canfd_pwr #(
+  // Parameter Description: enable the selectable secondary CAN pin pair.
+  // Parameter values: 0 = primary pair only, 1 = primary or secondary pair; default is 1.
+  // Parameter unit: none
+  parameter logic [31:0] PARA_CANFD_RED_EN = 32'd1,
   localparam logic [31:0] LPARA_PWR_NORMAL = 32'd0,
   localparam logic [31:0] LPARA_PWR_SLEEP_PEND = 32'd1,
   localparam logic [31:0] LPARA_PWR_SLEEP = 32'd2,
@@ -29,6 +34,9 @@ module m_canfd_pwr #(
   input  wire         i_tx_pending,
   input  wire         i_tt_active,
   input  wire         i_bus_sel_cfg,
+  input  wire         i_can_rx,
+  input  wire         i_can_rx_b,
+  input  wire         i_can_tx,
 
   // Sleep, wake-up and transceiver controls
   input  wire         i_sleep_req,
@@ -56,8 +64,15 @@ module m_canfd_pwr #(
   output logic        o_sleep_blocked,
   output logic        o_trcv_en,
   output logic        o_bus_sel,
+  output logic        o_can_rx,
+  output logic        o_can_tx,
+  output logic        o_can_tx_b,
   output logic        o_clk_stop_ack,
-  output logic        o_clkc_stop_ack
+  output logic        o_clkc_stop_ack,
+
+  // One-clock pulses: INIT request of the clock stop, and the wake acknowledge that ends sleep_req
+  output logic        o_init_set_clk,
+  output logic        o_wake_ack_done
 );
 
   typedef enum logic [2:0] {
@@ -81,6 +96,10 @@ module m_canfd_pwr #(
   logic reg_sleep_blocked;
   logic reg_clk_stop_ack;
   logic reg_clkc_stop_ack;
+  logic reg_stop_cond_d;
+  logic reg_wake_ack_done;
+  logic w_stop_cond;
+  logic w_bus_sel_eff;
   logic w_restart_active;
   logic w_trcv_delay_complete;
   logic w_trcv_div_terminal;
@@ -93,7 +112,12 @@ module m_canfd_pwr #(
   assign o_wake_src_trcv = reg_wake_src_trcv;
   assign o_wake_src_wuf = reg_wake_src_wuf;
   assign o_sleep_blocked = reg_sleep_blocked;
-  assign o_bus_sel = reg_bus_sel;
+  assign w_bus_sel_eff = (PARA_CANFD_RED_EN != 32'd0) ? reg_bus_sel : 1'b0;
+  // Route the protocol bit and receive pin only through the selected bus pair.
+  assign o_bus_sel = w_bus_sel_eff;
+  assign o_can_rx = w_bus_sel_eff ? i_can_rx_b : i_can_rx;
+  assign o_can_tx = w_bus_sel_eff ? 1'b1 : i_can_tx;
+  assign o_can_tx_b = w_bus_sel_eff ? i_can_tx : 1'b1;
   assign o_trcv_en = ((reg_fsm_pwr_current_state == ENUM_ST_NORMAL) ||
                       (reg_fsm_pwr_current_state == ENUM_ST_SLEEP_PEND) ||
                       (reg_fsm_pwr_current_state == ENUM_ST_RESTART)) &&
@@ -102,6 +126,10 @@ module m_canfd_pwr #(
   assign o_tx_permit = (reg_fsm_pwr_current_state == ENUM_ST_NORMAL) && !i_init;
   assign o_clk_stop_ack = reg_clk_stop_ack;
   assign o_clkc_stop_ack = reg_clkc_stop_ack;
+  // A clock stop request needs INIT: ask for it once, when idle with nothing pending.
+  assign w_stop_cond = i_clk_stop_req && i_bus_idle && !i_frame_active && !i_tx_pending && !i_init;
+  assign o_init_set_clk = w_stop_cond && !reg_stop_cond_d;
+  assign o_wake_ack_done = reg_wake_ack_done;
 
   // Select power-state transitions while preserving the wake source for software.
   always_comb begin : p_com_pwr_nxt_state
@@ -128,7 +156,7 @@ module m_canfd_pwr #(
           w_fsm_pwr_nxt_state = ENUM_ST_RESTART;
       end
       ENUM_ST_RESTART: begin
-        if (!i_init && reg_trcv_delay_done && i_bus_idle)
+        if (!i_init && reg_trcv_delay_done && i_bus_idle && !i_sleep_req)
           w_fsm_pwr_nxt_state = ENUM_ST_NORMAL;
       end
       default: begin
@@ -183,6 +211,7 @@ module m_canfd_pwr #(
   // Qualify the transceiver delay counter and its terminal conditions.
   assign w_restart_active = (reg_fsm_pwr_current_state == ENUM_ST_RESTART) &&
                             (i_trcv_on || i_trcv_auto);
+  // Compare the counter with the configured delay and identify its prescale boundary.
   assign w_trcv_delay_complete = (reg_trcv_count >= i_trcv_delay);
   assign w_trcv_div_terminal = (reg_trcv_div == LPARA_TRCV_DIV[5:0]);
 
@@ -235,6 +264,17 @@ module m_canfd_pwr #(
       reg_clk_stop_ack <= i_clk_stop_req && i_init && i_bus_idle && !i_frame_active;
       reg_clkc_stop_ack <= i_clk_stop_req && i_init && i_bus_idle && !i_frame_active &&
                            !i_wake_bus_en && !i_pn_active;
+    end
+  end
+
+  // Remember the stop condition; the wake acknowledge is the done pulse of sleep_req and wake_ack.
+  always_ff @(posedge i_clk_can, negedge i_rst_n_can) begin : p_ff_pwr_done
+    if (!i_rst_n_can) begin
+      reg_stop_cond_d <= 1'b0;
+      reg_wake_ack_done <= 1'b0;
+    end else begin
+      reg_stop_cond_d <= w_stop_cond;
+      reg_wake_ack_done <= i_wake_ack;
     end
   end
 

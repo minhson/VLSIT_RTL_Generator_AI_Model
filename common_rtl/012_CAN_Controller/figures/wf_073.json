@@ -1,30 +1,64 @@
 {
+  "head": {
+    "text": "WF-073 TDC counts tq.min at dbrp=1 (m = 2)"
+  },
   "signal": [
     {
       "name": "i_clk_can",
-      "wave": "p........."
+      "wave": "p..................."
     },
     {
       "name": "i_cfd_dbt_dbrp",
-      "wave": "=.........",
-      "data": ["2"]
+      "wave": "=...................",
+      "data": [
+        "1"
+      ]
     },
     {
-      "name": "o_data_phase",
-      "wave": "1........."
+      "name": "i_tdc_measure_start",
+      "wave": "010................."
     },
     {
-      "name": "o_min_tq_tick",
-      "wave": "0101010101"
+      "name": "o_can_tx",
+      "wave": "10.......1.........."
+    },
+    {
+      "name": "i_rx_sync (loop delay 6)",
+      "wave": "1......0.......1...."
+    },
+    {
+      "name": "tdc count (tq.min)",
+      "wave": "xx=======...........",
+      "data": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    {
+      "name": "o_cfd_tdc_tdcv",
+      "wave": "x.......=...........",
+      "data": [
+        "6"
+      ]
+    },
+    {
+      "name": "i_tx_point",
+      "wave": "000000000100........"
+    },
+    {
+      "name": "SSP compare (tdco=2)",
+      "wave": "00000000000000000100"
     }
   ],
-  "head": {
-    "text": "WF-073 BTL minimum-tq event at dbrp=2"
-  },
   "foot": {
-    "text": "Stable data phase; no configuration check or accepted synchronization edge. Each high cycle marks the minimum-tq update sampled at the next rising edge."
+    "text": "One cell is one i_clk_can period, one tq.min; a data-phase time quantum at dbrp=1 is two cells. The loop delay of 6 clock periods is measured as tdcv = 6 (not 3 time quanta). The SSP is tdcv + tdco = 8 clock periods after the transmit point and samples the delayed echo of that bit. Latency values are illustrative."
   },
   "config": {
-    "hscale": 2
+    "hscale": 1
   }
 }

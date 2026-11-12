@@ -790,13 +790,55 @@ Limits: The effective value shall not exceed the smaller of data PHASE_SEG1 and 
         "Count or Default": "1",
         "Offset Stride": "4",
         "Maximum Count": "1",
-        "Reset Value": "0x00000001",
+        "Reset Value": "0x00180001",
         "Descriprtion": "CAN FD control register. Controls the operating mode and the protocol options of the controller.",
         "Bits": [
             {
                 "Bit Name": "reserved",
                 "Bit Type": "ro",
-                "Bit Field": "[31:17]",
+                "Bit Field": "[31:21]",
+                "Reset Value": "0x0",
+                "Description": "This field is unused.
+Read-as-zero and write-ignored."
+            },
+            {
+                "Bit Name": "init_stp_en",
+                "Bit Type": "rw",
+                "Bit Field": "[20]",
+                "Reset Value": "0x1",
+                "Description": "Clock stop sets init. When set, a clock stop request on i_clk_stop_req loads init with 1 once the controller is idle with nothing pending, so that the clock stop can be acknowledged.
+
+Usage: software clears it only if the clock stop must not stop the protocol engine by itself.
+
+Values:
+0x0 a clock stop request does not set init;
+0x1 a clock stop request sets init.
+
+Unit: none.
+
+Limits: none."
+            },
+            {
+                "Bit Name": "init_bo_en",
+                "Bit Type": "rw",
+                "Bit Field": "[19]",
+                "Reset Value": "0x1",
+                "Description": "Bus-off sets init. When set, the controller loads init with 1 when it goes bus-off, so that the bus integration stops until software requests the restart by clearing init.
+
+Usage: software clears it only if it handles bus-off without a stop of the protocol engine.
+
+Values:
+0x0 bus-off does not set init;
+0x1 bus-off sets init.
+
+Unit: none.
+
+Limits: none."
+            },
+            {
+                "Bit Name": "reserved",
+                "Bit Type": "ro",
+                "Bit Field": "[18:17]",
                 "Reset Value": "0x0",
                 "Description": "This field is unused.
 Read-as-zero and write-ignored."
@@ -1075,7 +1117,7 @@ Limits: none."
             },
             {
                 "Bit Name": "init",
-                "Bit Type": "rw",
+                "Bit Type": "rwi",
                 "Bit Field": "[0]",
                 "Reset Value": "0x1",
                 "Description": "Initialization. Stops the protocol engine so that the configuration can be changed; it is also set by the hardware on bus-off, on a clock stop and on a safety stop.
@@ -7253,10 +7295,27 @@ Limits: none."
             {
                 "Bit Name": "reserved",
                 "Bit Type": "ro",
-                "Bit Field": "[31:2]",
+                "Bit Field": "[31:3]",
                 "Reset Value": "0x0",
                 "Description": "This field is unused.
 Read-as-zero and write-ignored."
+            },
+            {
+                "Bit Name": "pnf_upd",
+                "Bit Type": "rwi",
+                "Bit Field": "[2]",
+                "Reset Value": "0x0",
+                "Description": "Wake-up filter update. Software writes 1 after it has programmed the wake-up filters; the filters are copied to the CAN domain as one bundle and hardware clears this bit when the copy is complete.
+
+Usage: software writes the cfd_pnf_* registers, then writes 1; it must not change a filter register until the bit reads 0.
+
+Values:
+0x0 no update pending;
+0x1 update the wake-up filters.
+
+Unit: none.
+
+Limits: none."
             },
             {
                 "Bit Name": "pn_err_ign",

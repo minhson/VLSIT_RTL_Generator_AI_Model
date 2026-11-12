@@ -1,1 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="520" viewBox="0 0 1800 520" role="img" aria-labelledby="title desc"><title id="title">Functional diagram of m_canfd_wprot</title><desc id="desc">Inputs, main processing stages, outputs and clock domain for m_canfd_wprot.</desc><rect width="100%" height="100%" fill="#ffffff"/><text x="30" y="40" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#101828" font-weight="bold" text-anchor="start">m_canfd_wprot · Functional block diagram</text><text x="30" y="72" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#475467" font-weight="normal" text-anchor="start">CLK-BUS  |  Protect configuration writes</text><rect x="30" y="145" width="260" height="245" rx="12" fill="#f2f4f7" stroke="#98a2b3" stroke-width="2"/><text x="46" y="175" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#172033" font-weight="bold" text-anchor="start">Inputs</text><text x="46" y="207" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">APB write</text><text x="46" y="236" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">INIT / CCE</text><text x="46" y="265" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Safety lock status</text><rect x="330" y="145" width="320" height="245" rx="12" fill="#eaf2ff" stroke="#84adff" stroke-width="2"/><text x="346" y="175" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#175cd3" font-weight="bold" text-anchor="start">Address decode</text><text x="346" y="207" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Identify protected fields</text><text x="346" y="236" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Preserve ordinary accesses</text><rect x="700" y="145" width="320" height="245" rx="12" fill="#ecfdf3" stroke="#75e0a7" stroke-width="2"/><text x="716" y="175" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#067647" font-weight="bold" text-anchor="start">Permission check</text><text x="716" y="207" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">INIT = 1 and CCE = 1</text><text x="716" y="236" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Check lock/key policy</text><rect x="1070" y="145" width="320" height="245" rx="12" fill="#f4f3ff" stroke="#bdb4fe" stroke-width="2"/><text x="1086" y="175" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#5925dc" font-weight="bold" text-anchor="start">Write decision</text><text x="1086" y="207" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Forward allowed write</text><text x="1086" y="236" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Suppress or return error</text><rect x="1440" y="145" width="330" height="245" rx="12" fill="#fff6ed" stroke="#fec84b" stroke-width="2"/><text x="1456" y="175" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#172033" font-weight="bold" text-anchor="start">Outputs</text><text x="1456" y="207" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Filtered APB to CSR</text><text x="1456" y="236" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">APB response</text><text x="1456" y="265" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054" font-weight="normal" text-anchor="start">Protection status / event</text><path d="M290 270 L320 270" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="330,270 318,264 318,276" fill="#475467"/><path d="M650 270 L690 270" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="700,270 688,264 688,276" fill="#475467"/><path d="M1020 270 L1060 270" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="1070,270 1058,264 1058,276" fill="#475467"/><path d="M1390 270 L1430 270" fill="none" stroke="#475467" stroke-width="2.4"/><polygon points="1440,270 1428,264 1428,276" fill="#475467"/><text x="30" y="440" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#667085" font-weight="normal" text-anchor="start">Design intent from the HDS; module boundaries and signal names are defined in sections 6 and 14.</text><text x="30" y="480" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#475467" font-weight="normal" text-anchor="start">Note: Protection applies before the generated CSR block; see DEC-018/DEC-021.</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="560" viewBox="0 0 1600 560" role="img" aria-labelledby="title desc">
+  <title id="title">Functional diagram of m_canfd_wprot</title>
+  <desc id="desc">The APB filter decodes protected configuration fields. INIT, CCE and the safety key control writes. Mixed registers preserve protected fields while passing allowed runtime controls.</desc>
+  <rect width="1600" height="560" fill="#ffffff"/>
+  <text x="40" y="46" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#101828" font-weight="700">m_canfd_wprot · Functional block diagram</text>
+  <text x="40" y="78" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#475467">CLK-BUS · APB field protection before the generated CSR</text>
+
+  <rect x="40" y="135" width="260" height="250" rx="12" fill="#f2f4f7" stroke="#98a2b3" stroke-width="2"/>
+  <text x="60" y="170" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#172033" font-weight="700">Inputs</text>
+  <text x="60" y="210" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">APB address / write data</text>
+  <text x="60" y="240" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">INIT and CCE</text>
+  <text x="60" y="270" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Safety lock / key status</text>
+  <text x="60" y="310" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Current mixed CSR words</text>
+
+  <rect x="350" y="135" width="300" height="250" rx="12" fill="#eaf2ff" stroke="#84adff" stroke-width="2"/>
+  <text x="370" y="170" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#175cd3" font-weight="700">Workbook decode</text>
+  <text x="370" y="210" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Full protected registers</text>
+  <text x="370" y="240" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Mixed config/control words</text>
+  <text x="370" y="280" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Per-word protected field mask</text>
+  <text x="370" y="320" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475467">Status, IRQ, FIFO ACK and PN</text>
+  <text x="370" y="344" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475467">updates bypass this filter</text>
+
+  <rect x="700" y="135" width="300" height="250" rx="12" fill="#ecfdf3" stroke="#75e0a7" stroke-width="2"/>
+  <text x="720" y="170" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#067647" font-weight="700">Permission gate</text>
+  <text x="720" y="210" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">INIT = 1 and CCE = 1</text>
+  <text x="720" y="240" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Lock disabled or key valid</text>
+  <text x="720" y="285" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475467">Full write: suppress if denied</text>
+  <text x="720" y="315" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475467">Mixed word: preserve protected</text>
+  <text x="720" y="339" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475467">fields; pass runtime controls</text>
+
+  <rect x="1050" y="135" width="250" height="250" rx="12" fill="#f4f3ff" stroke="#bdb4fe" stroke-width="2"/>
+  <text x="1070" y="170" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#5925dc" font-weight="700">Field merge</text>
+  <text x="1070" y="215" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Allowed config write</text>
+  <text x="1070" y="245" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">→ forward original data</text>
+  <text x="1070" y="290" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Denied mixed write</text>
+  <text x="1070" y="320" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">→ merge current fields</text>
+
+  <rect x="1350" y="135" width="210" height="250" rx="12" fill="#fff6ed" stroke="#fec84b" stroke-width="2"/>
+  <text x="1370" y="170" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#172033" font-weight="700">Outputs</text>
+  <text x="1370" y="215" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Filtered APB</text>
+  <text x="1370" y="245" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">to CSR</text>
+  <text x="1370" y="300" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Lock violation</text>
+  <text x="1370" y="330" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">event</text>
+
+  <path d="M300 260 H340 M650 260 H690 M1000 260 H1040 M1300 260 H1340" fill="none" stroke="#475467" stroke-width="2.5"/>
+  <polygon points="350,260 338,253 338,267" fill="#475467"/>
+  <polygon points="700,260 688,253 688,267" fill="#475467"/>
+  <polygon points="1050,260 1038,253 1038,267" fill="#475467"/>
+  <polygon points="1350,260 1338,253 1338,267" fill="#475467"/>
+
+  <text x="40" y="440" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">Example: with INIT=0, a cfd_ctrl write can set INIT while NISO retains its old value.</text>
+  <text x="40" y="470" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#344054">After INIT and CCE are high and the safety lock is open, protected configuration fields accept writes.</text>
+  <text x="40" y="520" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#667085">A denied configuration write completes normally on APB; it does not return PSLVERR. See HDS §11.4 and DEC-021.</text>
+</svg>

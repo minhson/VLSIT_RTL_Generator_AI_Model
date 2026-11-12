@@ -3,9 +3,10 @@
  * Author       : Nguyen Hung Quan (user)
  * AI Flow      : VLSIT RTL Generator AI Automation Flow
  * AI Flow Page : https://github.com/nguyenquanicd/VLSIT_RTL_Generator_AI_Model
- * Date         : 2026-11-08
+ * Date         : 2026-11-11
  * Description  : CAN fault-confinement counters, error-state flags, bus-off recovery counter,
  *                and last-error-code storage for the arbitration and data phases.
+ * DEC IDs      : DEC-112, DEC-113
  */
 `timescale 1ns/1ps
 
@@ -40,9 +41,9 @@ module m_canfd_eml #(
   input  wire        i_evt_tx_success,
   input  wire        i_evt_rx_success,
 
-  // Bus-off restart request and eleven-recessive-bit recovery event
+  // INIT level of the CAN domain (clearing it after bus-off restarts) and the recovery event
   input  wire  [7:0] i_bo_cnt,
-  input  wire        i_restart_req,
+  input  wire        i_init,
   input  wire        i_evt_idle11,
 
   // First error code of a frame, split by protocol phase
@@ -56,6 +57,9 @@ module m_canfd_eml #(
   output logic       o_err_warning,
   output logic       o_err_passive,
   output logic       o_bus_off,
+  output logic       o_evt_err_wrn,
+  output logic       o_evt_err_psv,
+  output logic       o_evt_bus_off,
   output logic [7:0] o_recovery_count,
   output logic       o_recovery_done,
   output logic       o_cfg_fix_event,
@@ -77,6 +81,12 @@ module m_canfd_eml #(
   logic w_tx_err_event;
   logic w_rx_err_event;
   logic w_recover_now;
+  logic reg_init_d;
+  logic reg_warn_d;
+  logic reg_passive_d;
+  logic reg_bus_off_d;
+  logic reg_cfg_fix;
+  logic w_restart_req;
 
   // Apply counter updates in the protocol-table order and saturate at their maxima.
   always_comb begin : p_com_cnt_nxt
@@ -167,7 +177,7 @@ module m_canfd_eml #(
       reg_dlec            <= 3'd0;
     end else begin
       reg_recovery_done <= 1'b0;
-      casez ({(i_restart_req && o_bus_off), w_recover_now, (reg_recovery_active && i_evt_idle11)})
+      casez ({(w_restart_req && o_bus_off), w_recover_now, (reg_recovery_active && i_evt_idle11)})
         3'b1??: begin
           reg_recovery_count  <= 8'd0;
           reg_recovery_active <= 1'b1;
@@ -212,8 +222,14 @@ module m_canfd_eml #(
 
   // Report bus-off and the recovery progress to the system register snapshot.
   assign o_bus_off = (reg_tec >= 9'(LPARA_TEC_BUS_OFF));
+  // One interrupt pulse when the node enters warning, passive or bus-off.
+  assign o_evt_err_wrn = o_err_warning && !reg_warn_d;
+  assign o_evt_err_psv = o_err_passive && !reg_passive_d;
+  assign o_evt_bus_off = o_bus_off && !reg_bus_off_d;
   assign o_recovery_count = reg_recovery_count;
-  assign o_cfg_fix_event = i_restart_req && o_bus_off && (i_bo_cnt < 8'(LPARA_REC_MIN));
+  // Software requests the restart by clearing INIT after the bus-off set it (REQ-ERR-003, OP-007).
+  assign w_restart_req = reg_init_d && !i_init;
+  assign o_cfg_fix_event = reg_cfg_fix;
 
   // Duplicate the counter state when safety counter monitoring is enabled.
   if (PARA_CANFD_SAF_CNT_EN == 32'd1) begin : gen_safety_cnt
@@ -239,6 +255,26 @@ module m_canfd_eml #(
   end else begin : gen_safety_cnt_off
     // Disable the optional counter comparison output in the base configuration.
     assign o_saf_fault = 1'b0;
+  end
+
+  // Remember INIT for the restart edge; keep the clamp flag from a restart until the next INIT.
+  always_ff @(posedge i_clk_can, negedge i_rst_n_can) begin : p_ff_restart
+    if (!i_rst_n_can) begin
+      reg_init_d <= 1'b1;
+      reg_cfg_fix <= 1'b0;
+      reg_warn_d <= 1'b0;
+      reg_passive_d <= 1'b0;
+      reg_bus_off_d <= 1'b0;
+    end else begin
+      reg_init_d <= i_init;
+      reg_warn_d <= o_err_warning;
+      reg_passive_d <= o_err_passive;
+      reg_bus_off_d <= o_bus_off;
+      if (i_init)
+        reg_cfg_fix <= 1'b0;
+      else if (w_restart_req && o_bus_off && (i_bo_cnt < 8'(LPARA_REC_MIN)))
+        reg_cfg_fix <= 1'b1;
+    end
   end
 
 endmodule

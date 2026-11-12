@@ -5,6 +5,8 @@
  * AI Flow Page : https://github.com/nguyenquanicd/VLSIT_RTL_Generator_AI_Model
  * Date         : 2026-11-08
  * Description  : Inserts and removes dynamic and fixed CAN stuff bits and checks ISO FD SBC.
+ *                A violated fixed stuff bit goes to o_rx_fixed_err (form error, ISO 6.6.13.3.1);
+ *                not on o_rx_stuff_err (dynamic stuff rule only).
  *                BSP supplies the frame-region and fixed-slot strobes; CRC handling stays separate.
  * DEC IDs      : REQ-FUNC-005, REQ-FUNC-007, REQ-FUNC-008
  */
@@ -41,6 +43,7 @@ module m_canfd_stuf #(
   output logic       o_rx_bit_valid,
   output logic       o_rx_dyn_stuff,
   output logic       o_rx_stuff_err,
+  output logic       o_rx_fixed_err,
 
   // Received ISO FD stuff-count field, accumulated MSB first by BSP
   input  wire        i_rx_sbc_valid,
@@ -76,6 +79,7 @@ module m_canfd_stuf #(
     o_rx_bit_valid = 1'b0;
     o_rx_dyn_stuff = 1'b0;
     o_rx_stuff_err = 1'b0;
+    o_rx_fixed_err = 1'b0;
     o_rx_sbc_err = 1'b0;
     w_tx_sbc_gray = stuf_gray_encode(reg_tx_sbc_count);
     w_rx_sbc_gray = stuf_gray_encode(reg_rx_sbc_count);
@@ -99,7 +103,7 @@ module m_canfd_stuf #(
     if (i_rx_sample) begin
       if (i_rx_fixed_slot) begin
         if (!reg_rx_last_valid || (i_rx_wire_bit == reg_rx_last_bit))
-          o_rx_stuff_err = 1'b1;
+          o_rx_fixed_err = 1'b1;
       end else if (i_dyn_stuf_en &&
                    (reg_rx_run_count ==
                     $bits(reg_rx_run_count)'(LPARA_STUF_RUN_LIMIT))) begin
@@ -125,10 +129,11 @@ module m_canfd_stuf #(
       reg_tx_last_bit <= 1'b1;
       reg_tx_last_valid <= 1'b0;
     end else if (i_stuf_clear) begin
-      reg_tx_run_count <= 3'b000;
+      // The SOF bit goes out at this transmit point and starts the first stuffing run.
+      reg_tx_run_count <= i_tx_point ? 3'(LPARA_STUF_RUN_ONE) : 3'b000;
       reg_tx_sbc_count <= 3'b000;
-      reg_tx_last_bit <= 1'b1;
-      reg_tx_last_valid <= 1'b0;
+      reg_tx_last_bit <= i_tx_point ? o_tx_bit : 1'b1;
+      reg_tx_last_valid <= i_tx_point;
     end else if (i_tx_point) begin
       reg_tx_last_bit <= o_tx_bit;
       reg_tx_last_valid <= 1'b1;

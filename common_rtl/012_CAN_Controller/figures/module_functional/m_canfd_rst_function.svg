@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="620" viewBox="0 0 1800 620" role="img" aria-labelledby="title desc">
   <title id="title">Functional diagram of m_canfd_rst</title>
-  <desc id="desc">Per-domain reset release and readiness coordination, plus a BUS-domain software reset that drains Rx and Tx transfers before pulsing the BUS handlers.</desc>
+  <desc id="desc">Per-domain reset release and readiness coordination, plus a BUS-domain software reset that drains the Rx FIFO, handler work and Tx CDC/handler work before pulsing the BUS handlers.</desc>
   <rect width="100%" height="100%" fill="#ffffff"/>
   <text x="30" y="42" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#101828" font-weight="bold">m_canfd_rst · Functional block diagram</text>
   <text x="30" y="76" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#475467">CLK-CAN + CLK-BUS  |  Reset release, CDC readiness and BUS-side handler reset</text>
@@ -28,8 +28,8 @@
   <rect x="1030" y="130" width="390" height="330" rx="12" fill="#f4f3ff" stroke="#bdb4fe" stroke-width="2"/>
   <text x="1048" y="164" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#5925dc" font-weight="bold">BUS software-reset FSM</text>
   <text x="1048" y="202" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Block new handler work</text>
-  <text x="1048" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Drain/discard Rx FIFO entries</text>
-  <text x="1048" y="262" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Wait for Tx handshake idle</text>
+  <text x="1048" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Drain Rx FIFO; wait for RXH idle</text>
+  <text x="1048" y="262" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Wait for Tx CDC + TXH idle</text>
   <text x="1048" y="292" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Pulse BUS handler reset for 1 cycle</text>
   <text x="1048" y="322" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#344054">Clear soft_rst; then release busy</text>
 

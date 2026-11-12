@@ -3,11 +3,12 @@
  * Author       : Nguyen Hung Quan (user)
  * AI Flow      : VLSIT RTL Generator AI Automation Flow
  * AI Flow Page : https://github.com/nguyenquanicd/VLSIT_RTL_Generator_AI_Model
- * Date         : 2026-11-09
+ * Date         : 2026-11-10
  * Description  : Services Tx-buffer requests, fetches valid elements from Message RAM,
  *                submits frame records to the CAN-domain CDC, and records terminal results.
- * HDS           : REQ-MSG-001, REQ-MSG-006..010, REQ-MSG-016, REQ-MSG-020..021;
- *                 CDC-013, DEC-027..030, DEC-063, DEC-069, DEC-073, DEC-086, DEC-089, DEC-091
+ * HDS           : REQ-MSG-001, REQ-MSG-006..010, REQ-MSG-016, REQ-MSG-020..021,
+ *                 REQ-TT-006/009; CDC-006/013/016/017, DEC-027..030, DEC-063, DEC-069,
+ *                 DEC-022, DEC-073, DEC-086, DEC-089, DEC-091, DEC-101..103
  */
 `timescale 1ns/1ps
 
@@ -78,6 +79,7 @@ module m_canfd_txh #(
 
   // Software Tx commands, current status and interrupt enables
   input  wire  [31:0]              i_cfd_txb_req_req,
+  input  wire  [31:0]              i_cfd_ttb_per_per,
   input  wire  [31:0]              i_cfd_txb_cancel_creq,
   input  wire  [31:0]              i_cfd_txb_trtx_conf,
   input  wire  [31:0]              i_cfd_txb_done_done,
@@ -103,7 +105,21 @@ module m_canfd_txh #(
   input  wire                      i_tx_result_success,
   input  wire                      i_tx_result_cancel,
   input  wire                      i_tx_result_err,
+  input  wire                      i_tx_result_arb_lost,
   input  wire  [31:0]              i_tx_result_timestamp,
+  input  wire                      i_tx_result_trigger_valid,
+  input  wire  [5:0]               i_tx_result_trigger_buf,
+  input  wire                      i_tx_result_trigger_started,
+  input  wire                      i_tx_result_trigger_expired,
+
+  // Ordered TTCAN trigger descriptor and current coherent window sequence.
+  input  wire                      i_tt_trigger_valid_bus,
+  output logic                     o_tt_trigger_ready_bus,
+  input  wire  [5:0]               i_tt_trigger_buf_bus,
+  input  wire                      i_tt_trigger_merged_bus,
+  input  wire  [31:0]              i_tt_trigger_window_seq_bus,
+  input  wire  [31:0]              i_tt_window_seq_bus,
+  input  wire                      i_tt_window_seq_valid_bus,
 
   // Tx-event FIFO acknowledgement from software
   input  wire                      i_cfd_txe_ack_ack_go,
@@ -117,7 +133,11 @@ module m_canfd_txh #(
   // Tx frame record to the CAN-domain CDC
   output logic                     o_tx_frame_valid_bus,
   output logic [LPARA_FRAME_W-1:0] o_tx_frame_bus,
-  output logic                     o_tx_cancel_pending_bus,
+  output logic                     o_tx_result_ready_bus,
+  output logic                     o_idle_bus,
+  output logic                     o_tx_trigger_tag_valid_bus,
+  output logic [5:0]               o_tx_trigger_buf_bus,
+  output logic [31:0]              o_tx_trigger_window_seq_bus,
 
   // Single-word Message-RAM Tx client
   output logic                     o_tx_ram_req,
@@ -160,7 +180,8 @@ module m_canfd_txh #(
   output logic                     o_evt_txe_full,
   output logic                     o_evt_txe_lost,
   output logic                     o_evt_ram_flt,
-  output logic [31:0]              o_tx_fault_addr
+  output logic [31:0]              o_tx_fault_addr,
+  output logic [31:0]              o_ttb_miss_set_bus
 );
 
   typedef enum logic [3:0] {
@@ -187,6 +208,14 @@ module m_canfd_txh #(
   logic [PARA_CANFD_TXBUF_MAX-1:0] reg_cache_valid;
   logic [PARA_CANFD_TXBUF_MAX-1:0] reg_confirmed;
   logic [PARA_CANFD_TXBUF_MAX-1:0] reg_late_cancel;
+  logic reg_tt_trigger_pending;
+  logic [5:0] reg_tt_trigger_buf;
+  logic reg_tt_trigger_merged;
+  logic [31:0] reg_tt_trigger_seq;
+  logic reg_active_tt_trigger;
+  logic reg_active_tt_merged;
+  logic [31:0] reg_active_tt_seq;
+  logic reg_active_tt_started;
   logic [7:0] reg_retry_count [0:PARA_CANFD_TXBUF_MAX-1];
   logic [31:0] reg_req_clear_pending;
   logic [31:0] reg_cancel_clear_pending;
@@ -241,6 +270,14 @@ module m_canfd_txh #(
   logic w_event_space;
   logic w_txe_cfg_valid;
   logic w_tx_gate;
+  logic w_tt_desc_stale;
+  logic w_tt_desc_current;
+  logic w_tt_active_expired;
+  logic w_tt_pending_expired;
+  logic w_tx_late_cancel;
+  logic w_tt_no_retry;
+  logic w_tx_retry_limit_hit;
+  logic [31:0] reg_ttb_miss_set;
   logic w_cfg_span_valid;
   logic w_event_span_valid;
   logic [7:0] w_retry_limit;
@@ -253,6 +290,16 @@ module m_canfd_txh #(
   logic reg_evt_txe_lost;
   logic reg_evt_ram_flt;
   logic [31:0] reg_fault_addr;
+
+  // Sequence ordering is modulo 2^32; fewer than 2^31 windows can be outstanding.
+  function automatic logic f_seq_after(input logic [31:0] i_current_seq,
+                                       input logic [31:0] i_tagged_seq);
+    logic [31:0] w_seq_diff;
+    begin
+      w_seq_diff = i_current_seq - i_tagged_seq;
+      f_seq_after = (w_seq_diff != 32'd0) && !w_seq_diff[31];
+    end
+  endfunction
 
   function automatic logic [6:0] f_dlc_bytes(input logic [3:0] i_dlc, input logic i_fdf);
     begin
@@ -514,6 +561,25 @@ module m_canfd_txh #(
     w_fifo_nxt_pidx = w_fifo_stats_result[5:0];
     w_fifo_head_valid = w_fifo_head_result[5];
     w_fifo_head_idx = LPARA_TXBUF_IDX_W'(w_fifo_head_result[4:0]);
+
+    if (reg_active_tt_trigger && (32'(reg_active_idx) < PARA_CANFD_TXBUF_MAX)) begin
+      if (!reg_cache_valid[reg_active_idx]) begin
+        w_req_scan_valid = 1'b1;
+        w_req_scan_idx = reg_active_idx;
+      end else begin
+        w_req_scan_valid = 1'b0;
+      end
+    end else if (reg_tt_trigger_pending &&
+                 (32'(reg_tt_trigger_buf) < PARA_CANFD_TXBUF_MAX)) begin
+      if (!reg_cache_valid[LPARA_TXBUF_IDX_W'(reg_tt_trigger_buf)]) begin
+        w_req_scan_valid = 1'b1;
+        w_req_scan_idx = LPARA_TXBUF_IDX_W'(reg_tt_trigger_buf);
+      end else begin
+        w_req_scan_valid = 1'b0;
+      end
+    end
+    if (i_tt_trigger_valid_bus && o_tt_trigger_ready_bus)
+      w_req_scan_valid = 1'b0;
   end
 
   // Select the lowest arbitration key among eligible buffers.
@@ -523,6 +589,20 @@ module m_canfd_txh #(
     w_candidate_result = f_select_candidate(w_fifo_head_valid, 5'(w_fifo_head_idx));
     w_selected_valid = w_candidate_result[5];
     w_selected_idx = LPARA_TXBUF_IDX_W'(w_candidate_result[4:0]);
+    if (reg_active_tt_trigger && (32'(reg_active_idx) < PARA_CANFD_TXBUF_MAX)) begin
+      w_selected_idx = reg_active_idx;
+      w_selected_valid = reg_cache_valid[reg_active_idx] &&
+                         (i_cfd_txb_req_req[reg_active_idx] ||
+                          i_cfd_ttb_per_per[reg_active_idx]);
+    end else if (reg_tt_trigger_pending &&
+                 (32'(reg_tt_trigger_buf) < PARA_CANFD_TXBUF_MAX)) begin
+      w_selected_idx = LPARA_TXBUF_IDX_W'(reg_tt_trigger_buf);
+      w_selected_valid = reg_cache_valid[LPARA_TXBUF_IDX_W'(reg_tt_trigger_buf)] &&
+                          (i_cfd_txb_req_req[5'(reg_tt_trigger_buf)] ||
+                           i_cfd_ttb_per_per[5'(reg_tt_trigger_buf)]);
+    end
+    if (i_tt_trigger_valid_bus && o_tt_trigger_ready_bus)
+      w_selected_valid = 1'b0;
     w_selected_payload_bytes = 7'd0;
     w_selected_payload_dlc = 4'd0;
 
@@ -569,12 +649,14 @@ module m_canfd_txh #(
 
   // Drive RAM and CSR interfaces from the FSM and retained state.
   always_comb begin : p_com_tx_outputs
-    o_tx_frame_valid_bus = (reg_state == ENUM_STATE_SEND);
+    o_tx_frame_valid_bus = (reg_state == ENUM_STATE_SEND) && !w_tt_active_expired;
     o_tx_frame_bus = reg_tx_frame;
-    o_tx_cancel_pending_bus = 1'b0;
-    if ((reg_state == ENUM_STATE_SEND) || (reg_state == ENUM_STATE_RESULT))
-      o_tx_cancel_pending_bus = reg_late_cancel[reg_active_idx] ||
-                                i_cfd_txb_cancel_creq[reg_active_idx];
+    o_tx_result_ready_bus = (reg_state == ENUM_STATE_RESULT) && i_cdc_ready_bus;
+    o_idle_bus = (reg_state == ENUM_STATE_IDLE) && !reg_tt_trigger_pending &&
+                 !reg_active_tt_trigger;
+    o_tx_trigger_tag_valid_bus = reg_active_tt_trigger && o_tx_frame_valid_bus;
+    o_tx_trigger_buf_bus = 6'(reg_active_idx);
+    o_tx_trigger_window_seq_bus = reg_active_tt_seq;
     o_tx_ram_req = 1'b0;
     o_tx_ram_we = 1'b0;
     o_tx_ram_addr = '0;
@@ -649,6 +731,7 @@ module m_canfd_txh #(
     o_evt_txe_lost = reg_evt_txe_lost;
     o_evt_ram_flt = reg_evt_ram_flt;
     o_tx_fault_addr = reg_fault_addr;
+    o_ttb_miss_set_bus = reg_ttb_miss_set;
   end
 
   // Derive FIFO availability, Tx-result qualifiers and operation-specific range checks.
@@ -657,6 +740,26 @@ module m_canfd_txh #(
                         (i_cfd_txb_cfg_fifo_num - w_fifo_used_count) : 6'd0;
     w_tx_gate = i_cdc_ready_bus && !i_srst_req_bus && !i_cfd_ctrl_init &&
                 !i_cfd_ctrl_mon && !i_cfd_ctrl_rest && !i_cfd_sts_bus_off && i_tx_permit;
+    w_tt_desc_stale = i_tt_window_seq_valid_bus &&
+                      f_seq_after(i_tt_window_seq_bus, i_tt_trigger_window_seq_bus);
+    w_tt_desc_current = i_tt_window_seq_valid_bus &&
+                        (i_tt_window_seq_bus == i_tt_trigger_window_seq_bus) && i_tx_permit;
+    w_tt_active_expired = reg_active_tt_trigger && i_tt_window_seq_valid_bus &&
+                          (f_seq_after(i_tt_window_seq_bus, reg_active_tt_seq) ||
+                           ((i_tt_window_seq_bus == reg_active_tt_seq) && !i_tx_permit));
+    w_tt_pending_expired = reg_tt_trigger_pending && i_tt_window_seq_valid_bus &&
+                           (f_seq_after(i_tt_window_seq_bus, reg_tt_trigger_seq) ||
+                            ((i_tt_window_seq_bus == reg_tt_trigger_seq) && !i_tx_permit));
+    w_tx_late_cancel = reg_late_cancel[reg_active_idx] ||
+                       i_cfd_txb_cancel_creq[reg_active_idx];
+    w_tt_no_retry = reg_active_tt_trigger &&
+                    (!reg_active_tt_merged || i_tx_result_trigger_expired ||
+                     w_tt_active_expired);
+    o_tt_trigger_ready_bus = (reg_state == ENUM_STATE_IDLE) && !reg_tt_trigger_pending &&
+                             !reg_active_tt_trigger && !i_srst_req_bus &&
+                             i_cdc_ready_bus && i_tt_window_seq_valid_bus &&
+                             ((i_tt_window_seq_bus == i_tt_trigger_window_seq_bus) ||
+                              w_tt_desc_stale);
     w_retry_limit = 8'd0;
     w_retry_limit_finite = 1'b1;
     casez (reg_active_header1[26:24])
@@ -675,6 +778,10 @@ module m_canfd_txh #(
         w_retry_limit_finite = 1'b0;
       end
     endcase
+    w_tx_retry_limit_hit = i_cfd_ctrl_dar ||
+                           (w_retry_limit_finite &&
+                            (({1'b0, reg_retry_count[reg_active_idx]} + 9'd1) >
+                             {1'b0, w_retry_limit}));
     w_req_base_ext = {17'd0, i_cfd_txb_cfg_start} +
                      (33'(w_req_scan_idx) * 33'(w_element_words_cfg));
     w_req_end_ext = w_req_base_ext + 33'(w_element_words_cfg);
@@ -720,6 +827,15 @@ module m_canfd_txh #(
       reg_active_header0 <= '0;
       reg_active_header1 <= '0;
       reg_late_cancel <= '0;
+      reg_tt_trigger_pending <= 1'b0;
+      reg_tt_trigger_buf <= '0;
+      reg_tt_trigger_merged <= 1'b0;
+      reg_tt_trigger_seq <= '0;
+      reg_active_tt_trigger <= 1'b0;
+      reg_active_tt_merged <= 1'b0;
+      reg_active_tt_seq <= '0;
+      reg_active_tt_started <= 1'b0;
+      reg_ttb_miss_set <= '0;
       reg_evt_tx_done <= 1'b0;
       reg_evt_tx_can <= 1'b0;
       reg_evt_txe_new <= 1'b0;
@@ -745,10 +861,26 @@ module m_canfd_txh #(
       reg_done_set <= '0;
       reg_cdone_set <= '0;
       reg_fail_set <= '0;
+      reg_ttb_miss_set <= '0;
+
+      // Capture only descriptors whose sequence is current; stale ones become sticky misses.
+      if (i_tt_trigger_valid_bus && o_tt_trigger_ready_bus) begin
+        if (w_tt_desc_current &&
+            (32'(i_tt_trigger_buf_bus) < PARA_CANFD_TXBUF_MAX) &&
+            (i_cfd_txb_req_req[5'(i_tt_trigger_buf_bus)] ||
+             i_cfd_ttb_per_per[5'(i_tt_trigger_buf_bus)])) begin
+          reg_tt_trigger_pending <= 1'b1;
+          reg_tt_trigger_buf <= i_tt_trigger_buf_bus;
+          reg_tt_trigger_merged <= i_tt_trigger_merged_bus;
+          reg_tt_trigger_seq <= i_tt_trigger_window_seq_bus;
+        end else if (i_tt_trigger_buf_bus < 6'd32) begin
+          reg_ttb_miss_set[5'(i_tt_trigger_buf_bus)] <= 1'b1;
+        end
+      end
 
       // Clear local state after the request drops; hold pending CSR updates.
       for (int unsigned w_clean_idx = 0; w_clean_idx < PARA_CANFD_TXBUF_MAX; w_clean_idx++) begin
-        if (!i_cfd_txb_req_req[w_clean_idx]) begin
+        if (!i_cfd_txb_req_req[w_clean_idx] && !i_cfd_ttb_per_per[w_clean_idx]) begin
           reg_cache_valid[w_clean_idx] <= 1'b0;
           reg_confirmed[w_clean_idx] <= 1'b0;
           reg_retry_count[w_clean_idx] <= '0;
@@ -785,11 +917,16 @@ module m_canfd_txh #(
       casez (reg_state)
         ENUM_STATE_IDLE: begin
           reg_late_cancel <= '0;
-          casez ({i_srst_req_bus, w_cancel_scan_valid, w_req_scan_valid,
+          casez ({i_srst_req_bus, (reg_active_tt_trigger && w_tt_active_expired),
+                  (reg_tt_trigger_pending && w_tt_pending_expired),
+                  w_cancel_scan_valid, w_req_scan_valid,
                   (w_selected_valid && w_tx_gate)})
-            4'b1???: begin
+            6'b1?????: begin
               reg_cache_valid <= '0;
               reg_confirmed <= '0;
+              reg_tt_trigger_pending <= 1'b0;
+              reg_active_tt_trigger <= 1'b0;
+              reg_active_tt_started <= 1'b0;
               for (int unsigned w_srst_idx = 0; w_srst_idx < PARA_CANFD_TXBUF_MAX; w_srst_idx++)
                 reg_retry_count[w_srst_idx] <= '0;
               reg_fifo_pidx <= '0;
@@ -798,16 +935,36 @@ module m_canfd_txh #(
               reg_txe_gidx <= '0;
               reg_txe_fill <= '0;
             end
-            4'b01??: begin
+            6'b01????: begin
+              if (!reg_active_tt_started)
+                reg_ttb_miss_set[5'(reg_active_idx)] <= 1'b1;
+              reg_active_tt_trigger <= 1'b0;
+              reg_active_tt_started <= 1'b0;
+              reg_retry_count[reg_active_idx] <= '0;
+            end
+            6'b001???: begin
+              if (reg_tt_trigger_buf < 6'd32)
+                reg_ttb_miss_set[5'(reg_tt_trigger_buf)] <= 1'b1;
+              reg_tt_trigger_pending <= 1'b0;
+            end
+            6'b0001??: begin
               reg_req_clear_pending[w_cancel_scan_idx] <= 1'b1;
               reg_cancel_clear_pending[w_cancel_scan_idx] <= 1'b1;
               reg_cache_valid[w_cancel_scan_idx] <= 1'b0;
               reg_confirmed[w_cancel_scan_idx] <= 1'b0;
+              if (reg_tt_trigger_pending &&
+                  (reg_tt_trigger_buf == 6'(w_cancel_scan_idx)))
+                reg_tt_trigger_pending <= 1'b0;
+              if (reg_active_tt_trigger &&
+                  (reg_active_idx == w_cancel_scan_idx)) begin
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
+              end
               reg_cdone_set[w_cancel_scan_idx] <= 1'b1;
               if (i_cfd_txb_cie_canc_ie[w_cancel_scan_idx])
                 reg_evt_tx_can <= 1'b1;
             end
-            4'b001?: begin
+            6'b00001?: begin
               reg_cache_idx <= w_req_scan_idx;
               reg_element_base <= 32'(w_req_base_ext);
               if (!w_cfg_span_valid ||
@@ -823,10 +980,23 @@ module m_canfd_txh #(
                 reg_state <= ENUM_STATE_CACHE_W0_REQ;
               end
             end
-            4'b0001: begin
+            6'b000001: begin
               reg_active_idx <= w_selected_idx;
               reg_active_header0 <= reg_header0[w_selected_idx];
               reg_active_header1 <= reg_header1[w_selected_idx];
+              if (reg_tt_trigger_pending &&
+                  (reg_tt_trigger_buf == 6'(w_selected_idx))) begin
+                reg_active_tt_trigger <= 1'b1;
+                reg_active_tt_merged <= reg_tt_trigger_merged;
+                reg_active_tt_seq <= reg_tt_trigger_seq;
+                reg_active_tt_started <= 1'b0;
+                reg_tt_trigger_pending <= 1'b0;
+              end else if (!reg_active_tt_trigger) begin
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_merged <= 1'b0;
+                reg_active_tt_seq <= '0;
+                reg_active_tt_started <= 1'b0;
+              end
               reg_element_base <= 32'(w_selected_base_ext);
               reg_payload_words <= 6'((w_selected_payload_bytes + 7'd3) / 7'd4);
               reg_payload_word_idx <= '0;
@@ -844,6 +1014,8 @@ module m_canfd_txh #(
                 reg_req_clear_pending[w_selected_idx] <= 1'b1;
                 reg_cdone_set[w_selected_idx] <= 1'b1;
                 reg_cache_valid[w_selected_idx] <= 1'b0;
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
                 reg_evt_ram_flt <= 1'b1;
                 reg_fault_addr <= 32'(w_selected_base_ext);
                 reg_state <= ENUM_STATE_IDLE;
@@ -862,6 +1034,9 @@ module m_canfd_txh #(
         ENUM_STATE_CACHE_W0_WAIT: begin
           if (i_tx_ram_ack) begin
             if (i_tx_ram_err) begin
+              if (reg_tt_trigger_pending && w_tt_pending_expired &&
+                  (reg_tt_trigger_buf < 6'd32))
+                reg_ttb_miss_set[5'(reg_tt_trigger_buf)] <= 1'b1;
               reg_req_clear_pending[reg_cache_idx] <= 1'b1;
               reg_cdone_set[reg_cache_idx] <= 1'b1;
               reg_cache_valid[reg_cache_idx] <= 1'b0;
@@ -869,6 +1044,16 @@ module m_canfd_txh #(
               reg_fault_addr <= reg_element_base;
               if (i_cfd_txb_cie_canc_ie[reg_cache_idx])
                 reg_evt_tx_can <= 1'b1;
+              if (reg_tt_trigger_pending &&
+                  (reg_tt_trigger_buf == 6'(reg_cache_idx)))
+                reg_tt_trigger_pending <= 1'b0;
+              reg_active_tt_trigger <= 1'b0;
+              reg_active_tt_started <= 1'b0;
+              reg_state <= ENUM_STATE_IDLE;
+            end else if (reg_tt_trigger_pending && w_tt_pending_expired) begin
+              if (reg_tt_trigger_buf < 6'd32)
+                reg_ttb_miss_set[5'(reg_tt_trigger_buf)] <= 1'b1;
+              reg_tt_trigger_pending <= 1'b0;
               reg_state <= ENUM_STATE_IDLE;
             end else begin
               if (i_cfd_txb_cancel_creq[reg_cache_idx]) begin
@@ -890,8 +1075,12 @@ module m_canfd_txh #(
         ENUM_STATE_CACHE_W1_WAIT: begin
           if (i_tx_ram_ack) begin
             casez ({i_tx_ram_err, i_cfd_txb_cancel_creq[reg_cache_idx],
+                    (reg_tt_trigger_pending && w_tt_pending_expired),
                     i_cfd_txb_req_req[reg_cache_idx]})
-              3'b1??: begin
+              4'b1???: begin
+                if (reg_tt_trigger_pending && w_tt_pending_expired &&
+                    (reg_tt_trigger_buf < 6'd32))
+                  reg_ttb_miss_set[5'(reg_tt_trigger_buf)] <= 1'b1;
                 reg_req_clear_pending[reg_cache_idx] <= 1'b1;
                 reg_cdone_set[reg_cache_idx] <= 1'b1;
                 reg_cache_valid[reg_cache_idx] <= 1'b0;
@@ -899,18 +1088,32 @@ module m_canfd_txh #(
                 reg_fault_addr <= reg_element_base + 32'd1;
                 if (i_cfd_txb_cie_canc_ie[reg_cache_idx])
                   reg_evt_tx_can <= 1'b1;
+                if (reg_tt_trigger_pending &&
+                    (reg_tt_trigger_buf == 6'(reg_cache_idx)))
+                  reg_tt_trigger_pending <= 1'b0;
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
                 reg_state <= ENUM_STATE_IDLE;
               end
-              3'b01?: begin
+              4'b01??: begin
                 reg_req_clear_pending[reg_cache_idx] <= 1'b1;
                 reg_cancel_clear_pending[reg_cache_idx] <= 1'b1;
                 reg_cdone_set[reg_cache_idx] <= 1'b1;
                 reg_cache_valid[reg_cache_idx] <= 1'b0;
                 if (i_cfd_txb_cie_canc_ie[reg_cache_idx])
                   reg_evt_tx_can <= 1'b1;
+                if (reg_tt_trigger_pending &&
+                    (reg_tt_trigger_buf == 6'(reg_cache_idx)))
+                  reg_tt_trigger_pending <= 1'b0;
                 reg_state <= ENUM_STATE_IDLE;
               end
-              3'b001: begin
+              4'b001?: begin
+                if (reg_tt_trigger_buf < 6'd32)
+                  reg_ttb_miss_set[5'(reg_tt_trigger_buf)] <= 1'b1;
+                reg_tt_trigger_pending <= 1'b0;
+                reg_state <= ENUM_STATE_IDLE;
+              end
+              4'b0001: begin
                 reg_header1[reg_cache_idx] <= i_tx_ram_rdata;
                 reg_cache_valid[reg_cache_idx] <= 1'b1;
                 reg_confirmed[reg_cache_idx] <= !i_tx_ram_rdata[22] ||
@@ -926,38 +1129,66 @@ module m_canfd_txh #(
         ENUM_STATE_FETCH_REQ: reg_state <= ENUM_STATE_FETCH_WAIT;
         ENUM_STATE_FETCH_WAIT: begin
           if (i_tx_ram_ack) begin
-            if (i_tx_ram_err) begin
-              reg_req_clear_pending[reg_active_idx] <= 1'b1;
-              reg_cdone_set[reg_active_idx] <= 1'b1;
-              reg_cache_valid[reg_active_idx] <= 1'b0;
-              reg_evt_ram_flt <= 1'b1;
-              reg_fault_addr <= reg_element_base + 32'd2 + {26'd0, reg_payload_word_idx};
-              if (i_cfd_txb_cie_canc_ie[reg_active_idx])
-                reg_evt_tx_can <= 1'b1;
-              reg_state <= ENUM_STATE_IDLE;
-            end else if (i_cfd_txb_cancel_creq[reg_active_idx]) begin
-              reg_req_clear_pending[reg_active_idx] <= 1'b1;
-              reg_cancel_clear_pending[reg_active_idx] <= 1'b1;
-              reg_cdone_set[reg_active_idx] <= 1'b1;
-              reg_cache_valid[reg_active_idx] <= 1'b0;
-              reg_confirmed[reg_active_idx] <= 1'b0;
-              if (i_cfd_txb_cie_canc_ie[reg_active_idx])
-                reg_evt_tx_can <= 1'b1;
-              reg_state <= ENUM_STATE_IDLE;
-            end else begin
-              reg_tx_frame[128 + (reg_payload_word_idx * 32) +: 32] <= i_tx_ram_rdata;
-              if ((reg_payload_word_idx + 6'd1) >= reg_payload_words)
-                reg_state <= ENUM_STATE_SEND;
-              else begin
-                reg_payload_word_idx <= reg_payload_word_idx + 6'd1;
-                reg_state <= ENUM_STATE_FETCH_REQ;
+            casez ({i_tx_ram_err, (reg_active_tt_trigger && w_tt_active_expired),
+                    i_cfd_txb_cancel_creq[reg_active_idx]})
+              3'b1??: begin
+                if (reg_active_tt_trigger && w_tt_active_expired &&
+                    !reg_active_tt_started)
+                  reg_ttb_miss_set[5'(reg_active_idx)] <= 1'b1;
+                reg_req_clear_pending[reg_active_idx] <= 1'b1;
+                reg_cdone_set[reg_active_idx] <= 1'b1;
+                reg_cache_valid[reg_active_idx] <= 1'b0;
+                reg_evt_ram_flt <= 1'b1;
+                reg_fault_addr <= reg_element_base + 32'd2 + {26'd0, reg_payload_word_idx};
+                if (i_cfd_txb_cie_canc_ie[reg_active_idx])
+                  reg_evt_tx_can <= 1'b1;
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
+                reg_state <= ENUM_STATE_IDLE;
               end
-            end
+              3'b01?: begin
+                if (!reg_active_tt_started)
+                  reg_ttb_miss_set[5'(reg_active_idx)] <= 1'b1;
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
+                reg_retry_count[reg_active_idx] <= '0;
+                reg_state <= ENUM_STATE_IDLE;
+              end
+              3'b001: begin
+                reg_req_clear_pending[reg_active_idx] <= 1'b1;
+                reg_cancel_clear_pending[reg_active_idx] <= 1'b1;
+                reg_cdone_set[reg_active_idx] <= 1'b1;
+                reg_cache_valid[reg_active_idx] <= 1'b0;
+                reg_confirmed[reg_active_idx] <= 1'b0;
+                if (i_cfd_txb_cie_canc_ie[reg_active_idx])
+                  reg_evt_tx_can <= 1'b1;
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
+                reg_state <= ENUM_STATE_IDLE;
+              end
+              3'b000: begin
+                reg_tx_frame[128 + (reg_payload_word_idx * 32) +: 32] <= i_tx_ram_rdata;
+                if ((reg_payload_word_idx + 6'd1) >= reg_payload_words)
+                  reg_state <= ENUM_STATE_SEND;
+                else begin
+                  reg_payload_word_idx <= reg_payload_word_idx + 6'd1;
+                  reg_state <= ENUM_STATE_FETCH_REQ;
+                end
+              end
+              default: reg_state <= reg_state;
+            endcase
           end
         end
 
         ENUM_STATE_SEND: begin
-          if (i_cfd_txb_cancel_creq[reg_active_idx]) begin
+          if (reg_active_tt_trigger && w_tt_active_expired) begin
+            if (!reg_active_tt_started)
+              reg_ttb_miss_set[5'(reg_active_idx)] <= 1'b1;
+            reg_active_tt_trigger <= 1'b0;
+            reg_active_tt_started <= 1'b0;
+            reg_retry_count[reg_active_idx] <= '0;
+            reg_state <= ENUM_STATE_IDLE;
+          end else if (i_cfd_txb_cancel_creq[reg_active_idx]) begin
             reg_late_cancel[reg_active_idx] <= 1'b1;
             reg_cancel_clear_pending[reg_active_idx] <= 1'b1;
           end
@@ -971,8 +1202,29 @@ module m_canfd_txh #(
             reg_late_cancel[reg_active_idx] <= 1'b1;
             reg_cancel_clear_pending[reg_active_idx] <= 1'b1;
           end
-          casez ({i_tx_result_valid, i_tx_result_success, i_tx_result_cancel, i_tx_result_err})
-            4'b1100: begin
+          if (i_tx_result_valid && reg_active_tt_trigger &&
+              i_tx_result_trigger_valid &&
+              (i_tx_result_trigger_buf == 6'(reg_active_idx)) &&
+              i_tx_result_trigger_started)
+            reg_active_tt_started <= 1'b1;
+          if (i_tx_result_valid && reg_active_tt_trigger &&
+              i_tx_result_trigger_valid &&
+              (i_tx_result_trigger_buf == 6'(reg_active_idx)) &&
+              i_tx_result_trigger_expired && !i_tx_result_trigger_started &&
+              !i_tx_result_success && !i_tx_result_cancel &&
+              !i_tx_result_err && !i_tx_result_arb_lost) begin
+            if (!reg_active_tt_started)
+              reg_ttb_miss_set[5'(reg_active_idx)] <= 1'b1;
+            reg_active_tt_trigger <= 1'b0;
+            reg_active_tt_started <= 1'b0;
+            reg_retry_count[reg_active_idx] <= '0;
+            reg_state <= ENUM_STATE_IDLE;
+          end else begin
+            casez ({i_tx_result_valid, i_tx_result_success, i_tx_result_cancel,
+                    i_tx_result_err, i_tx_result_arb_lost})
+            5'b11000: begin
+              reg_active_tt_trigger <= 1'b0;
+              reg_active_tt_started <= 1'b0;
               reg_req_clear_pending[reg_active_idx] <= 1'b1;
               reg_cache_valid[reg_active_idx] <= 1'b0;
               reg_confirmed[reg_active_idx] <= 1'b0;
@@ -1015,7 +1267,9 @@ module m_canfd_txh #(
               end else
                 reg_state <= ENUM_STATE_IDLE;
             end
-            4'b1010: begin
+            5'b10100: begin
+              reg_active_tt_trigger <= 1'b0;
+              reg_active_tt_started <= 1'b0;
               reg_req_clear_pending[reg_active_idx] <= 1'b1;
               reg_cancel_clear_pending[reg_active_idx] <= 1'b1;
               reg_cache_valid[reg_active_idx] <= 1'b0;
@@ -1026,9 +1280,53 @@ module m_canfd_txh #(
               reg_state <= ENUM_STATE_IDLE;
             end
             // DEC-091: late cancellation reports cancellation and suppresses retry.
-            4'b1001: begin
+            5'b10010: begin
+              casez ({w_tx_late_cancel, w_tt_no_retry, w_tx_retry_limit_hit})
+                3'b1??: begin
+                  reg_active_tt_trigger <= 1'b0;
+                  reg_active_tt_started <= 1'b0;
+                  reg_req_clear_pending[reg_active_idx] <= 1'b1;
+                  reg_cancel_clear_pending[reg_active_idx] <= 1'b1;
+                  reg_cache_valid[reg_active_idx] <= 1'b0;
+                  reg_confirmed[reg_active_idx] <= 1'b0;
+                  reg_retry_count[reg_active_idx] <= '0;
+                  reg_cdone_set[reg_active_idx] <= 1'b1;
+                  if (i_cfd_txb_cie_canc_ie[reg_active_idx])
+                    reg_evt_tx_can <= 1'b1;
+                  reg_state <= ENUM_STATE_IDLE;
+                end
+                3'b01?: begin
+                  reg_active_tt_trigger <= 1'b0;
+                  reg_active_tt_started <= 1'b0;
+                  reg_retry_count[reg_active_idx] <= '0;
+                  reg_state <= ENUM_STATE_IDLE;
+                end
+                3'b001: begin
+                  reg_active_tt_trigger <= 1'b0;
+                  reg_active_tt_started <= 1'b0;
+                  reg_req_clear_pending[reg_active_idx] <= 1'b1;
+                  reg_cache_valid[reg_active_idx] <= 1'b0;
+                  reg_confirmed[reg_active_idx] <= 1'b0;
+                  reg_retry_count[reg_active_idx] <= '0;
+                  reg_cdone_set[reg_active_idx] <= 1'b1;
+                  reg_fail_set[reg_active_idx] <= 1'b1;
+                  if (i_cfd_txb_cie_canc_ie[reg_active_idx])
+                    reg_evt_tx_can <= 1'b1;
+                  reg_state <= ENUM_STATE_IDLE;
+                end
+                3'b000: begin
+                  reg_retry_count[reg_active_idx] <= reg_retry_count[reg_active_idx] + 8'd1;
+                  reg_state <= ENUM_STATE_IDLE;
+                end
+                default: reg_state <= reg_state;
+              endcase
+            end
+            // Arbitration loss is not a protocol error. Replay only after TXH decides.
+            5'b10001: begin
               if (reg_late_cancel[reg_active_idx] ||
-                  i_cfd_txb_cancel_creq[reg_active_idx]) begin
+                  i_cfd_txb_cancel_creq[reg_active_idx] || i_cfd_ctrl_dar) begin
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
                 reg_req_clear_pending[reg_active_idx] <= 1'b1;
                 reg_cancel_clear_pending[reg_active_idx] <= 1'b1;
                 reg_cache_valid[reg_active_idx] <= 1'b0;
@@ -1038,27 +1336,21 @@ module m_canfd_txh #(
                 if (i_cfd_txb_cie_canc_ie[reg_active_idx])
                   reg_evt_tx_can <= 1'b1;
                 reg_state <= ENUM_STATE_IDLE;
-              end else if (i_cfd_ctrl_dar ||
-                  (w_retry_limit_finite &&
-                   (({1'b0, reg_retry_count[reg_active_idx]} + 9'd1) > {1'b0, w_retry_limit}))) begin
-                reg_req_clear_pending[reg_active_idx] <= 1'b1;
-                reg_cache_valid[reg_active_idx] <= 1'b0;
-                reg_confirmed[reg_active_idx] <= 1'b0;
+              end else if (w_tt_no_retry) begin
+                reg_active_tt_trigger <= 1'b0;
+                reg_active_tt_started <= 1'b0;
                 reg_retry_count[reg_active_idx] <= '0;
-                reg_cdone_set[reg_active_idx] <= 1'b1;
-                reg_fail_set[reg_active_idx] <= 1'b1;
-                if (i_cfd_txb_cie_canc_ie[reg_active_idx])
-                  reg_evt_tx_can <= 1'b1;
                 reg_state <= ENUM_STATE_IDLE;
               end else begin
-                reg_retry_count[reg_active_idx] <= reg_retry_count[reg_active_idx] + 8'd1;
-                reg_state <= ENUM_STATE_IDLE;
+                // Preserve the selected frame and retry count; BSP accepts it after bus idle.
+                reg_state <= ENUM_STATE_SEND;
               end
             end
             default: begin
               reg_state <= reg_state;
             end
           endcase
+        end
         end
 
         ENUM_STATE_EVT_W0_REQ: reg_state <= ENUM_STATE_EVT_W0_WAIT;

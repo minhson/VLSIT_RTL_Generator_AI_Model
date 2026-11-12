@@ -6,6 +6,8 @@
  * Date         : 2026-11-08
  * Description  : Measures the CAN-FD transmitter loop delay, delays eligible Tx-bit
  *                points to the secondary sample point, and reports Tx bit errors.
+ *                All delays and offsets count minimum time quanta tq.min, one i_clk_can period
+ *                (ISO 11898-1 7.3.2, 7.3.4), whatever the prescaler of the data phase is.
  */
 `timescale 1ns/1ps
 
@@ -20,8 +22,7 @@ module m_canfd_tdc #(
   input  wire        i_clk_can,
   input  wire        i_rst_n_can,
 
-  // BTL minimum-tq timebase and primary sample point
-  input  wire        i_min_tq_tick,
+  // Primary sample point and synchronized receive level
   input  wire        i_sample,
   input  wire        i_rx_sync,
 
@@ -75,7 +76,7 @@ module m_canfd_tdc #(
                              (w_tdc_delay_tq >= LPARA_TDC_TDCO_MIN[8:0]) &&
                              (w_tdc_delay_tq <= LPARA_TDC_HIST_MAX_TQ[8:0]);
 
-  // Select the history entry one minimum-tq interval before the due comparison tick.
+  // Select the history entry one tq.min (clock period) before the due comparison.
   assign w_tdc_hist_idx = w_tdc_delay_valid ?
                           $bits(w_tdc_hist_idx)'(w_tdc_delay_tq - LPARA_TDC_TDCO_MIN[8:0]) : 9'd0;
 
@@ -104,7 +105,7 @@ module m_canfd_tdc #(
   assign o_tdc_active = i_tdc_frame_active && reg_tdc_measure_done && w_tdc_delay_valid;
 
   // A stored point tag schedules the compare at the configured delay tap.
-  assign w_ssp_event = i_min_tq_tick && o_tdc_active && reg_tx_point_hist[w_tdc_hist_idx];
+  assign w_ssp_event = o_tdc_active && reg_tx_point_hist[w_tdc_hist_idx];
 
   // Compare the delayed Tx bit against synchronized Rx at the SSP.
   assign w_ssp_mismatch = w_ssp_event && (reg_tx_bit_hist[w_tdc_hist_idx] != i_rx_sync);
@@ -118,21 +119,14 @@ module m_canfd_tdc #(
       reg_tx_point_hist <= '0;
       reg_tx_bit_hist <= '0;
     end else begin
-      casez ({i_tdc_measure_start, i_min_tq_tick, i_tx_point})
-        3'b1??: begin
-          reg_tx_point_hist <= '0;
-          reg_tx_bit_hist <= '0;
-        end
-        3'b01?: begin
-          reg_tx_point_hist <= {reg_tx_point_hist[285:0], w_tx_point_qual};
-          reg_tx_bit_hist <= {reg_tx_bit_hist[285:0], i_tx_bit};
-        end
-        3'b001: begin
-          reg_tx_point_hist[0] <= w_tx_point_qual;
-          reg_tx_bit_hist[0] <= i_tx_bit;
-        end
-        default: begin end
-      endcase
+      if (i_tdc_measure_start) begin
+        reg_tx_point_hist <= '0;
+        reg_tx_bit_hist <= '0;
+      end else begin
+        // One shift per tq.min; a transmit point enters at entry 0 on its own clock.
+        reg_tx_point_hist <= {reg_tx_point_hist[285:0], w_tx_point_qual};
+        reg_tx_bit_hist <= {reg_tx_bit_hist[285:0], i_tx_bit};
+      end
     end
   end
 
@@ -152,7 +146,7 @@ module m_canfd_tdc #(
         reg_tdc_measure_done <= 1'b0;
         reg_tdc_rx_armed <= i_rx_sync;
         reg_tdc_measure_count <= 7'd0;
-      end else if (reg_tdc_measure_active && i_min_tq_tick) begin
+      end else if (reg_tdc_measure_active) begin
         if (i_rx_sync)
           reg_tdc_rx_armed <= 1'b1;
         if (w_tdc_echo_qual) begin

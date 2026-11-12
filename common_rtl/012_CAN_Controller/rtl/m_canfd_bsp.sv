@@ -3,12 +3,13 @@
  * Author       : Nguyen Hung Quan (user)
  * AI Flow      : VLSIT RTL Generator AI Automation Flow
  * AI Flow Page : https://github.com/nguyenquanicd/VLSIT_RTL_Generator_AI_Model
- * Date         : 2026-11-09
+ * Date         : 2026-11-11
  * Description  : Sequences CAN frame fields, performs arbitration and frame checks, and connects
  *                the BTL, stuffing, CRC and TDC functions.
  *                This functional block is not the design top; its CRC and stuffing instances are
  *                implementation leaves beneath the structural top module.
- * DEC IDs      : DEC-033, DEC-034, DEC-035, DEC-069, DEC-072, DEC-086, DEC-087, DEC-091
+ * DEC IDs      : DEC-033, DEC-034, DEC-035, DEC-069, DEC-072, DEC-086, DEC-087,
+ *                DEC-091, DEC-096, DEC-102, DEC-103, DEC-113, DEC-118, DEC-119, DEC-120
  */
 `timescale 1ns/1ps
 
@@ -65,7 +66,10 @@ module m_canfd_bsp #(
   input  wire  [7:0]                     i_cfd_dom_cfg_dom_lim,
   input  wire                            i_tx_permit,
   input  wire                            i_rx_frame_full_can,
-  input  wire                            i_tx_cancel_pending_can,
+  input  wire  [31:0]                    i_tx_timestamp_can,
+  input  wire  [31:0]                    i_rx_timestamp_can,
+  input  wire                            i_tx_result_ready_can,
+  input  wire                            i_tt_ref_result_ready_can,
 
   // Error-management state
   input  wire                            i_err_passive,
@@ -77,7 +81,6 @@ module m_canfd_bsp #(
   input  wire                            i_rx_sync,
   input  wire                            i_tx_point,
   input  wire                            i_data_phase,
-  input  wire                            i_min_tq_tick,
   input  wire                            i_timing_cfg_valid,
   input  wire                            i_btl_cfg_fix_event,
 
@@ -86,22 +89,72 @@ module m_canfd_bsp #(
   input  wire                            i_tdc_bit_err,
 
   // Tx frame bundle
+  // Per REQ-MSG-021, BSP ignores reserved metadata words 2/3 and header bits.
   input  wire                            i_tx_frame_valid_can,
   input  wire  [LPARA_CANFD_FRAME_W-1:0] i_tx_frame_can,
+  input  wire                            i_tx_trigger_tag_valid_can,
+  input  wire  [5:0]                     i_tx_trigger_buf_can,
+  input  wire  [31:0]                    i_tx_trigger_window_seq_can,
+  input  wire  [31:0]                    i_tt_window_seq_can,
   output logic                           o_tx_frame_ready_can,
+  input  wire                            i_tt_ref_frame_valid_can,
+  input  wire  [LPARA_CANFD_FRAME_W-1:0] i_tt_ref_frame_can,
+  output logic                           o_tt_ref_frame_ready_can,
 
   // Rx frame bundle
   output logic                           o_rx_frame_valid_can,
   output logic [LPARA_CANFD_FRAME_W-1:0] o_rx_frame_can,
 
+  // Partial-networking receive observations at the sampled, destuffed field stream
+  output logic                           o_rx_sof_sample,
+  output logic                           o_rx_frame_start,
+  output logic                           o_rx_frame_abort,
+  output logic                           o_rx_id_bit_valid,
+  output logic                           o_rx_id_bit,
+  output logic [4:0]                     o_rx_id_bit_idx,
+  output logic                           o_rx_ide_valid,
+  output logic                           o_rx_ide,
+  output logic                           o_rx_rtr_valid,
+  output logic                           o_rx_rtr,
+  output logic                           o_rx_fdf_valid,
+  output logic                           o_rx_fdf,
+  output logic                           o_rx_dlc_bit_valid,
+  output logic                           o_rx_dlc_bit,
+  output logic [1:0]                     o_rx_dlc_bit_idx,
+  output logic                           o_rx_data_bit_valid,
+  output logic                           o_rx_data_bit,
+  output logic [5:0]                     o_rx_data_bit_idx,
+  output logic                           o_rx_crc_delim,
+  output logic                           o_rx_crc_ok,
+  output logic                           o_rx_stuff_ok,
+
   // CAN transmit pin value
   output logic                           o_can_tx,
+  output logic                           o_can_tx_nxt,
+  output logic                           o_frame_active,
+  output logic                           o_bus_idle,
+
+  // Tx SOF capture pulse and atomic terminal result
+  output logic                           o_tx_sof_sample,
+  output logic                           o_sof_sample_can,
 
   // Tx terminal result
   output logic                           o_tx_result_valid,
   output logic                           o_tx_result_success,
   output logic                           o_tx_result_cancel,
-  output logic                           o_tx_result_error,
+  output logic                           o_tx_result_err,
+  output logic                           o_tx_result_arb_lost,
+  output logic [31:0]                    o_tx_result_timestamp,
+  output logic                           o_tx_result_trigger_valid,
+  output logic [5:0]                     o_tx_result_trigger_buf,
+  output logic                           o_tx_result_trigger_started,
+  output logic                           o_tx_result_trigger_expired,
+  output logic                           o_tt_ref_result_valid,
+  output logic                           o_tt_ref_result_success,
+  output logic                           o_tt_ref_result_cancel,
+  output logic                           o_tt_ref_result_err,
+  output logic                           o_tt_ref_result_arb_lost,
+  output logic [31:0]                    o_tt_ref_result_timestamp,
 
   // Fault-confinement events
   output logic                           o_evt_rx_err,
@@ -121,7 +174,9 @@ module m_canfd_bsp #(
   output logic [2:0]                     o_err_code,
 
   // Frame-engine status
-  output logic                           o_sts_act,
+  output logic [1:0]                     o_sts_act,
+  output logic                           o_evt_err_arb,
+  output logic                           o_evt_err_dat,
   output logic                           o_sts_init_ack,
   output logic                           o_sts_rfdf,
   output logic                           o_sts_rbrs,
@@ -146,6 +201,7 @@ module m_canfd_bsp #(
   output logic                           o_no_resync,
   output logic                           o_rate_data_candidate,
   output logic                           o_rate_nom_candidate,
+  output logic                           o_prev_sample_rec,
 
   // TDC qualification outputs
   output logic                           o_tdc_frame_active,
@@ -217,6 +273,12 @@ module m_canfd_bsp #(
   logic reg_rx_esi;
   logic reg_rx_res;
   logic reg_tx_buf_valid;
+  logic reg_tx_owner_tt;
+  logic reg_tx_trigger_valid;
+  logic [5:0] reg_tx_trigger_buf;
+  logic [31:0] reg_tx_trigger_window_seq;
+  logic reg_tx_trigger_started;
+  logic reg_tx_trigger_expired;
   logic reg_tx_fd;
   logic reg_tx_brs;
   logic reg_tx_niso;
@@ -243,13 +305,24 @@ module m_canfd_bsp #(
   logic reg_rx_frame_valid_can;
   logic reg_tx_result_cancel;
   logic reg_tx_result_err;
+  logic reg_tx_result_arb_lost;
   logic reg_tx_result_success;
   logic reg_tx_result_valid;
+  logic [31:0] reg_tx_result_timestamp;
+  logic reg_tx_result_trigger_valid;
+  logic [5:0] reg_tx_result_trigger_buf;
+  logic reg_tx_result_trigger_started;
+  logic reg_tx_result_trigger_expired;
   logic reg_tx_role;
+  logic w_act_run;
   logic reg_rx_store_en;
   logic reg_frame_good;
   logic reg_crc_bad;
   logic reg_ack_seen;
+  logic reg_crc_del2_seen;
+  logic reg_ack_dom_seen;
+  logic w_ack_tol_en;
+  logic w_crc_del2;
   logic reg_err_seen;
   logic reg_err_passive;
   logic reg_rx_start_seen;
@@ -258,13 +331,17 @@ module m_canfd_bsp #(
   logic reg_rx_frame_xtd;
   logic reg_rx_frame_rtr;
   logic reg_rx_frame_esi;
+  logic [31:0] reg_rx_timestamp;
   logic reg_dom_stk;
   logic reg_dom_event_sent;
   logic [7:0] reg_dom_count;
   logic reg_tx_passive_ack_pending;
   logic reg_tx_passive_ack_dom_seen;
   logic reg_tx_adv;
+  logic reg_tx_fixed;
   logic reg_tx_bit_sent;
+  logic w_tx_bit_nxt;
+  logic w_tx_own_bit;
   logic reg_tx_cmp_en;
   logic [LPARA_PAYLOAD_W-1:0] reg_tx_payload;
   logic [LPARA_PAYLOAD_W-1:0] reg_rx_payload;
@@ -286,7 +363,11 @@ module m_canfd_bsp #(
   logic w_rx_sof_start;
   logic w_rx_sof_pre;
   logic w_tx_accept;
+  logic w_tx_frame_ready_common;
+  logic w_tx_result_ready;
   logic w_tx_start;
+  logic w_tx_trigger_expire_pending;
+  logic w_tx_sof_sample;
   logic w_tx_field_step;
   logic w_rx_field_step;
   logic w_frame_step;
@@ -314,6 +395,7 @@ module m_canfd_bsp #(
   logic w_rx_bit_valid;
   logic w_rx_dyn_stuff;
   logic w_rx_stuff_err;
+  logic w_rx_fixed_err;
   logic w_rx_sbc_err;
   logic [3:0] w_tx_sbc_code;
   logic [14:0] w_crc15;
@@ -381,9 +463,15 @@ module m_canfd_bsp #(
   endfunction
 
   // Map the bundle's fixed word positions to the Tx element headers and payload.
-  assign w_tx_header0 = i_tx_frame_can[30:0];
-  assign w_tx_header1 = i_tx_frame_can[53:48];
-  assign w_tx_payload = i_tx_frame_can[LPARA_CANFD_FRAME_W-1:128];
+  assign w_tx_header0 = i_tt_ref_frame_valid_can ? i_tt_ref_frame_can[30:0] :
+                                                     i_tx_frame_can[30:0];
+  // Select the common flags/DLC word; reserved bits in this word are not consumed by BSP.
+  assign w_tx_header1 = i_tt_ref_frame_valid_can ? i_tt_ref_frame_can[53:48] :
+                                                     i_tx_frame_can[53:48];
+  // The fixed word-4 payload offset leaves metadata words 2/3 unused in this frame engine.
+  assign w_tx_payload = i_tt_ref_frame_valid_can ?
+                        i_tt_ref_frame_can[LPARA_CANFD_FRAME_W-1:128] :
+                        i_tx_frame_can[LPARA_CANFD_FRAME_W-1:128];
 
   // Clamp Tx DLC and length to this build's payload capacity.
   always_comb begin : p_com_tx_len
@@ -413,21 +501,44 @@ module m_canfd_bsp #(
   assign w_frame_xtd = reg_tx_role ? reg_tx_xtd : w_rx_bit;
 
   // Qualify handshakes, frame starts and the bus sample source.
+  // While the TDC checks the echo at the secondary sample point (ESI to CRC of a sent FD frame),
+  // the transmitter destuffs and checks the CRC on its own bit; a different level is a TDC error.
+  assign w_tx_own_bit = reg_tx_role && i_tdc_active;
   assign w_rx_wire_bit = ((i_cfd_ctrl_lbk_int || i_cfd_ctrl_lbk_ext) && reg_tx_role &&
                           (reg_fsm_bsp_current_state == ENUM_ST_ACK)) ? 1'b0 :
-                         (i_cfd_ctrl_lbk_int ? reg_tx_bit_sent : i_sample_val);
+                         ((i_cfd_ctrl_lbk_int || w_tx_own_bit) ? reg_tx_bit_sent : i_sample_val);
 
   // Accept new Tx frames only when the frame engine and downstream CDC can hold one.
-  assign o_tx_frame_ready_can = !reg_tx_buf_valid &&
-                               ((reg_fsm_bsp_current_state == ENUM_ST_IDLE) ||
-                                (reg_fsm_bsp_current_state == ENUM_ST_INTEG)) &&
-                               i_cdc_ready_can && !i_cfd_ctrl_init && !i_bus_off;
-  assign w_tx_accept = i_tx_frame_valid_can && o_tx_frame_ready_can;
+  assign w_tx_frame_ready_common = !reg_tx_buf_valid && !reg_tx_result_valid &&
+                                   ((reg_fsm_bsp_current_state == ENUM_ST_IDLE) ||
+                                    (reg_fsm_bsp_current_state == ENUM_ST_INTEG)) &&
+                                   i_cdc_ready_can && !i_cfd_ctrl_init && !i_bus_off;
+  // TT can see this shared-slot readiness only while the common Tx-permission gate is active.
+  assign o_tt_ref_frame_ready_can = w_tx_frame_ready_common && i_tx_permit;
+  // Give an accepted-at-trigger TT reference frame priority over a simultaneous ordinary CDC frame.
+  assign o_tx_frame_ready_can = w_tx_frame_ready_common && !i_tt_ref_frame_valid_can;
+  assign w_tx_accept = (i_tt_ref_frame_valid_can && o_tt_ref_frame_ready_can) ||
+                       (!i_tt_ref_frame_valid_can && i_tx_frame_valid_can &&
+                        o_tx_frame_ready_can);
+  // Route the single held result to the owner recorded at frame acceptance.
+  assign w_tx_result_ready = reg_tx_owner_tt ? i_tt_ref_result_ready_can :
+                                                i_tx_result_ready_can;
+  // DEC-102: Tx permission gates only a new SOF; the active-frame FSM runs to its terminal result.
+  // A stale tagged frame waiting in IDLE yields a no-SOF miss.
+  // It cannot start in a later window.
+  assign w_tx_trigger_expire_pending = reg_tx_buf_valid && reg_tx_trigger_valid &&
+                                       !reg_tx_role &&
+                                       (!i_tx_permit ||
+                                        (i_tt_window_seq_can != reg_tx_trigger_window_seq));
   assign w_tx_start = (reg_fsm_bsp_current_state == ENUM_ST_IDLE) &&
                       i_tx_point && reg_tx_buf_valid && i_tx_permit &&
+                      !w_tx_trigger_expire_pending &&
                       (reg_idle_count >= 4'(LPARA_INTERM_BITS)) &&
                       !i_cfd_ctrl_init && i_cdc_ready_can && !i_bus_off &&
-                      !i_cfd_ctrl_mon && !i_cfd_ctrl_rest && i_timing_cfg_valid;
+                      !i_cfd_ctrl_mon && !i_cfd_ctrl_rest && i_timing_cfg_valid &&
+                      !reg_tx_result_valid;
+  assign w_tx_sof_sample = i_sample && reg_tx_role &&
+                           (reg_fsm_bsp_current_state == ENUM_ST_SOF);
   assign w_rx_sof_start = i_sample && !w_rx_wire_bit &&
                           (((reg_fsm_bsp_current_state == ENUM_ST_IDLE) &&
                             (reg_idle_count >= 4'(LPARA_IDLE_BITS))) ||
@@ -572,14 +683,19 @@ module m_canfd_bsp #(
     o_rx_frame_can[32+21] = reg_rx_frame_fd;
     o_rx_frame_can[32+20] = reg_rx_frame_brs;
     o_rx_frame_can[32+19:32+16] = reg_rx_dlc;
-    o_rx_frame_can[95:64] = 32'd0;
+    o_rx_frame_can[95:64] = reg_rx_timestamp;
     o_rx_frame_can[127:96] = 32'd0;
     o_rx_frame_can[LPARA_CANFD_FRAME_W-1:128] = reg_rx_payload;
   end
 
   // Drive timing, status, CAN pin and TDC qualification outputs.
   always_comb begin : p_com_outputs
+    o_sts_act = 2'd0;
     o_can_tx = reg_tx_bit_sent;
+    o_can_tx_nxt = w_tx_bit_nxt;
+    o_frame_active = (reg_fsm_bsp_current_state != ENUM_ST_INTEG) &&
+                     (reg_fsm_bsp_current_state != ENUM_ST_IDLE);
+    o_bus_idle = (reg_fsm_bsp_current_state == ENUM_ST_IDLE);
     o_cfg_check = i_cfd_ctrl_init;
     o_bus_integrating = (reg_fsm_bsp_current_state == ENUM_ST_INTEG);
     o_hard_sync_en = (reg_fsm_bsp_current_state == ENUM_ST_INTEG) ||
@@ -591,8 +707,18 @@ module m_canfd_bsp #(
     o_no_resync = reg_tx_role && i_data_phase;
     o_rate_data_candidate = (reg_fsm_bsp_current_state == ENUM_ST_BRS);
     o_rate_nom_candidate = (reg_fsm_bsp_current_state == ENUM_ST_CRC_DEL);
-    o_sts_act = !i_cfd_ctrl_init && i_cdc_ready_can && !i_bus_off &&
+    // The CRC delimiter that a TDC transmitter sent is recessive whatever its late echo shows
+    o_prev_sample_rec = reg_tx_role && reg_frame_fd && reg_frame_brs && !reg_frame_niso &&
+                        i_cfd_ctrl_tdc_ena && (reg_fsm_bsp_current_state == ENUM_ST_CRC_DEL);
+    // Activity code of cfd_sts.act: 0 synchronizing, 1 idle, 2 receiving, 3 transmitting.
+    w_act_run = !i_cfd_ctrl_init && i_cdc_ready_can && !i_bus_off &&
                 (reg_fsm_bsp_current_state != ENUM_ST_INTEG);
+    if (!w_act_run)
+      o_sts_act = 2'd0;
+    else if (reg_fsm_bsp_current_state == ENUM_ST_IDLE)
+      o_sts_act = 2'd1;
+    else
+      o_sts_act = reg_tx_role ? 2'd3 : 2'd2;
     o_sts_init_ack = i_cfd_ctrl_init || !i_cdc_ready_can ||
                      !i_timing_cfg_valid || i_btl_cfg_fix_event ||
                      (reg_fsm_bsp_current_state == ENUM_ST_INTEG);
@@ -601,17 +727,58 @@ module m_canfd_bsp #(
     o_sts_resi = reg_rx_res;
     o_sts_pxe = reg_rx_frame_fd && reg_rx_res && !i_cfd_ctrl_pxd;
     o_sts_dom_stk = reg_dom_stk;
-    o_tdc_frame_active = reg_frame_fd && reg_frame_brs && !reg_frame_niso &&
+    // TDC runs only in the transmitter: a receiver does not drive the bus, it has no echo to check
+    o_tdc_frame_active = reg_tx_role && reg_frame_fd && reg_frame_brs && !reg_frame_niso &&
                          i_cfd_ctrl_tdc_ena &&
-                         ((reg_fsm_bsp_current_state == ENUM_ST_DATA) ||
+                         ((reg_fsm_bsp_current_state == ENUM_ST_ESI) ||
+                          (reg_fsm_bsp_current_state == ENUM_ST_DLC) ||
+                          (reg_fsm_bsp_current_state == ENUM_ST_DATA) ||
                           (reg_fsm_bsp_current_state == ENUM_ST_FIX_PRE) ||
                           (reg_fsm_bsp_current_state == ENUM_ST_SBC) ||
                           (reg_fsm_bsp_current_state == ENUM_ST_FIX) ||
-                          (reg_fsm_bsp_current_state == ENUM_ST_CRC));
-    o_tdc_measure_start = i_tx_point && i_min_tq_tick &&
+                          (reg_fsm_bsp_current_state == ENUM_ST_CRC) ||
+                          (reg_fsm_bsp_current_state == ENUM_ST_CRC_DEL));
+    o_tdc_measure_start = i_tx_point &&
                          (reg_fsm_bsp_current_state == ENUM_ST_RES) &&
-                         reg_frame_fd && reg_frame_brs && !reg_frame_niso &&
+                         reg_tx_role && reg_frame_fd && reg_frame_brs && !reg_frame_niso &&
                          i_cfd_ctrl_tdc_ena;
+
+    // Expose only received, destuffed Classical CAN fields to the wake filter.
+    o_rx_sof_sample = w_rx_sof_start && !w_tx_start;
+    o_rx_frame_start = o_rx_sof_sample;
+    o_rx_frame_abort = !reg_tx_role && reg_rx_store_en && w_frame_active &&
+                       w_err_detect;
+    o_rx_id_bit_valid = i_sample && w_rx_bit_valid && !reg_tx_role &&
+                        ((reg_fsm_bsp_current_state == ENUM_ST_ID_A) ||
+                         (reg_fsm_bsp_current_state == ENUM_ST_ID_B));
+    o_rx_id_bit = w_rx_bit;
+    o_rx_id_bit_idx = (reg_fsm_bsp_current_state == ENUM_ST_ID_B) ?
+                      5'(10'd11 + reg_field_idx) : 5'(reg_field_idx);
+    o_rx_ide_valid = i_sample && w_rx_bit_valid && !reg_tx_role &&
+                     (reg_fsm_bsp_current_state == ENUM_ST_IDE);
+    o_rx_ide = w_rx_bit;
+    // RTR1 is reported only after IDE proves a base frame; RTR2 is the extended-frame RTR.
+    o_rx_rtr_valid = i_sample && w_rx_bit_valid && !reg_tx_role &&
+                     (((reg_fsm_bsp_current_state == ENUM_ST_IDE) && !w_rx_bit) ||
+                      (reg_fsm_bsp_current_state == ENUM_ST_RTR2));
+    o_rx_rtr = (reg_fsm_bsp_current_state == ENUM_ST_IDE) ? reg_rx_rtr : w_rx_bit;
+    o_rx_fdf_valid = i_sample && w_rx_bit_valid && !reg_tx_role &&
+                     (reg_fsm_bsp_current_state == ENUM_ST_FDF);
+    o_rx_fdf = w_rx_bit;
+    o_rx_dlc_bit_valid = i_sample && w_rx_bit_valid && !reg_tx_role &&
+                         (reg_fsm_bsp_current_state == ENUM_ST_DLC);
+    o_rx_dlc_bit = w_rx_bit;
+    o_rx_dlc_bit_idx = 2'(reg_field_idx);
+    o_rx_data_bit_valid = i_sample && w_rx_bit_valid && !reg_tx_role &&
+                          !reg_frame_fd &&
+                          (reg_fsm_bsp_current_state == ENUM_ST_DATA);
+    o_rx_data_bit = w_rx_bit;
+    o_rx_data_bit_idx = 6'(reg_field_idx);
+    o_rx_crc_delim = i_sample && !reg_tx_role &&
+                     (reg_fsm_bsp_current_state == ENUM_ST_CRC_DEL);
+    o_rx_crc_ok = reg_frame_good && !reg_crc_bad && !reg_err_seen &&
+                  !w_err_detect;
+    o_rx_stuff_ok = !reg_err_seen && !w_rx_stuff_err && !w_rx_sbc_err;
   end
 
   // Classify arbitration loss and errors using the current field and sampled bus bit.
@@ -624,7 +791,8 @@ module m_canfd_bsp #(
                       reg_tx_bit_sent && !w_rx_wire_bit;
   assign w_rx_field_step = i_sample &&
                            (w_rx_bit_valid || w_fixed_slot);
-  assign w_tx_field_step = i_sample && reg_tx_adv;
+  // A fixed stuff slot (ISO FD CRC field) is a field step of its own, with no logical bit.
+  assign w_tx_field_step = i_sample && (reg_tx_adv || reg_tx_fixed);
   assign w_frame_step = reg_tx_role && !w_arb_loss ?
                         w_tx_field_step : w_rx_field_step;
   assign w_sbc_last = i_sample && (reg_fsm_bsp_current_state == ENUM_ST_SBC) &&
@@ -640,14 +808,23 @@ module m_canfd_bsp #(
                                (w_crc_rx_shift_nxt[16:0] != w_crc17)) ||
                               (!reg_frame_fd &&
                                (w_crc_rx_shift_nxt[14:0] != w_crc15)));
-  assign w_stuff_err = i_sample && (w_rx_stuff_err || w_rx_sbc_err);
+  // A stuff-count mismatch is an FCRC error (ISO 6.6.21.2 c), handled by the CRC path.
+  assign w_stuff_err = i_sample && w_rx_stuff_err;
   assign w_pxe_event = i_sample && (reg_fsm_bsp_current_state == ENUM_ST_RES) &&
                        w_rx_bit_valid && w_rx_bit && !i_cfd_ctrl_pxd;
+  // ISO FD ACK tolerances (ISO 6.6.11.5, 6.6.11.6); not applied to Bosch non-ISO FD.
+  assign w_ack_tol_en = reg_frame_fd && !reg_frame_niso;
+  // A transmitter accepts one extra recessive bit (second CRC delimiter) before the ACK slot.
+  assign w_crc_del2 = i_sample && reg_tx_role && w_ack_tol_en && !reg_crc_del2_seen &&
+                      (reg_fsm_bsp_current_state == ENUM_ST_ACK) && w_rx_wire_bit;
   assign w_ack_err = i_sample && reg_tx_role &&
-                       (reg_fsm_bsp_current_state == ENUM_ST_ACK) && w_rx_wire_bit;
+                       (reg_fsm_bsp_current_state == ENUM_ST_ACK) && w_rx_wire_bit &&
+                       !w_crc_del2;
   assign w_tx_bit_err = i_sample && reg_tx_role && reg_tx_cmp_en &&
                           !w_arb_field &&
                           (reg_fsm_bsp_current_state != ENUM_ST_ACK) &&
+                          !((reg_fsm_bsp_current_state == ENUM_ST_ACK_DEL) &&
+                            w_ack_tol_en && reg_ack_dom_seen) &&
                           !i_tdc_active &&
                           (reg_tx_bit_sent != w_rx_wire_bit);
 
@@ -660,9 +837,12 @@ module m_canfd_bsp #(
   // Apply the arbitration stuff-error exception only to its specified wire condition.
   assign w_tx_exception2 = reg_tx_role && w_stuff_err && w_arb_field &&
                            reg_tx_bit_sent && !w_rx_wire_bit;
-  assign w_form_err = i_sample && w_rx_bit_valid &&
+  // A violated fixed stuff bit is a form error (ISO 6.6.13.3.1); it carries no valid destuffed bit.
+  assign w_form_err = i_sample &&
+                      ((w_rx_bit_valid &&
                         ((((reg_fsm_bsp_current_state == ENUM_ST_CRC_DEL) ||
-                           (reg_fsm_bsp_current_state == ENUM_ST_ACK_DEL)) &&
+                           ((reg_fsm_bsp_current_state == ENUM_ST_ACK_DEL) &&
+                            !(w_ack_tol_en && reg_ack_dom_seen))) &&
                           !w_rx_bit) ||
                          ((reg_fsm_bsp_current_state == ENUM_ST_EOF) &&
                           (reg_field_idx < 10'd6) && !w_rx_bit) ||
@@ -670,7 +850,8 @@ module m_canfd_bsp #(
                           w_rx_bit && i_cfd_ctrl_pxd) ||
                          ((reg_fsm_bsp_current_state == ENUM_ST_FDF) &&
                           w_rx_bit && ((PARA_CANFD_FD_EN != 32'd1) ||
-                                       !i_cfd_ctrl_fdoe)));
+                                       !i_cfd_ctrl_fdoe)))) ||
+                       w_rx_fixed_err);
   assign w_err_detect = !w_pxe_event &&
                           (w_stuff_err || w_form_err || w_ack_err ||
                            w_tx_bit_err || i_tdc_bit_err);
@@ -758,7 +939,7 @@ module m_canfd_bsp #(
         else if (w_frame_step) begin
           if (w_rx_bit)
             w_fsm_bsp_nxt_state = ENUM_ST_RES;
-          else if (w_frame_xtd)
+          else if (reg_tx_role ? reg_tx_xtd : reg_rx_xtd)
             w_fsm_bsp_nxt_state = ENUM_ST_R0;
           else
             w_fsm_bsp_nxt_state = ENUM_ST_DLC;
@@ -794,7 +975,8 @@ module m_canfd_bsp #(
         if (w_err_detect)
           w_fsm_bsp_nxt_state = ENUM_ST_ERR_FLAG;
         else if (w_frame_step && (reg_field_idx == 10'd3)) begin
-          if (reg_data_len == 7'd0)
+          // A receiver latches the length at this same step, so it must use the decoded value.
+          if ((reg_tx_role ? reg_data_len : w_rx_len_calc) == 7'd0)
             w_fsm_bsp_nxt_state = (reg_frame_fd && !reg_frame_niso) ?
                                   ENUM_ST_FIX_PRE : ENUM_ST_CRC;
           else
@@ -863,7 +1045,7 @@ module m_canfd_bsp #(
       ENUM_ST_ACK: begin
         if (w_err_detect)
           w_fsm_bsp_nxt_state = ENUM_ST_ERR_FLAG;
-        else if (w_frame_step)
+        else if (w_frame_step && !w_crc_del2)
           w_fsm_bsp_nxt_state = ENUM_ST_ACK_DEL;
       end
       ENUM_ST_ACK_DEL: begin
@@ -960,6 +1142,12 @@ module m_canfd_bsp #(
       reg_rx_crc_shift <= 20'd0;
       reg_rx_sbc <= 3'd0;
       reg_tx_buf_valid <= 1'b0;
+      reg_tx_owner_tt <= 1'b0;
+      reg_tx_trigger_valid <= 1'b0;
+      reg_tx_trigger_buf <= '0;
+      reg_tx_trigger_window_seq <= '0;
+      reg_tx_trigger_started <= 1'b0;
+      reg_tx_trigger_expired <= 1'b0;
       reg_tx_fd <= 1'b0;
       reg_tx_brs <= 1'b0;
       reg_tx_niso <= 1'b0;
@@ -969,6 +1157,8 @@ module m_canfd_bsp #(
       reg_frame_good <= 1'b0;
       reg_crc_bad <= 1'b0;
       reg_ack_seen <= 1'b0;
+      reg_crc_del2_seen <= 1'b0;
+      reg_ack_dom_seen <= 1'b0;
       reg_err_seen <= 1'b0;
       reg_err_passive <= 1'b0;
       reg_rx_frame_fd <= 1'b0;
@@ -976,10 +1166,24 @@ module m_canfd_bsp #(
       reg_rx_frame_xtd <= 1'b0;
       reg_rx_frame_rtr <= 1'b0;
       reg_rx_frame_esi <= 1'b0;
+      reg_rx_timestamp <= 32'd0;
       reg_ovl_req_count <= 4'd0;
     end else begin
+      if (reg_tx_result_valid && w_tx_result_ready) begin
+        reg_tx_trigger_valid <= 1'b0;
+        reg_tx_trigger_started <= 1'b0;
+        reg_tx_trigger_expired <= 1'b0;
+      end
+
       if (w_tx_accept) begin
         reg_tx_buf_valid <= 1'b1;
+        reg_tx_owner_tt <= i_tt_ref_frame_valid_can;
+        reg_tx_trigger_valid <= i_tx_trigger_tag_valid_can && !i_tt_ref_frame_valid_can;
+        reg_tx_trigger_buf <= i_tx_trigger_tag_valid_can ? i_tx_trigger_buf_can : 6'd0;
+        reg_tx_trigger_window_seq <= i_tx_trigger_tag_valid_can ?
+                                     i_tx_trigger_window_seq_can : 32'd0;
+        reg_tx_trigger_started <= 1'b0;
+        reg_tx_trigger_expired <= 1'b0;
         reg_tx_id <= w_tx_header0[28:0];
         reg_tx_xtd <= w_tx_header0[30];
         reg_tx_rtr <= w_tx_header0[29];
@@ -994,6 +1198,8 @@ module m_canfd_bsp #(
 
       if (w_tx_start) begin
         reg_tx_role <= 1'b1;
+        reg_tx_trigger_started <= reg_tx_trigger_valid;
+        reg_tx_trigger_expired <= 1'b0;
         reg_frame_fd <= reg_tx_fd;
         reg_frame_brs <= reg_tx_brs;
         reg_frame_niso <= reg_tx_niso;
@@ -1002,6 +1208,8 @@ module m_canfd_bsp #(
         reg_frame_good <= 1'b0;
         reg_crc_bad <= 1'b0;
         reg_ack_seen <= 1'b0;
+        reg_crc_del2_seen <= 1'b0;
+        reg_ack_dom_seen <= 1'b0;
         reg_err_seen <= 1'b0;
         reg_rx_crc_shift <= 20'd0;
         reg_rx_sbc <= 3'd0;
@@ -1026,7 +1234,10 @@ module m_canfd_bsp #(
         reg_frame_good <= 1'b0;
         reg_crc_bad <= 1'b0;
         reg_ack_seen <= 1'b0;
+        reg_crc_del2_seen <= 1'b0;
+        reg_ack_dom_seen <= 1'b0;
         reg_err_seen <= 1'b0;
+        reg_rx_timestamp <= i_rx_timestamp_can;
       end
 
       if (w_frame_step) begin
@@ -1073,16 +1284,17 @@ module m_canfd_bsp #(
       if (reg_fsm_bsp_current_state == ENUM_ST_ACK &&
           i_sample && reg_tx_role && !w_rx_wire_bit)
         reg_ack_seen <= 1'b1;
+      if (reg_fsm_bsp_current_state == ENUM_ST_ACK && i_sample && !w_rx_wire_bit)
+        reg_ack_dom_seen <= 1'b1;
+      if (w_crc_del2)
+        reg_crc_del2_seen <= 1'b1;
 
       if (w_arb_loss) begin
         reg_tx_role <= 1'b0;
         reg_rx_store_en <= 1'b1;
-        if (i_cfd_ctrl_dar || i_tx_cancel_pending_can)
-          reg_tx_buf_valid <= 1'b0;
-      end
-      // A late cancel discards the retained frame after arbitration loss, before automatic retry.
-      if (i_tx_cancel_pending_can && reg_tx_buf_valid && !reg_tx_role)
+        // TXH owns retry arbitration and must explicitly reoffer the retained frame.
         reg_tx_buf_valid <= 1'b0;
+      end
       if (w_err_detect) begin
         reg_err_passive <= i_err_passive;
         reg_frame_good <= 1'b0;
@@ -1091,6 +1303,14 @@ module m_canfd_bsp #(
       end
       if (w_tx_end_good && reg_tx_role)
         reg_tx_buf_valid <= 1'b0;
+
+      if (w_tx_trigger_expire_pending) begin
+        reg_tx_buf_valid <= 1'b0;
+        reg_tx_role <= 1'b0;
+      end
+      if (reg_tx_trigger_valid && reg_tx_trigger_started &&
+          (!i_tx_permit || (i_tt_window_seq_can != reg_tx_trigger_window_seq)))
+        reg_tx_trigger_expired <= 1'b1;
 
       if (w_rx_store_end) begin
         reg_rx_frame_fd <= reg_frame_fd;
@@ -1102,6 +1322,7 @@ module m_canfd_bsp #(
           reg_rx_id <= reg_tx_id;
           reg_rx_dlc <= reg_tx_dlc;
           reg_rx_payload <= reg_tx_payload;
+          reg_rx_timestamp <= i_tx_timestamp_can;
         end
       end
 
@@ -1150,8 +1371,11 @@ module m_canfd_bsp #(
           case (reg_fsm_bsp_current_state)
         ENUM_ST_SOF, ENUM_ST_RTR1, ENUM_ST_IDE, ENUM_ST_RTR2, ENUM_ST_FDF,
         ENUM_ST_R0, ENUM_ST_RES, ENUM_ST_BRS, ENUM_ST_ESI, ENUM_ST_FIX_PRE,
-        ENUM_ST_FIX, ENUM_ST_CRC_DEL, ENUM_ST_ACK, ENUM_ST_ACK_DEL:
+        ENUM_ST_CRC_DEL, ENUM_ST_ACK, ENUM_ST_ACK_DEL:
           reg_field_idx <= 10'd0;
+        ENUM_ST_FIX: begin
+          // A fixed stuff bit inside the CRC field keeps the index of the next CRC bit.
+        end
         ENUM_ST_ID_A: begin
           if (reg_field_idx == 10'd10)
             reg_field_idx <= 10'd0;
@@ -1255,15 +1479,24 @@ module m_canfd_bsp #(
     end
   end
 
+  // Wire bit that the next transmit point puts on the pin; the TDC stores it with the point.
+  // A node that is not the transmitter drives only its ACK bit and its error/overload flags.
+  assign w_tx_bit_nxt = (reg_tx_role || w_tx_start ||
+                          (reg_fsm_bsp_current_state == ENUM_ST_ACK) ||
+                          (reg_fsm_bsp_current_state == ENUM_ST_ERR_FLAG) ||
+                          (reg_fsm_bsp_current_state == ENUM_ST_OVL)) ? w_tx_wire_bit : 1'b1;
+
   // Register the wire bit and comparison context at every BTL transmit point.
   always_ff @(posedge i_clk_can, negedge i_rst_n_can) begin : p_ff_tx_pin
     if (!i_rst_n_can) begin
       reg_tx_bit_sent <= 1'b1;
       reg_tx_adv <= 1'b0;
+      reg_tx_fixed <= 1'b0;
       reg_tx_cmp_en <= 1'b0;
     end else if (i_tx_point) begin
-      reg_tx_bit_sent <= w_tx_wire_bit;
+      reg_tx_bit_sent <= w_tx_bit_nxt;
       reg_tx_adv <= w_tx_logical_adv && !w_tx_dyn_stuff && !w_tx_fixed_stuff;
+      reg_tx_fixed <= w_tx_fixed_stuff;
       reg_tx_cmp_en <= reg_tx_role && w_frame_active &&
                        (reg_fsm_bsp_current_state != ENUM_ST_ACK);
     end
@@ -1315,13 +1548,19 @@ module m_canfd_bsp #(
                          !reg_dom_event_sent &&
                          (reg_dom_count + 8'd1 >= w_dom_limit);
 
-  // Emit one-cycle EML/IRQ events and the terminal frame result.
+  // Emit one-cycle EML/IRQ events and hold each terminal result until CDC source acceptance.
   always_ff @(posedge i_clk_can, negedge i_rst_n_can) begin : p_ff_events
     if (!i_rst_n_can) begin
       reg_tx_result_valid <= 1'b0;
       reg_tx_result_success <= 1'b0;
       reg_tx_result_cancel <= 1'b0;
       reg_tx_result_err <= 1'b0;
+      reg_tx_result_arb_lost <= 1'b0;
+      reg_tx_result_timestamp <= '0;
+      reg_tx_result_trigger_valid <= 1'b0;
+      reg_tx_result_trigger_buf <= '0;
+      reg_tx_result_trigger_started <= 1'b0;
+      reg_tx_result_trigger_expired <= 1'b0;
       reg_rx_frame_valid_can <= 1'b0;
       reg_evt_rx_err <= 1'b0;
       reg_evt_rx_dom_after_flag <= 1'b0;
@@ -1346,10 +1585,18 @@ module m_canfd_bsp #(
       reg_tx_passive_ack_pending <= 1'b0;
       reg_tx_passive_ack_dom_seen <= 1'b0;
     end else begin
-      reg_tx_result_valid <= 1'b0;
-      reg_tx_result_success <= 1'b0;
-      reg_tx_result_cancel <= 1'b0;
-      reg_tx_result_err <= 1'b0;
+      // Release the held result only after the CDC source endpoint captures it.
+      if (reg_tx_result_valid && w_tx_result_ready) begin
+        reg_tx_result_valid <= 1'b0;
+        reg_tx_result_success <= 1'b0;
+        reg_tx_result_cancel <= 1'b0;
+        reg_tx_result_err <= 1'b0;
+        reg_tx_result_arb_lost <= 1'b0;
+        reg_tx_result_trigger_valid <= 1'b0;
+        reg_tx_result_trigger_buf <= '0;
+        reg_tx_result_trigger_started <= 1'b0;
+        reg_tx_result_trigger_expired <= 1'b0;
+      end
       reg_rx_frame_valid_can <= 1'b0;
       reg_evt_rx_err <= 1'b0;
       reg_evt_rx_dom_after_flag <= 1'b0;
@@ -1369,17 +1616,32 @@ module m_canfd_bsp #(
       reg_evt_pxe <= 1'b0;
       reg_evt_dom_to <= 1'b0;
 
-      if (w_arb_loss && i_cfd_ctrl_dar) begin
+      // Return a no-start expiry as a trigger result so BUS can set the buffer miss bit.
+      if (w_tx_trigger_expire_pending && (!reg_tx_result_valid || w_tx_result_ready)) begin
         reg_tx_result_valid <= 1'b1;
-        reg_tx_result_cancel <= 1'b1;
+        reg_tx_result_success <= 1'b0;
+        reg_tx_result_cancel <= 1'b0;
+        reg_tx_result_err <= 1'b0;
+        reg_tx_result_arb_lost <= 1'b0;
+        reg_tx_result_timestamp <= '0;
+        reg_tx_result_trigger_valid <= 1'b1;
+        reg_tx_result_trigger_buf <= reg_tx_trigger_buf;
+        reg_tx_result_trigger_started <= 1'b0;
+        reg_tx_result_trigger_expired <= 1'b1;
       end
-      if (w_arb_loss && i_tx_cancel_pending_can) begin
+      if (w_arb_loss && (!reg_tx_result_valid || w_tx_result_ready)) begin
         reg_tx_result_valid <= 1'b1;
-        reg_tx_result_cancel <= 1'b1;
-      end
-      if (i_tx_cancel_pending_can && reg_tx_buf_valid && !reg_tx_role) begin
-        reg_tx_result_valid <= 1'b1;
-        reg_tx_result_cancel <= 1'b1;
+        reg_tx_result_success <= 1'b0;
+        reg_tx_result_cancel <= i_cfd_ctrl_dar;
+        reg_tx_result_err <= 1'b0;
+        reg_tx_result_arb_lost <= !i_cfd_ctrl_dar;
+        reg_tx_result_timestamp <= i_tx_timestamp_can;
+        reg_tx_result_trigger_valid <= reg_tx_trigger_valid && !reg_tx_owner_tt;
+        reg_tx_result_trigger_buf <= reg_tx_trigger_buf;
+        reg_tx_result_trigger_started <= reg_tx_trigger_started;
+        reg_tx_result_trigger_expired <= reg_tx_trigger_valid &&
+                                         (reg_tx_trigger_expired || !i_tx_permit ||
+                                          (i_tt_window_seq_can != reg_tx_trigger_window_seq));
       end
       if (w_err_first) begin
         reg_err_start <= 1'b1;
@@ -1439,9 +1701,20 @@ module m_canfd_bsp #(
       if (w_dom_reached)
         reg_evt_dom_to <= 1'b1;
 
-      if (w_tx_end_good && reg_tx_role) begin
+      if (w_tx_end_good && reg_tx_role &&
+          (!reg_tx_result_valid || w_tx_result_ready)) begin
         reg_tx_result_valid <= 1'b1;
         reg_tx_result_success <= 1'b1;
+        reg_tx_result_cancel <= 1'b0;
+        reg_tx_result_err <= 1'b0;
+        reg_tx_result_arb_lost <= 1'b0;
+        reg_tx_result_timestamp <= i_tx_timestamp_can;
+        reg_tx_result_trigger_valid <= reg_tx_trigger_valid && !reg_tx_owner_tt;
+        reg_tx_result_trigger_buf <= reg_tx_trigger_buf;
+        reg_tx_result_trigger_started <= reg_tx_trigger_started;
+        reg_tx_result_trigger_expired <= reg_tx_trigger_valid &&
+                                         (reg_tx_trigger_expired || !i_tx_permit ||
+                                          (i_tt_window_seq_can != reg_tx_trigger_window_seq));
         reg_evt_tx_success <= 1'b1;
       end
       if (w_rx_end_good) begin
@@ -1453,9 +1726,20 @@ module m_canfd_bsp #(
         reg_rx_frame_valid_can <= 1'b1;
         reg_evt_rx_success <= 1'b1;
       end
-      if (w_err_del_done && reg_tx_role) begin
+      if (w_err_del_done && reg_tx_role &&
+          (!reg_tx_result_valid || w_tx_result_ready)) begin
         reg_tx_result_valid <= 1'b1;
+        reg_tx_result_success <= 1'b0;
+        reg_tx_result_cancel <= 1'b0;
         reg_tx_result_err <= 1'b1;
+        reg_tx_result_arb_lost <= 1'b0;
+        reg_tx_result_timestamp <= i_tx_timestamp_can;
+        reg_tx_result_trigger_valid <= reg_tx_trigger_valid && !reg_tx_owner_tt;
+        reg_tx_result_trigger_buf <= reg_tx_trigger_buf;
+        reg_tx_result_trigger_started <= reg_tx_trigger_started;
+        reg_tx_result_trigger_expired <= reg_tx_trigger_valid &&
+                                         (reg_tx_trigger_expired || !i_tx_permit ||
+                                          (i_tt_window_seq_can != reg_tx_trigger_window_seq));
       end
       if (reg_fsm_bsp_current_state == ENUM_ST_INTEG && i_sample &&
           i_sample_val &&
@@ -1485,6 +1769,9 @@ module m_canfd_bsp #(
   assign o_err_code = reg_err_code;
   assign o_err_phase_data = reg_err_phase_data;
   assign o_err_start = reg_err_start;
+  // One interrupt pulse per error, in the phase where it started.
+  assign o_evt_err_arb = reg_err_start && !reg_err_phase_data;
+  assign o_evt_err_dat = reg_err_start && reg_err_phase_data;
   assign o_evt_ack_err = reg_evt_ack_err;
   assign o_evt_crc_err = reg_evt_crc_err;
   assign o_evt_dom_to = reg_evt_dom_to;
@@ -1502,10 +1789,26 @@ module m_canfd_bsp #(
   assign o_evt_tx_err_count = reg_evt_tx_err_count;
   assign o_evt_tx_success = reg_evt_tx_success;
   assign o_rx_frame_valid_can = reg_rx_frame_valid_can;
-  assign o_tx_result_cancel = reg_tx_result_cancel;
-  assign o_tx_result_error = reg_tx_result_err;
-  assign o_tx_result_success = reg_tx_result_success;
-  assign o_tx_result_valid = reg_tx_result_valid;
+  // Route each held result only to the owner that supplied the accepted frame.
+  assign o_tx_result_cancel = reg_tx_result_cancel && !reg_tx_owner_tt;
+  assign o_tx_result_err = reg_tx_result_err && !reg_tx_owner_tt;
+  assign o_tx_result_arb_lost = reg_tx_result_arb_lost && !reg_tx_owner_tt;
+  assign o_tx_result_success = reg_tx_result_success && !reg_tx_owner_tt;
+  assign o_tx_result_valid = reg_tx_result_valid && !reg_tx_owner_tt;
+  assign o_tx_result_timestamp = reg_tx_result_timestamp;
+  assign o_tx_result_trigger_valid = reg_tx_result_trigger_valid && !reg_tx_owner_tt;
+  assign o_tx_result_trigger_buf = reg_tx_result_trigger_buf;
+  assign o_tx_result_trigger_started = reg_tx_result_trigger_started && !reg_tx_owner_tt;
+  assign o_tx_result_trigger_expired = reg_tx_result_trigger_expired && !reg_tx_owner_tt;
+  assign o_tt_ref_result_cancel = reg_tx_result_cancel && reg_tx_owner_tt;
+  assign o_tt_ref_result_err = reg_tx_result_err && reg_tx_owner_tt;
+  assign o_tt_ref_result_arb_lost = reg_tx_result_arb_lost && reg_tx_owner_tt;
+  assign o_tt_ref_result_success = reg_tx_result_success && reg_tx_owner_tt;
+  assign o_tt_ref_result_valid = reg_tx_result_valid && reg_tx_owner_tt;
+  assign o_tt_ref_result_timestamp = reg_tx_result_timestamp;
+  assign o_tx_sof_sample = w_tx_sof_sample;
+  // TTCAN captures one common Sync_Mark for locally transmitted and received SOFs.
+  assign o_sof_sample_can = w_tx_sof_sample || w_rx_sof_start;
 
   // Seed CRC and stuffer state before a new Tx frame or synchronized receive SOF.
   assign w_crc_init = w_tx_start || w_rx_sof_pre;
@@ -1533,6 +1836,7 @@ module m_canfd_bsp #(
     .o_rx_bit_valid   (w_rx_bit_valid),
     .o_rx_dyn_stuff   (w_rx_dyn_stuff),
     .o_rx_stuff_err   (w_rx_stuff_err),
+    .o_rx_fixed_err   (w_rx_fixed_err),
     .i_rx_sbc_valid   (w_sbc_last),
     .i_rx_sbc_code    ({reg_rx_sbc[2:0], w_rx_bit}),
     .o_rx_sbc_err     (w_rx_sbc_err)
