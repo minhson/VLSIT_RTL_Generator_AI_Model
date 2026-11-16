@@ -1,6 +1,6 @@
 ---
 name: rtl-hierarchy-diagram
-description: Analyze Verilog, SystemVerilog, or VHDL RTL from a user-supplied source directory and create exactly two source-grounded artifacts: a multi-page draw.io hierarchy/interface diagram and a Markdown design analysis covering functions, interfaces, registers, implementation status, tradeoffs, and potential bugs.
+description: Analyze Verilog, SystemVerilog, or VHDL RTL from a user-supplied source directory and create exactly two source-grounded artifacts: a two-tab draw.io hierarchy/interface diagram and a Markdown design analysis covering functions, interfaces, registers, implementation status, tradeoffs, and potential bugs.
 ---
 
 # RTL Hierarchy Diagram and Analysis
@@ -25,7 +25,7 @@ Run `python scripts/prepare_skill_context.py --phase rtl-hierarchy-diagram --roo
 
 Create exactly these two files by default, in the requested output directory or the RTL directory when no output directory is specified:
 
-1. rtl_hierarchy.drawio — editable multi-page hierarchy and interface diagram.
+1. rtl_hierarchy.drawio — editable draw.io diagram with exactly two tabs, `BLOCK_DIAGRAM` and `BLOCK_INFORMATION`.
 2. rtl_analysis.md — source-grounded functional and implementation analysis.
 
 If the user specifies filenames or paths, use them. Do not overwrite an existing deliverable silently: choose a clearly numbered alternative or ask which file to replace. Do not create separate notes, images, PDFs, or auxiliary files unless the user requests them.
@@ -58,10 +58,14 @@ The report must be concise but detailed enough to review and must include these 
 
 Cite evidence as relative file path and line number/range whenever practical. Use “not found in inspected RTL” for missing information rather than guessing. Keep protocol compliance, performance, safety, and verification claims within what source evidence supports.
 
-## Draw.io structure and page order
+## Draw.io structure and tab order
 
-- Use one editable multi-page .drawio XML file. Create one page per hierarchy depth, named and ordered 00_TOP, 01_LEVEL_1, 02_LEVEL_2, and so on from the top to the deepest level.
-- Show only hierarchy blocks, parent-child arrows, concise interface/functional connection labels, and a compact legend when needed. Do not add descriptions, register tables, advantages/disadvantages, implementation status, bug analysis, or a Notes panel to the diagram; those belong in rtl_analysis.md.
+- Use one editable `.drawio` file with exactly two tabs in this order: `BLOCK_DIAGRAM`, then `BLOCK_INFORMATION`. Do not create a separate tab for each hierarchy depth.
+- `BLOCK_DIAGRAM` contains only the hierarchy diagram: frames, module blocks, parent-child relationships, concise interface/functional connection labels, and only labels needed to read the drawing. Do not place function descriptions, tables, or a symbol/connector legend on this tab.
+- `BLOCK_INFORMATION` contains the information panels shown in the supplied reference style: (1) a `Block Functions & Interfaces` table with Block, Function, Source, and Interfaces (mnemonics) columns; (2) an `Interface Table` with ID, Interface, Category, Active side -> passive side, and Key signals columns; and (3) the symbol/connector legend, including a sample connector and a concise explanation of its arrow/direction. Do not place hierarchy blocks or a second copy of the diagram on this tab.
+- Keep the tables and legend readable at 18 pt. Size columns/rows to fit their text and expand this tab as needed. Cite RTL source locations in the Source column and keep function statements grounded in the RTL analysis.
+- When a specification or other document uses this diagram as its figure, render/embed only the `BLOCK_DIAGRAM` tab. Keep `BLOCK_INFORMATION` in the editable `.drawio` source, not in the embedded figure.
+- If using draw.io page export or a renderer, select `BLOCK_DIAGRAM` explicitly. Check that the source contains exactly the two required tabs and that the exported image excludes the information tables.
 - Label each module block with exactly two centered rows: instance name on row 1 and module name in parentheses on row 2. Example: u_fifo on row 1; (axis_fifo) on row 2. For the top block use TOP on row 1 and (top_module_name) on row 2, unless a more appropriate top instance label is specified by the user or source.
 - On 00_TOP, show the top module and concise external-interface labels. On later pages show modules at that depth, immediate parent context, and their instantiation links.
 - Draw hierarchy and functional links distinctly. Label important functional links with concise, source-confirmed names and directions such as APB, AXI read/write, AXI-Stream valid/ready, request/acknowledge, FIFO push/pop, or IRQ. Include only key signal names; do not draw every port or wire. Do not invent protocol compliance or direct links.

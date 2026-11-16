@@ -1,3 +1,0 @@
-include mask_reg_dw64.vec
-include mask_err_dw64.vec
-end

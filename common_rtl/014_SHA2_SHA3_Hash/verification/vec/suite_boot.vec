@@ -1,3 +1,0 @@
-include boot_sha256_dw64.vec
-include boot_sha384_dw64.vec
-end

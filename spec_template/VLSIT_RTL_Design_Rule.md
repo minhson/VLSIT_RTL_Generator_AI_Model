@@ -96,6 +96,7 @@ Keep in full, never abbreviate: `data`, `valid`, `ready`, `mode`, `depth`, `done
 - **TYP-04** Internal signals and state use `logic`. Enum-typed signals are allowed only with a logic-based enum.
 - **TYP-05** Port interfaces are packed vectors. Types are module-local. SV `interface` and `package` are used only in simulation (verification source set), never in design RTL (see P11).
 - **TYP-06** `[NEW]` No redundant declarations. A one-bit port, internal signal, or enum base type is declared without a range (`logic w_x`, `input wire i_x`, `typedef enum logic {...}`), never with a one-bit range such as `[0:0]`; one bit of a vector is selected with `[i]`, never `[i:i]`. An internal signal, localparam, or type that nothing in the module uses is not declared. Ports and parameters belong to the interface and are exempt. A one-bit signal may connect to a vector port of width 1. The "explicit dimensions" of TYP-01 apply to vectors of two or more bits.
+- **TYP-07** `[NEW]` Every declared dimension, packed or unpacked, is written most-significant bit (MSB) first and least-significant bit (LSB) last, `[MSB:LSB]`, never `[LSB:MSB]`. A packed vector and an unpacked array both follow this order, for example `logic [PARA_BLK_BITS-1:0] reg_chain [PARA_CTX_N-1:0];`, never `logic [PARA_BLK_BITS-1:0] reg_chain [0:PARA_CTX_N-1];`. A dimension with literal bounds is written high to low, so `[3:0]`, never `[0:3]`; a one-bit range is not written at all (TYP-06). This applies to ports, internal signals, memories, function and task arguments, and user-defined types.
 
 ### 3.2 Parameters and constants
 
@@ -211,6 +212,9 @@ end
 - **COM-06** `[NEW]` Functions used in RTL are `automatic`, deterministic, and side-effect free (see P9). Prefer direct RTL for a simple expression used once; use a function when logic is reused at multiple RTL call sites or a nontrivial transform is clearer as one named unit. Every function MUST have an immediately preceding comment describing its behavior and any non-obvious width or bit/byte ordering. If a nontrivial function has one call site, its comment also states why the abstraction improves clarity. A function is a source-level abstraction and does not by itself imply shared hardware or reduced area.
 - **COM-07** `[NEW]` An inferred latch is not allowed. Every signal that a combinational process drives MUST be assigned on every path: assign its default at the top of the process (COM-02) so that no `if` or `case` branch leaves it unassigned, and give every `case` a `default` (COM-03). A latch reported by lint (for example verilator `LATCH` or slang `inferred-latch`) is an error and MUST NOT be waived. Intentional storage uses a flip-flop (SEQ-01).
 - **COM-08** `[NEW]` A selection with three or more conditional branches (an `if` followed by two or more `else if`) MUST be written as a `case` or `casez` statement, chosen under COM-03 and COM-04, not as an `if` / `else if` chain. A selection on the value of one signal is a plain `case`. A priority selection among independent conditions is a `casez` on the concatenated condition bits with `?` for the bits of lower priority; it keeps the original priority, and its `default` assigns a defined value unless COM-04 allows `'x`. A chain of one or two conditions (with or without a final `else`), the reset test that opens a sequential process, and an elaboration-time `if` in a generate block are not counted.
+- **COM-09** `[NEW]` A value-producing expression uses the bitwise operators `&`, `|`, `^`, and `~`, never the logical operators `&&`, `||`, and `!`. For example, write `assign o_in_rd_en = w_start_new | w_coll_rd;`, never `assign o_in_rd_en = w_start_new || w_coll_rd;`. This applies to continuous assignments, procedural assignments, concatenations, port connections, and the value branches of `? :`.
+- **COM-10** `[NEW]` The logical operators `&&`, `||`, and `!` are used only in a condition: the condition of `if` / `else if`, the condition of `? :`, and the condition of a `for` or `while` loop. They are never used where a value is produced (COM-09). Use `~` for bitwise inversion, `&` for bitwise AND, and `|` for bitwise OR in a value expression. The relational operators (`==`, `!=`, `<`, `<=`, `>`, `>=`) are not logical operators and are allowed in both contexts.
+- **COM-11** `[NEW]` Procedural control nesting MUST NOT exceed four levels in one `always_comb`, `always_ff`, or function. Count each `if` / `else if` / `else` chain and each `case` / `casez` statement as one level; an `else if` continues the level of its `if`, and a `begin` / `end` block does not add a level. A `case` or `if` inside a `case` item, and a `case` inside an `if`, adds one level. `for` and `while` bodies do not add a level under this rule, and the reset test that opens a sequential process is not counted (COM-08). When a function needs more than four levels, restructure it with a `case`, a helper function, or a submodule.
 
 ## 5. Arithmetic and widths
 
@@ -461,6 +465,9 @@ endmodule
 | P28 | `[NEW]` Unregistered logic between a clock-domain crossing launch flop and its synchronizer; logic between synchronizer stages | CLK-01 |
 | P29 | `[NEW]` Tab characters (`\t`) in RTL source files | Space characters only (FIL-03) |
 | P30 | `[NEW]` One-bit ranges (`[0:0]`, `[i:i]`) and internal signals, localparams, or types that nothing uses | Range-free one-bit declarations; remove the unused declaration (TYP-06) |
+| P31 | `[NEW]` Ascending dimensions, `[LSB:MSB]` (`[0:PARA_CTX_N-1]`, `[0:3]`), for packed or unpacked arrays | MSB:LSB order for every dimension (TYP-07) |
+| P32 | `[NEW]` Logical operators `&&`, `\|\|`, `!` in a value-producing expression | Bitwise `&`, `\|`, `~` (COM-09, COM-10) |
+| P33 | `[NEW]` More than four nested `case` / `casez` / `if` / `else if` levels in one procedural block or function | Restructure with `case`, a helper function, or a submodule (COM-11) |
 
 ## 11. Tapeout readiness checklist
 
@@ -483,3 +490,18 @@ Confirm before accepting an RTL handoff:
 - **CMT-03** Keep comments synchronized with the implementation.
 - **CMT-05** `[NEW]` A comment line MUST NOT exceed 100 characters. Split a longer comment into several `//` lines, each a readable phrase, so it does not overflow the screen. The parameter comment structure is defined by PAR-02.
 - **CMT-04** Write and bind SVA in dedicated verification files that belong to the verification source set (see P19).
+
+## 13. Checker identifiers and aliases
+
+`vlsit_rtl_check.py` reports a small number of identifiers that are not rules of this document. Each maps to a rule above or marks an exemption. Findings use canonical rule IDs where available. The checker does not emit aliases that collide with permanent skill rule IDs.
+
+| Checker ID | Reported meaning | Canonical rule or status |
+|---|---|---|
+| R-019 | A selection with three or more conditional branches | COM-08 |
+| R-027 | Simulation branch selected by `VLSIT_SYNTHESIS` (warning) | SCP-03 |
+| R-032 | Library cell model `VLSIT_CELL_<FUNCTION>`, pin names accepted (warning) | Exemption, section 2 table |
+| R-035 | No redundant declaration | TYP-06 |
+| R-036 | The `always_ff` of an FSM current state holds that register only | ENM-06 |
+| R-038 | No `default_nettype directive | TYP-03, P5 |
+| R-040 | Output of an APB-CSR-Generator older than 2.0 (warning) | Exemption |
+| CHK-11 | Tapeout readiness checklist of section 11 | Manual, section 11 |
