@@ -23,6 +23,8 @@ Create `schemas/verification_contract.json` conforming to `.claude/skills/rtl-fl
 - Golden-source identities and revisions, including spec and protocol-standard clauses.
 - The contract-level interface: logical signal name, direction, width expression/value, clock/reset role, and applicable configuration. These are specification-facing names, not names copied from RTL.
 - For each REQ-ID: source clauses, preconditions, legal stimulus, externally observable outputs, expected behavior, timing bounds, error/recovery cases, and planned TC-ID, property ID, and functional coverage point.
+- For each REQ-ID: a `method` (`formal`, `simulation`, `formal+simulation` or `review`) with a one-line `method_reason`; formal first for bounded control behavior, simulation for data paths, long sequences and performance.
+- For each REQ-ID: `failure_modes` (FM-NNN) such as overflow, underflow, a lost, duplicated or reordered item, a reset in the middle of a transfer, simultaneous events or an illegal input, each mapped to a TC-ID or property ID, or marked not applicable with a source-based reason.
 - Unresolved questions, assumptions, exclusions, and approval status.
 
 Generate the verification-only interface shell at `src/verification/contract_if.sv` and its file list at `src/verification/filelist_contract.f` from the contract-level signals. The shell supports syntax/elaboration checks only and must never report a functional DUT pass.
@@ -32,10 +34,10 @@ The contract must not require RTL module names, internal states, enum encodings,
 ## Procedure and Gate 3a
 
 1. Verify Gate 1 and Gate 2 approvals and confirm the contract's specification/configuration revisions match them.
-2. Build the interface and per-requirement oracle from the approved specification and exact standards. Keep expected results independent from any RTL implementation.
+2. Build the interface and per-requirement oracle from the approved specification and exact standards. Keep expected results independent from any RTL implementation. List the failure modes of each requirement, then assign its method.
 3. Review each protocol-specific requirement for standard-clause traceability and each requirement for a checkable observable result. Mark `not_applicable` only with a source-based reason.
 4. Present ambiguities and assumptions with concrete options, effects, examples, and a best-supported recommendation before asking the user to resolve them.
-5. Show a concise contract summary: source baseline, interface signals, REQ-ID coverage by planned tests/properties, open gaps, and risks. Recommend approval only when no unresolved issue affects expected behavior.
+5. Show a concise contract summary: source baseline, interface signals, REQ-ID coverage by planned tests/properties, the method of each REQ-ID, failure modes without a planned test or property, open gaps, and risks. Recommend approval only when no unresolved issue affects expected behavior.
 6. On user approval, write the contract with `approval.status: "approved"`, approver decision, and timestamp. Otherwise keep it `draft` and do not unlock SVA/testbench generation.
 
 The contract review (Gate 3a) occurs before RTL generation in the full flow. This skill may be run independently; if RTL already exists, ignore it completely.

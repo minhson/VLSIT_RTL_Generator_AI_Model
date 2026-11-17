@@ -8,7 +8,7 @@ Require approved schemas/verification_contract.json and matching specification/c
 
 ## Procedure
 
-1. Map every applicable REQ-ID to at least one property or explain a source-based exception. Include reset, legal/illegal transactions, timing bounds, and recovery behavior where the contract specifies them.
+1. Map every applicable REQ-ID to at least one property or explain a source-based exception. Include reset, legal/illegal transactions, timing bounds, and recovery behavior where the contract specifies them. For every implication property, also write a `cover` of its antecedent with the same REQ-ID, so a property that never triggers is detected as vacuous. Write the properties of `formal` and `formal+simulation` requirements so that a formal tool can run them: state input assumptions as `assume` properties traced to the contract.
 2. For each assertion, place a concise natural-language // NL: explanation immediately above the property and a REQ-ID reference. Guard simulation-only assertions with SYNTHESIS conditionals as needed.
 3. Derive an interface checker from contract-level signals. Create src/sva/filelist_sva.f in compile order. Compile against src/verification/contract_if.sv or the contract-derived shell. This proves syntax/elaboration only, never DUT behavior.
 4. Add a documented sva-compile target to the single design-root Makefile. Run it when a compatible compiler is available, capture versions, logs, and exit status, and repair compilation errors before review.

@@ -1,8 +1,8 @@
 # Step-by-step User Guide | Hướng dẫn từng bước
 
-**EN:** Claude Code commands and Codex CLI skills are prompts entered in their chats, not terminal commands. Work in this repository or a copy/branch of it. The agent creates design outputs in the working design root; the saved `example/` folders are historical references.
+**EN:** Claude Code commands and Codex CLI skills are prompts entered in their chats, not terminal commands. Work in this repository or a copy/branch of it. The agent creates design outputs in the working design root; the saved `example/` folders are historical runs from a much older flow version, not a reference for the current flow.
 
-**VI:** Command Claude Code và skill Codex CLI là prompt nhập trong hội thoại, không phải lệnh terminal. Làm việc trong repository này hoặc bản sao/branch của nó. Agent tạo output tại root của thiết kế đang làm; thư mục `example/` chỉ là ví dụ lịch sử.
+**VI:** Command Claude Code và skill Codex CLI là prompt nhập trong hội thoại, không phải lệnh terminal. Làm việc trong repository này hoặc bản sao/branch của nó. Agent tạo output tại root của thiết kế đang làm; thư mục `example/` chỉ là các lần chạy lịch sử của phiên bản flow rất cũ, không phải tham chiếu cho flow hiện tại.
 
 ## 0. Prepare the specification | Chuẩn bị đặc tả
 
@@ -32,9 +32,9 @@
 
 ## 4. Approve the verification contract — Gate 3a | Duyệt verification contract — Gate 3a
 
-**EN:** Run `/verification_contract`. Review the contract-level interface, expected behavior, exact standard revisions/clauses, and open questions. This phase reads the approved specification and configuration, not generated RTL. Outputs: `schemas/verification_contract.json` and `src/verification/contract_if.sv`. Approve Gate 3a before generating verification artifacts.
+**EN:** Run `/verification_contract`. Review the contract-level interface, expected behavior, the method of each requirement (formal or simulation), its failure modes, exact standard revisions/clauses, and open questions. This phase reads the approved specification and configuration, not generated RTL. Outputs: `schemas/verification_contract.json` and `src/verification/contract_if.sv`. Approve Gate 3a before generating verification artifacts.
 
-**VI:** Chạy `/verification_contract`. Review interface, expected behavior, phiên bản/điều khoản chuẩn và vấn đề còn mở. Phase này đọc đặc tả và cấu hình đã duyệt, không đọc RTL được sinh. Output: `schemas/verification_contract.json` và `src/verification/contract_if.sv`. Duyệt Gate 3a trước khi sinh artifact verification.
+**VI:** Chạy `/verification_contract`. Review interface, expected behavior, phương pháp của từng requirement (formal hay simulation), các failure mode, phiên bản/điều khoản chuẩn và vấn đề còn mở. Phase này đọc đặc tả và cấu hình đã duyệt, không đọc RTL được sinh. Output: `schemas/verification_contract.json` và `src/verification/contract_if.sv`. Duyệt Gate 3a trước khi sinh artifact verification.
 
 ## 5. Generate RTL | Sinh RTL
 
@@ -60,9 +60,9 @@
 
 ## 8. Integrate and verify | Tích hợp và kiểm chứng
 
-**EN:** Run `/verification`. The adapter connects contract signals to the DUT; mismatched ports or behavior are failures, not reasons to change the oracle. Review actual compile, testcase, SVA, mutation, and baseline coverage evidence in `schemas/rtm.json`, `schemas/verification_report.json`, and `work/`.
+**EN:** Run `/verification`. The adapter connects contract signals to the DUT; mismatched ports or behavior are failures, not reasons to change the oracle. Review actual compile, testcase, SVA, formal, mutation, and baseline coverage evidence in `schemas/rtm.json`, `schemas/verification_report.json`, and `work/`. Read `docs/verification_report.md`: each test has its purpose, status and cause, every failure has a category and evidence, and each row has review columns for you or another AI agent (an AI review is advisory). A vacuous property or an open `disagree`/`needs-info` review blocks the Gate 5 recommendation.
 
-**VI:** Chạy `/verification`. Adapter nối tín hiệu contract với DUT; port hoặc hành vi không khớp là lỗi, không phải lý do sửa oracle. Review bằng chứng compile, testcase, SVA, mutation và baseline coverage trong `schemas/rtm.json`, `schemas/verification_report.json` và `work/`.
+**VI:** Chạy `/verification`. Adapter nối tín hiệu contract với DUT; port hoặc hành vi không khớp là lỗi, không phải lý do sửa oracle. Review bằng chứng compile, testcase, SVA, formal, mutation và baseline coverage trong `schemas/rtm.json`, `schemas/verification_report.json` và `work/`. Đọc `docs/verification_report.md`: mỗi test có mục đích, trạng thái và nguyên nhân, mỗi lỗi có phân loại và bằng chứng, mỗi dòng có cột review cho bạn hoặc một AI agent khác (review của AI chỉ để tham khảo). Property vacuous hoặc review `disagree`/`needs-info` còn mở sẽ chặn đề xuất duyệt Gate 5.
 
 ## 9. Optional coverage target, then Gate 5 | Ngưỡng coverage tùy chọn, rồi Gate 5
 

@@ -62,6 +62,25 @@
           "property_ids": {"type": "array", "items": {"type": "string"}},
           "coverage_points": {"type": "array", "items": {"type": "string"}},
           "assumptions": {"type": "array", "items": {"type": "string"}},
+          "method": {"type": "string", "enum": ["formal", "simulation", "formal+simulation", "review"], "description": "Formal first for bounded control behavior; simulation for data paths, long sequences and performance."},
+          "method_reason": {"type": "string"},
+          "failure_modes": {
+            "type": "array",
+            "description": "Ways the requirement can fail, each mapped to a test or property, or not applicable with a source-based reason.",
+            "items": {
+              "type": "object",
+              "required": ["id", "description"],
+              "properties": {
+                "id": {"type": "string", "pattern": "^FM-[0-9]{3,}$"},
+                "description": {"type": "string"},
+                "trigger": {"type": "string"},
+                "expected_detection": {"type": "string"},
+                "test_ids": {"type": "array", "items": {"type": "string"}},
+                "property_ids": {"type": "array", "items": {"type": "string"}},
+                "not_applicable_reason": {"type": ["string", "null"]}
+              }
+            }
+          },
           "status": {"type": "string", "enum": ["reviewed", "needs_clarification", "not_applicable"]},
           "disposition": {"type": ["string", "null"]}
         }

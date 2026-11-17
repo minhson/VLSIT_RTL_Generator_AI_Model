@@ -137,6 +137,127 @@
               },
               "log_file": {
                 "type": "string"
+              },
+              "purpose": {
+                "type": "string",
+                "description": "What the test proves."
+              },
+              "req_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "functions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "failure_category": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "dut",
+                  "testbench",
+                  "specification",
+                  "environment",
+                  "tool",
+                  "unclassified",
+                  null
+                ]
+              },
+              "cause": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Cause of a non-passing status, with the failure_analysis ID."
+              },
+              "evidence": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Log line, simulation time or assertion ID."
+              },
+              "review": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Review of this row by an engineer or an independent AI agent. An AI review is advisory; an open disagree or needs-info blocks a Gate 5 approval recommendation.",
+                "properties": {
+                  "reviewer": {
+                    "type": "string"
+                  },
+                  "reviewer_type": {
+                    "type": "string",
+                    "enum": [
+                      "engineer",
+                      "ai_agent"
+                    ]
+                  },
+                  "model": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Model and version when reviewer_type is ai_agent."
+                  },
+                  "verdict": {
+                    "type": "string",
+                    "enum": [
+                      "agree",
+                      "disagree",
+                      "needs-info"
+                    ]
+                  },
+                  "comment": {
+                    "type": "string"
+                  },
+                  "response": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "property_activity": {
+          "type": "array",
+          "description": "Per-property activity across the regression; zero antecedent hits means vacuous.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "property_id": {
+                "type": "string"
+              },
+              "req_id": {
+                "type": "string"
+              },
+              "antecedent_hits": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "failures": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "vacuous": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
               }
             }
           }
@@ -469,6 +590,247 @@
         "corner": {
           "type": "string",
           "description": "Liberty corner used, for example 'tt_025C_1v80'."
+        }
+      }
+    },
+    "formal_summary": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "property_id": {
+                "type": "string"
+              },
+              "req_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "proven",
+                  "failed",
+                  "bounded",
+                  "not_run"
+                ]
+              },
+              "depth": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "trace_file": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "note": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "failure_analysis": {
+      "type": "array",
+      "description": "One row per distinct failure signature.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "tc_ids",
+          "symptom",
+          "failure_category",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^FA-[0-9]{3,}$"
+          },
+          "tc_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "symptom": {
+            "type": "string"
+          },
+          "failure_category": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "dut",
+              "testbench",
+              "specification",
+              "environment",
+              "tool",
+              "unclassified",
+              null
+            ]
+          },
+          "root_cause": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hypothesis_source": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "engineer, or AI agent with model; an AI hypothesis stays open until a human confirms it."
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "action": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "confirmed",
+              "fixed",
+              "closed"
+            ]
+          },
+          "review": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "description": "Review of this row by an engineer or an independent AI agent. An AI review is advisory; an open disagree or needs-info blocks a Gate 5 approval recommendation.",
+            "properties": {
+              "reviewer": {
+                "type": "string"
+              },
+              "reviewer_type": {
+                "type": "string",
+                "enum": [
+                  "engineer",
+                  "ai_agent"
+                ]
+              },
+              "model": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Model and version when reviewer_type is ai_agent."
+              },
+              "verdict": {
+                "type": "string",
+                "enum": [
+                  "agree",
+                  "disagree",
+                  "needs-info"
+                ]
+              },
+              "comment": {
+                "type": "string"
+              },
+              "response": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "coverage_summary": {
+      "type": "array",
+      "description": "Per-requirement summary; metrics are never averaged together.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "req_id": {
+            "type": "string"
+          },
+          "tests_passed": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "tests_total": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "properties_active": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "properties_total": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "formal_proven": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "mutation_score": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "code_coverage_pct": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "met",
+              "missed",
+              "not_measured"
+            ]
+          }
         }
       }
     }
