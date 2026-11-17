@@ -20,9 +20,13 @@
 
 **VI:** Flow truy vết requirement đến điều khoản specification/standard, SVA đã review, testcase, kết quả DUT và sign-off của kỹ sư bằng Requirement Traceability Matrix (RTM). RTL generator và verification generator là hai nhánh riêng dùng chung baseline đã duyệt.
 
-**EN:** The repository contains agent prompts, an RTL rule template, JSON Schemas, helper scripts, diagrams, and saved examples. The common flow is described first; design examples appear at the end.
+**EN:** The repository contains agent prompts, an RTL rule template, JSON Schemas, helper scripts, diagrams, and saved historical examples. The common flow is described first; the historical examples appear at the end.
 
-**VI:** Repository chứa prompt cho agent, mẫu quy tắc RTL, JSON Schema, script hỗ trợ, sơ đồ và ví dụ đã lưu. Flow dùng chung được mô tả trước; ví dụ thiết kế nằm ở cuối README.
+> **Important — EN:** The `example/` folders were run with a much older version of the flow and are not a basis for judging the current flow (see [Reference design examples](#reference-design-examples--ví-dụ-thiết-kế-tham-khảo)).
+>
+> **Quan trọng — VI:** Các thư mục `example/` được chạy bằng phiên bản flow rất cũ và không dùng để đánh giá flow hiện tại (xem [Ví dụ thiết kế tham khảo](#reference-design-examples--ví-dụ-thiết-kế-tham-khảo)).
+
+**VI:** Repository chứa prompt cho agent, mẫu quy tắc RTL, JSON Schema, script hỗ trợ, sơ đồ và các ví dụ lịch sử đã lưu. Flow dùng chung được mô tả trước; ví dụ lịch sử nằm ở cuối README.
 
 **EN — Language policy:** Codex skills, Claude commands, agent guidance, and schema descriptions use technical English. Documents and README files may present both English and Vietnamese.
 
@@ -105,16 +109,16 @@ VLSIT_RTL_Generator_AI_Model/
 ├── .agents/skills/           # Codex CLI skills / Skill cho Codex CLI
 ├── agent_structure/          # Flow diagrams / Sơ đồ flow
 ├── common_rtl/               # Reusable RTL IP library / Thư viện RTL IP dùng lại
-├── example/                  # Saved design examples / Ví dụ thiết kế đã lưu
+├── example/                  # OLD-version historical runs, not for evaluating the flow / Lần chạy lịch sử bằng phiên bản cũ, không dùng đánh giá flow
 ├── scripts/                  # Helper scripts / Script hỗ trợ
 ├── spec_template/            # IP, CSR, and RTL-rule templates / Mẫu spec IP, CSR và rule RTL
 ├── guideline.md              # Step-by-step user guide / Hướng dẫn từng bước
 └── sourceme.sh               # Linux EDA environment setup / Thiết lập môi trường EDA Linux
 ~~~
 
-**EN:** Project folders include short bilingual READMEs. The `example/` folders contain historical artifacts, not the required output tree or evidence for a new run. The default RTL rule is `spec_template/VLSIT_RTL_Design_Rule.md` when the user supplies none.
+**EN:** Project folders include short bilingual READMEs. The `example/` folders contain historical artifacts from a much older flow version (before the verification contract); they are not the required output tree, not evidence for a new run, and not a basis for evaluating the current flow. The default RTL rule is `spec_template/VLSIT_RTL_Design_Rule.md` when the user supplies none.
 
-**VI:** Các thư mục project có README song ngữ ngắn. Thư mục `example/` chứa artifact lịch sử, không phải cây output bắt buộc hay bằng chứng cho lần chạy mới. RTL rule mặc định là `spec_template/VLSIT_RTL_Design_Rule.md` khi người dùng không cung cấp file khác.
+**VI:** Các thư mục project có README song ngữ ngắn. Thư mục `example/` chứa artifact lịch sử từ một phiên bản flow rất cũ (trước verification contract); chúng không phải cây output bắt buộc, không phải bằng chứng cho lần chạy mới và không dùng để đánh giá flow hiện tại. RTL rule mặc định là `spec_template/VLSIT_RTL_Design_Rule.md` khi người dùng không cung cấp file khác.
 
 ### Claude Code commands | Command Claude Code
 
@@ -129,7 +133,7 @@ VLSIT_RTL_Generator_AI_Model/
 | /rtl_style_converter | Converts existing RTL while preserving topology and behavior; reports incompatible rules and suspected bugs bilingually. | Chuyển RTL có sẵn, giữ cấu trúc và hành vi; báo rule xung đột và bug nghi vấn bằng hai ngôn ngữ. |
 | /sva_generator | Generates interface-level assertions from the approved contract and compiles against its shell. | Sinh assertion tại interface từ contract đã duyệt và compile với shell. |
 | /tb_generator | Builds saved tests and a plan from the contract without reading RTL. | Tạo testcase đã lưu và test plan từ contract, không đọc RTL. |
-| /verification | Integrates the DUT, runs simulation and mutation checks, and records baseline coverage when supported. | Tích hợp DUT, chạy simulation và mutation, ghi baseline coverage khi công cụ hỗ trợ. |
+| /verification | Integrates the DUT, runs simulation, formal (when a tool is available), vacuity and mutation checks, records baseline coverage when supported, and writes a reviewed `docs/verification_report.md`. | Tích hợp DUT, chạy simulation, formal (khi có công cụ), kiểm vacuity và mutation, ghi baseline coverage khi hỗ trợ, và viết `docs/verification_report.md` có cột review. |
 | /code_coverage | Shows measured baseline before an optional target; adds saved tests for reachable specification-based gaps. | Hiển thị baseline đã đo trước khi chọn ngưỡng tùy chọn; thêm testcase đã lưu cho gap có thể cover theo specification. |
 | /spec_pdf_generator | Builds the final Markdown specification and optionally exports DOCX/PDF with Pandoc. | Tạo đặc tả Markdown cuối và tùy chọn xuất DOCX/PDF bằng Pandoc. |
 
@@ -353,8 +357,8 @@ Use spec/VLSIT_<DESIGN_FUNCTION>_HDS.md
 
 ## Current limitations | Hạn chế hiện tại
 
-- **Historical examples — EN:** Saved design runs may use older commands or synthesis settings; inspect their source and logs before reuse.<br>
-  **VI:** Snapshot thiết kế có thể dùng command hoặc cấu hình synthesis cũ; kiểm tra source và log trước khi tái sử dụng.
+- **Historical examples — EN:** The `example/` runs come from a much older version of the flow (August–September 2026, before the verification contract of 2026-10-10). Do not use them to evaluate the current flow; they may use older commands, gates, schemas or synthesis settings, so inspect source and logs before any reuse.<br>
+  **VI:** Các run trong `example/` đến từ phiên bản flow rất cũ (tháng 8–9/2026, trước verification contract ngày 2026-10-10). Không dùng chúng để đánh giá flow hiện tại; chúng có thể dùng command, gate, schema hoặc cấu hình synthesis cũ, nên kiểm tra source và log trước khi tái sử dụng.
 - **Schema drift — EN:** Some JSON artifacts omit fields or use formats that differ from the sample schemas; there is no unified automated validation.  
   **VI:** Một số JSON artifact thiếu trường hoặc khác định dạng schema mẫu; chưa có validation tự động thống nhất.
 - **Evidence completeness — EN:** Some final logs, mutation wrappers, and working artifacts are not packaged, so snapshots alone may not reproduce every result.  
@@ -377,7 +381,7 @@ Use spec/VLSIT_<DESIGN_FUNCTION>_HDS.md
 - [Claude Code maintenance skill / Skill bảo trì Claude Code](.claude/skills/rtl-flow-maintainer/SKILL.md)
 - [Codex CLI project skills / Skill Codex CLI](.agents/skills/)
 - [JSON Schemas / JSON Schema](.claude/skills/rtl-flow-maintainer/schemas/)
-- [Saved design examples / Ví dụ thiết kế](example/)
+- [Historical examples from an old flow version, not for evaluation / Ví dụ lịch sử từ phiên bản flow cũ, không dùng đánh giá](example/)
 - [Architecture diagrams / Sơ đồ kiến trúc](agent_structure/)
 
 ## License | Giấy phép
@@ -388,9 +392,13 @@ Use spec/VLSIT_<DESIGN_FUNCTION>_HDS.md
 
 ## Reference design examples | Ví dụ thiết kế tham khảo
 
-**EN:** These snapshots show how the flow was applied to two design types. They help explain the saved artifacts and evidence limits. Their metrics describe individual runs and do not guarantee results for other designs.
+**EN — About the `example/` folders:** the saved examples were produced in August–September 2026 with a **much older version of this flow**, before the independent verification contract (Gates 3a/3b) was introduced on 2026-10-10; none of them contains `schemas/verification_contract.json`. Do **not** use them to evaluate the current flow, its commands, its gates, its verification quality or its results. They are kept only as historical artifacts.
 
-**VI:** Các snapshot minh họa cách áp dụng flow cho hai loại thiết kế. Chúng giúp giải thích artifact đã lưu và giới hạn bằng chứng. Số liệu phản ánh từng lần chạy, không đảm bảo kết quả cho thiết kế khác.
+**VI — Về thư mục `example/`:** các ví dụ được lưu ở tháng 8–9/2026 bằng **một phiên bản flow rất cũ**, trước khi verification contract độc lập (Gate 3a/3b) được đưa vào ngày 2026-10-10; không ví dụ nào có `schemas/verification_contract.json`. **Không** dùng chúng để đánh giá flow hiện tại, command, gate, chất lượng verification hay kết quả của flow. Chúng chỉ được giữ làm artifact lịch sử.
+
+**EN:** These snapshots show how an early version of the flow was applied to two design types. They explain the saved artifacts and their evidence limits only. Their metrics describe individual runs under that old version and say nothing about the current flow or about other designs.
+
+**VI:** Các snapshot cho thấy một phiên bản đầu của flow đã được áp dụng cho hai loại thiết kế. Chúng chỉ giải thích artifact đã lưu và giới hạn bằng chứng. Số liệu phản ánh từng lần chạy dưới phiên bản cũ đó, không nói gì về flow hiện tại hay thiết kế khác.
 
 | Snapshot | Saved artifacts / Artifact đã lưu | Evidence limits / Giới hạn bằng chứng |
 |---|---|---|

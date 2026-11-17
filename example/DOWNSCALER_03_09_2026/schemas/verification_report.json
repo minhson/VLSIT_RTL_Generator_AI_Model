@@ -11,12 +11,14 @@
     "total_tc": 12,
     "pass": 11,
     "fail": 0,
+    "timeout": 0,
     "na": 1,
     "sva_violations": 0,
     "compile_log": "work/compile.log",
     "note": "TC-009 = N/A (cần STA, không có runtime check). 11 TC còn lại PASS thật qua VCS simulation, bao gồm cả SVA bound (0 violation)."
   },
   "mutation_summary": {
+    "total_req_ids": 4,
     "total_modules_tested": 4,
     "module_scores": {
       "axi_downscaler_fifo": 1.0,
@@ -28,7 +30,7 @@
     "below_threshold": 0,
     "na": 0,
     "threshold": 0.85,
-    "note": "Mutation testing chạy theo MODULE (4 module RTL), không theo per-REQ-ID (khác template RV32IM 18-module gốc). axi_downscaler_width_split.sv ban đầu chỉ 75% — đã cải thiện lên 87.5% bằng cách: (1) thêm TC-012 với data pattern đa dạng + case tlast=0 (bắt được 2 gap test thật: stuck-at bit20/29, thiếu coverage tlast=0), (2) sửa RTL loại bỏ cast int'(...) dư thừa trong phép tính địa chỉ slice (loại bỏ dead logic thật). 3 mutation còn sống được xác định là equivalent mutant (logic FSM 1-bit không thể kích hoạt với N=2)."
+    "note": "Mutation testing chạy theo MODULE (4 module RTL), không theo per-REQ-ID; vì vậy total_req_ids, above_threshold và below_threshold đếm module (khác template RV32IM 18-module gốc). axi_downscaler_width_split.sv ban đầu chỉ 75% — đã cải thiện lên 87.5% bằng cách: (1) thêm TC-012 với data pattern đa dạng + case tlast=0 (bắt được 2 gap test thật: stuck-at bit20/29, thiếu coverage tlast=0), (2) sửa RTL loại bỏ cast int'(...) dư thừa trong phép tính địa chỉ slice (loại bỏ dead logic thật). 3 mutation còn sống được xác định là equivalent mutant (logic FSM 1-bit không thể kích hoạt với N=2)."
   },
   "rtm_summary": {
     "total_req_ids": 16,
